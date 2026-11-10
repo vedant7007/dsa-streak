@@ -1,1 +1,61 @@
-{"solved": []}
+{
+  "solved": [
+    {
+      "slug": "climbing-stairs-ii",
+      "id": 3693,
+      "title": "Climbing Stairs II",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "date": "2026-11-10"
+    },
+    {
+      "slug": "valid-parentheses",
+      "id": 20,
+      "title": "Valid Parentheses",
+      "difficulty": "Easy",
+      "tags": [
+        "String",
+        "Stack"
+      ],
+      "date": "2026-11-10"
+    },
+    {
+      "slug": "search-in-rotated-sorted-array",
+      "id": 33,
+      "title": "Search in Rotated Sorted Array",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ],
+      "date": "2026-11-10"
+    },
+    {
+      "slug": "course-schedule",
+      "id": 207,
+      "title": "Course Schedule",
+      "difficulty": "Medium",
+      "tags": [
+        "Graph",
+        "Topological Sort",
+        "BFS"
+      ],
+      "date": "2026-11-10"
+    },
+    {
+      "slug": "merge-k-sorted-lists",
+      "id": 23,
+      "title": "Merge k Sorted Lists",
+      "difficulty": "Hard",
+      "tags": [
+        "Linked List",
+        "Heap (Priority Queue)",
+        "Divide and Conquer"
+      ],
+      "date": "2026-11-10"
+    }
+  ]
+}

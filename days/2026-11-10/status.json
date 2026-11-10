@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-10",
+  "problems": {
+    "climbing-stairs-ii": {
+      "folder": "01-climbing-stairs-ii",
+      "verdict": null,
+      "attempts": 0
+    },
+    "valid-parentheses": {
+      "folder": "02-valid-parentheses",
+      "verdict": null,
+      "attempts": 0
+    },
+    "search-in-rotated-sorted-array": {
+      "folder": "03-search-in-rotated-sorted-array",
+      "verdict": null,
+      "attempts": 0
+    },
+    "course-schedule": {
+      "folder": "04-course-schedule",
+      "verdict": null,
+      "attempts": 0
+    },
+    "merge-k-sorted-lists": {
+      "folder": "05-merge-k-sorted-lists",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
