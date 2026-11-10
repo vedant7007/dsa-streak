@@ -3,28 +3,45 @@
   "problems": {
     "climbing-stairs-ii": {
       "folder": "01-climbing-stairs-ii",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "runtime": "16 ms",
+      "memory": "108.73 MB",
+      "submittedAt": "2026-11-10 18:12 IST"
     },
     "valid-parentheses": {
       "folder": "02-valid-parentheses",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "runtime": "3 ms",
+      "memory": "42.85 MB",
+      "submittedAt": "2026-11-10 18:12 IST"
     },
     "search-in-rotated-sorted-array": {
       "folder": "03-search-in-rotated-sorted-array",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 2,
+      "runtime": "0 ms",
+      "memory": "43.41 MB",
+      "submittedAt": "2026-11-10 18:12 IST",
+      "note": "attempt 1 submitted the empty template (Compile Error) because Submit was clicked before the editor synced"
     },
     "course-schedule": {
       "folder": "04-course-schedule",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "runtime": "7 ms",
+      "memory": "46.64 MB",
+      "submittedAt": "2026-11-10 18:12 IST"
     },
     "merge-k-sorted-lists": {
       "folder": "05-merge-k-sorted-lists",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "runtime": "5 ms",
+      "memory": "46.38 MB",
+      "submittedAt": "2026-11-10 18:12 IST"
     }
-  }
+  },
+  "loginNeeded": false
 }
