@@ -3,28 +3,44 @@
   "problems": {
     "combination-sum": {
       "folder": "01-combination-sum",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-11 07:01 IST",
+      "runtime": "3 ms",
+      "memory": "45.42 MB"
     },
     "diameter-of-binary-tree": {
       "folder": "02-diameter-of-binary-tree",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-11 07:02 IST",
+      "runtime": "1 ms",
+      "memory": "47.21 MB"
     },
     "longest-substring-without-repeating-characters": {
       "folder": "03-longest-substring-without-repeating-characters",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-11 07:02 IST",
+      "runtime": "5 ms",
+      "memory": "47.44 MB"
     },
     "merge-intervals": {
       "folder": "04-merge-intervals",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-11 07:03 IST",
+      "runtime": "8 ms",
+      "memory": "49.04 MB"
     },
     "trapping-rain-water": {
       "folder": "05-trapping-rain-water",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-11 07:03 IST",
+      "runtime": "1 ms",
+      "memory": "47.44 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
