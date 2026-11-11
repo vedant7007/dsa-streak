@@ -1,0 +1,206 @@
+{
+  "date": "2026-11-11",
+  "problems": [
+    {
+      "folder": "01-combination-sum",
+      "id": 39, "title": "Combination Sum", "slug": "combination-sum", "difficulty": "Medium",
+      "link": "https://leetcode.com/problems/combination-sum/",
+      "tags": ["Array", "Backtracking"],
+      "potd": false,
+      "problem": "You get an array of distinct positive integers (candidates) and a target. Return every unique combination of candidates that adds up to target. The same number can be used any number of times. Two combinations are the same if they use the same numbers the same number of times, so [2,2,3] and [3,2,2] count once. Any order is fine.",
+      "examples": [
+        {"input": "candidates = [2,3,6,7], target = 7", "output": "[[2,2,3],[7]]", "explanation": "2 + 2 + 3 = 7 (2 is reused) and 7 = 7. No other combination works."},
+        {"input": "candidates = [2,3,5], target = 8", "output": "[[2,2,2,2],[2,3,3],[3,5]]", "explanation": "These are the only three multisets that sum to 8."},
+        {"input": "candidates = [2], target = 1", "output": "[]", "explanation": "2 is already bigger than 1, so nothing can be formed."}
+      ],
+      "intuition": "Build combinations one number at a time and undo the choice after exploring it (backtracking). To avoid duplicates like [2,3] and [3,2], only allow picking numbers at index j or later than the last pick, so every combination is generated in non-decreasing order exactly once. Passing j (not j + 1) into the recursion is what lets a number be reused. Sorting first lets us stop the loop as soon as a number is bigger than what is left.",
+      "approach": [
+        "Sort candidates.",
+        "Call dfs(a, i = 0, rem = target, cur = empty list).",
+        "In dfs: if rem == 0, copy cur into res and return.",
+        "Loop j from i to the end. If a[j] > rem, break (everything after is even bigger).",
+        "Add a[j] to cur, recurse with dfs(a, j, rem - a[j], cur) so a[j] can be used again, then remove the last element (backtrack).",
+        "Return res."
+      ],
+      "dryRun": [
+        "a = [2,3,6,7], dfs(i=0, rem=7, cur=[])",
+        "j=0: cur=[2], dfs(0, 5) -> j=0: cur=[2,2], dfs(0, 3) -> j=0: cur=[2,2,2], dfs(0, 1): a[0]=2 > 1, break",
+        "back in dfs(0, 3): pop -> [2,2]; j=1: cur=[2,2,3], dfs(1, 0): rem == 0, add [2,2,3] to res; pop; j=2: 6 > 3, break",
+        "back in dfs(0, 5): pop -> [2]; j=1: cur=[2,3], dfs(1, 2): 3 > 2, break; pop; j=2: 6 > 5, break",
+        "back in root: pop -> []; j=1: cur=[3], dfs(1, 4) -> j=1: cur=[3,3], dfs(1, 1): 3 > 1 break; pop; j=2: 6 > 4 break",
+        "root j=2: cur=[6], dfs(2, 1): 6 > 1 break; pop",
+        "root j=3: cur=[7], dfs(3, 0): rem == 0, add [7]; pop",
+        "res = [[2,2,3],[7]]"
+      ],
+      "complexity": {"time": "O(N^(T/M + 1)) in the worst case, where N = number of candidates, T = target, M = smallest candidate (depth of the tree is at most T/M)", "space": "O(T/M) for the recursion stack and cur, not counting the output"},
+      "edgeCases": [
+        "Smallest candidate already bigger than target: returns an empty list.",
+        "Single candidate that divides target, e.g. [2] with target 40: one combination of twenty 2s (deepest recursion).",
+        "Unsorted input: sorting first keeps the early break correct.",
+        "Remember to add a copy (new ArrayList<>(cur)), not cur itself, or every result ends up empty after backtracking."
+      ],
+      "takeaway": "Combinations with reuse: backtrack with a start index, recurse with the same index j to allow reuse (j + 1 when each item can be used once), sort and break early when the item exceeds the remainder."
+    },
+    {
+      "folder": "02-diameter-of-binary-tree",
+      "id": 543, "title": "Diameter of Binary Tree", "slug": "diameter-of-binary-tree", "difficulty": "Easy",
+      "link": "https://leetcode.com/problems/diameter-of-binary-tree/",
+      "tags": ["Tree", "Depth-First Search", "Binary Tree"],
+      "potd": false,
+      "problem": "Given the root of a binary tree, return the length (number of edges) of the longest path between any two nodes. The path does not have to pass through the root.",
+      "examples": [
+        {"input": "root = [1,2,3,4,5]", "output": "3", "explanation": "The longest path is 4 -> 2 -> 1 -> 3 (or 5 -> 2 -> 1 -> 3), which has 3 edges."},
+        {"input": "root = [1,2]", "output": "1", "explanation": "Only one edge, 1 - 2."}
+      ],
+      "intuition": "Any path in a tree has one highest node where it turns. If the path turns at node X, its best length is (depth of X's left subtree) + (depth of X's right subtree). So compute depths bottom up, and at every node try l + r as a candidate answer. One DFS gives both the depth to return upward and the diameter candidate.",
+      "approach": [
+        "Keep a field ans = 0.",
+        "depth(node): if node is null return 0.",
+        "l = depth(node.left), r = depth(node.right).",
+        "ans = max(ans, l + r): the longest path that turns at this node.",
+        "Return 1 + max(l, r), the height of this subtree counted in nodes.",
+        "Call depth(root) and return ans."
+      ],
+      "dryRun": [
+        "Tree: 1 has children 2 and 3; 2 has children 4 and 5.",
+        "depth(4): l=0, r=0, ans=max(0,0)=0, returns 1",
+        "depth(5): l=0, r=0, ans stays 0, returns 1",
+        "depth(2): l=1, r=1, ans=max(0,2)=2, returns 2",
+        "depth(3): l=0, r=0, ans stays 2, returns 1",
+        "depth(1): l=2, r=1, ans=max(2,3)=3, returns 3",
+        "Return ans = 3"
+      ],
+      "complexity": {"time": "O(n), each node visited once", "space": "O(h) recursion stack, where h is the tree height (O(n) for a skewed tree)"},
+      "edgeCases": [
+        "Single node: no edges, answer 0.",
+        "Longest path not through the root, e.g. a deep left subtree with two long branches: the ans update at every node handles it.",
+        "Skewed tree of 10^4 nodes: recursion is 10^4 deep, fine on LeetCode.",
+        "Negative values do not matter, only the shape counts."
+      ],
+      "takeaway": "Tree path problems: DFS that returns one thing upward (height) while updating a global answer with a combination of both children (l + r). Same pattern as Binary Tree Maximum Path Sum."
+    },
+    {
+      "folder": "03-longest-substring-without-repeating-characters",
+      "id": 3, "title": "Longest Substring Without Repeating Characters", "slug": "longest-substring-without-repeating-characters", "difficulty": "Medium",
+      "link": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+      "tags": ["Hash Table", "String", "Sliding Window"],
+      "potd": false,
+      "problem": "Given a string s, find the length of the longest substring (contiguous) that has no repeated characters. s can contain letters, digits, symbols and spaces.",
+      "examples": [
+        {"input": "s = \"abcabcbb\"", "output": "3", "explanation": "The answer is \"abc\", with length 3."},
+        {"input": "s = \"bbbbb\"", "output": "1", "explanation": "The answer is \"b\", with length 1."},
+        {"input": "s = \"pwwkew\"", "output": "3", "explanation": "The answer is \"wke\", with length 3. \"pwke\" is a subsequence, not a substring."}
+      ],
+      "intuition": "Keep a window [l, r] with all distinct characters and grow r one step at a time. When s[r] was already seen inside the window, the window must start right after that earlier position. Storing last[c] = (last index of c) + 1 lets us jump l there directly instead of shrinking one by one. Taking max with the current l stops l from moving backwards when the old occurrence is already outside the window.",
+      "approach": [
+        "last = int[128] (ASCII), all 0. last[c] holds the index just after the most recent c.",
+        "l = 0, max = 0.",
+        "For r from 0 to n - 1: c = s.charAt(r).",
+        "l = max(l, last[c]) so the window skips past the previous c if it is inside the window.",
+        "max = max(max, r - l + 1).",
+        "last[c] = r + 1.",
+        "Return max."
+      ],
+      "dryRun": [
+        "s = \"abcabcbb\", l = 0, max = 0",
+        "r=0 'a': l=max(0,0)=0, max=1, last[a]=1",
+        "r=1 'b': l=0, max=2, last[b]=2",
+        "r=2 'c': l=0, max=3, last[c]=3",
+        "r=3 'a': l=max(0,1)=1, len=3, max=3, last[a]=4",
+        "r=4 'b': l=max(1,2)=2, len=3, last[b]=5",
+        "r=5 'c': l=max(2,3)=3, len=3, last[c]=6",
+        "r=6 'b': l=max(3,5)=5, len=2, last[b]=7",
+        "r=7 'b': l=max(5,7)=7, len=1, last[b]=8",
+        "Return max = 3"
+      ],
+      "complexity": {"time": "O(n), each character processed once", "space": "O(1), a fixed array of 128"},
+      "edgeCases": [
+        "Empty string: loop never runs, returns 0.",
+        "Single space \" \": answer 1 (spaces are characters too).",
+        "\"abba\": at the last 'a', last[a]=1 but l is already 2, so max keeps l from going back.",
+        "All characters distinct: answer is n."
+      ],
+      "takeaway": "Sliding window with a last-seen index: jump the left pointer with l = max(l, last[c]) instead of shrinking step by step."
+    },
+    {
+      "folder": "04-merge-intervals",
+      "id": 56, "title": "Merge Intervals", "slug": "merge-intervals", "difficulty": "Medium",
+      "link": "https://leetcode.com/problems/merge-intervals/",
+      "tags": ["Array", "Sorting"],
+      "potd": false,
+      "problem": "Given a list of intervals [start, end], merge every group of overlapping intervals and return the non-overlapping intervals that cover exactly the same ranges. Intervals that only touch, like [1,4] and [4,5], also count as overlapping.",
+      "examples": [
+        {"input": "intervals = [[1,3],[2,6],[8,10],[15,18]]", "output": "[[1,6],[8,10],[15,18]]", "explanation": "[1,3] and [2,6] overlap, so they become [1,6]."},
+        {"input": "intervals = [[1,4],[4,5]]", "output": "[[1,5]]", "explanation": "They touch at 4, so they are considered overlapping."},
+        {"input": "intervals = [[4,7],[1,4]]", "output": "[[1,7]]", "explanation": "After sorting, [1,4] and [4,7] touch at 4 and merge."}
+      ],
+      "intuition": "Once intervals are sorted by start, any interval that overlaps the current merged block must come right after it. So scan left to right: if the next start is at most the current end, stretch the current end; otherwise the block is finished and a new one starts.",
+      "approach": [
+        "Sort intervals by start.",
+        "cur = intervals[0], add cur to res.",
+        "For each interval in: if in[0] <= cur[1], set cur[1] = max(cur[1], in[1]) (cur is the same array stored in res, so res updates too).",
+        "Otherwise cur = in and add it to res.",
+        "Convert res to int[][] and return."
+      ],
+      "dryRun": [
+        "intervals = [[1,3],[2,6],[8,10],[15,18]] (already sorted)",
+        "cur = [1,3], res = [[1,3]]",
+        "in = [1,3]: 1 <= 3, cur[1] = max(3,3) = 3",
+        "in = [2,6]: 2 <= 3, cur[1] = max(3,6) = 6, res = [[1,6]]",
+        "in = [8,10]: 8 > 6, cur = [8,10], res = [[1,6],[8,10]]",
+        "in = [15,18]: 15 > 10, cur = [15,18], res = [[1,6],[8,10],[15,18]]",
+        "Return [[1,6],[8,10],[15,18]]"
+      ],
+      "complexity": {"time": "O(n log n) for sorting, the scan is O(n)", "space": "O(n) for the result (plus sort space)"},
+      "edgeCases": [
+        "Single interval: returned as is.",
+        "Touching intervals [1,4],[4,5]: <= makes them merge.",
+        "One interval fully inside another, e.g. [1,10],[2,3]: the max keeps end 10.",
+        "Unsorted input like [[4,7],[1,4]]: sorting fixes it.",
+        "Point intervals [5,5] and duplicates work the same way."
+      ],
+      "takeaway": "Interval problems: sort by start first, then a single pass comparing the next start with the current end."
+    },
+    {
+      "folder": "05-trapping-rain-water",
+      "id": 42, "title": "Trapping Rain Water", "slug": "trapping-rain-water", "difficulty": "Hard",
+      "link": "https://leetcode.com/problems/trapping-rain-water/",
+      "tags": ["Array", "Two Pointers", "Dynamic Programming", "Stack", "Monotonic Stack"],
+      "potd": false,
+      "problem": "height[i] is the height of a bar of width 1. After it rains, how many units of water are trapped between the bars?",
+      "examples": [
+        {"input": "height = [0,1,0,2,1,0,1,3,2,1,2,1]", "output": "6", "explanation": "6 units of water are trapped in the dips between the bars."},
+        {"input": "height = [4,2,0,3,2,5]", "output": "9", "explanation": "Water above each index: 0,2,4,1,2,0, total 9."}
+      ],
+      "intuition": "Water above index i = min(highest bar on its left, highest bar on its right) - height[i]. With two pointers we do not need both maxima exactly. If height[l] < height[r], there is a bar on the right at least as tall as height[l], so the right side is not the limit for l; the water at l is decided only by lmax. The same logic works for r when the right side is smaller. So always move the smaller side.",
+      "approach": [
+        "l = 0, r = n - 1, lmax = rmax = ans = 0.",
+        "While l < r:",
+        "If height[l] < height[r]: lmax = max(lmax, height[l]); ans += lmax - height[l]; l++.",
+        "Else: rmax = max(rmax, height[r]); ans += rmax - height[r]; r--.",
+        "Return ans."
+      ],
+      "dryRun": [
+        "height = [0,1,0,2,1,0,1,3,2,1,2,1], l=0, r=11",
+        "h[0]=0 < h[11]=1: lmax=0, ans+=0, l=1",
+        "h[1]=1 vs h[11]=1 (not <): rmax=1, ans+=0, r=10",
+        "h[1]=1 < h[10]=2: lmax=1, ans+=0, l=2",
+        "h[2]=0 < 2: lmax=1, ans+=1 -> ans=1, l=3",
+        "h[3]=2 vs h[10]=2: rmax=2, ans+=0, r=9",
+        "h[3]=2 vs h[9]=1: rmax=2, ans+=1 -> ans=2, r=8",
+        "h[3]=2 vs h[8]=2: rmax=2, ans+=0, r=7",
+        "h[3]=2 < h[7]=3: lmax=2, ans+=0, l=4",
+        "h[4]=1: ans+=1 -> 3, l=5; h[5]=0: ans+=2 -> 5, l=6; h[6]=1: ans+=1 -> 6, l=7",
+        "l == r = 7, stop. Return ans = 6"
+      ],
+      "complexity": {"time": "O(n), each index visited once", "space": "O(1)"},
+      "edgeCases": [
+        "One or two bars: no space to hold water, answer 0.",
+        "Strictly increasing or decreasing heights: answer 0.",
+        "All bars equal: answer 0.",
+        "Max size 2 * 10^4 with walls of 10^5 at both ends: total is about 2 * 10^9, which still fits in an int (int max is about 2.147 * 10^9)."
+      ],
+      "takeaway": "Water at i = min(leftMax, rightMax) - h[i]. Two pointers: move the shorter side, because the shorter side's max is the real limit."
+    }
+  ]
+}
