@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-12",
+  "problems": {
+    "coin-change": {
+      "folder": "01-coin-change",
+      "verdict": null,
+      "attempts": 0
+    },
+    "linked-list-cycle": {
+      "folder": "02-linked-list-cycle",
+      "verdict": null,
+      "attempts": 0
+    },
+    "kth-largest-element-in-an-array": {
+      "folder": "03-kth-largest-element-in-an-array",
+      "verdict": null,
+      "attempts": 0
+    },
+    "subarray-sum-equals-k": {
+      "folder": "04-subarray-sum-equals-k",
+      "verdict": null,
+      "attempts": 0
+    },
+    "word-ladder": {
+      "folder": "05-word-ladder",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}

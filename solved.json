@@ -116,6 +116,68 @@
         "Monotonic Stack"
       ],
       "date": "2026-11-11"
+    },
+    {
+      "slug": "coin-change",
+      "id": 322,
+      "title": "Coin Change",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Breadth-First Search"
+      ],
+      "date": "2026-11-12"
+    },
+    {
+      "slug": "linked-list-cycle",
+      "id": 141,
+      "title": "Linked List Cycle",
+      "difficulty": "Easy",
+      "tags": [
+        "Hash Table",
+        "Linked List",
+        "Two Pointers"
+      ],
+      "date": "2026-11-12"
+    },
+    {
+      "slug": "kth-largest-element-in-an-array",
+      "id": 215,
+      "title": "Kth Largest Element in an Array",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Divide and Conquer",
+        "Sorting",
+        "Heap (Priority Queue)",
+        "Quickselect"
+      ],
+      "date": "2026-11-12"
+    },
+    {
+      "slug": "subarray-sum-equals-k",
+      "id": 560,
+      "title": "Subarray Sum Equals K",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "date": "2026-11-12"
+    },
+    {
+      "slug": "word-ladder",
+      "id": 127,
+      "title": "Word Ladder",
+      "difficulty": "Hard",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Breadth-First Search"
+      ],
+      "date": "2026-11-12"
     }
   ]
 }
