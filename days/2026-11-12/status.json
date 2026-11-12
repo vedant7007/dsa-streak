@@ -3,28 +3,44 @@
   "problems": {
     "coin-change": {
       "folder": "01-coin-change",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "runtime": "22 ms",
+      "memory": "45.45 MB",
+      "submittedAt": "2026-11-12 18:36 IST"
     },
     "linked-list-cycle": {
       "folder": "02-linked-list-cycle",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "runtime": "0 ms",
+      "memory": "45.88 MB",
+      "submittedAt": "2026-11-12 18:36 IST"
     },
     "kth-largest-element-in-an-array": {
       "folder": "03-kth-largest-element-in-an-array",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "runtime": "72 ms",
+      "memory": "73.60 MB",
+      "submittedAt": "2026-11-12 18:37 IST"
     },
     "subarray-sum-equals-k": {
       "folder": "04-subarray-sum-equals-k",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "runtime": "25 ms",
+      "memory": "48.17 MB",
+      "submittedAt": "2026-11-12 18:37 IST"
     },
     "word-ladder": {
       "folder": "05-word-ladder",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "runtime": "64 ms",
+      "memory": "47.40 MB",
+      "submittedAt": "2026-11-12 18:38 IST"
     }
-  }
+  },
+  "loginNeeded": false
 }
