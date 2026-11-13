@@ -178,6 +178,62 @@
         "Breadth-First Search"
       ],
       "date": "2026-11-12"
+    },
+    {
+      "slug": "daily-temperatures",
+      "id": 739,
+      "title": "Daily Temperatures",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "date": "2026-11-13"
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock",
+      "id": 121,
+      "title": "Best Time to Buy and Sell Stock",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "date": "2026-11-13"
+    },
+    {
+      "slug": "product-of-array-except-self",
+      "id": 238,
+      "title": "Product of Array Except Self",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Prefix Sum"
+      ],
+      "date": "2026-11-13"
+    },
+    {
+      "slug": "koko-eating-bananas",
+      "id": 875,
+      "title": "Koko Eating Bananas",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ],
+      "date": "2026-11-13"
+    },
+    {
+      "slug": "n-queens",
+      "id": 51,
+      "title": "N-Queens",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Backtracking"
+      ],
+      "date": "2026-11-13"
     }
   ]
 }

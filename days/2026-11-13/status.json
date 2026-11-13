@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-13",
+  "problems": {
+    "daily-temperatures": {
+      "folder": "01-daily-temperatures",
+      "verdict": null,
+      "attempts": 0
+    },
+    "best-time-to-buy-and-sell-stock": {
+      "folder": "02-best-time-to-buy-and-sell-stock",
+      "verdict": null,
+      "attempts": 0
+    },
+    "product-of-array-except-self": {
+      "folder": "03-product-of-array-except-self",
+      "verdict": null,
+      "attempts": 0
+    },
+    "koko-eating-bananas": {
+      "folder": "04-koko-eating-bananas",
+      "verdict": null,
+      "attempts": 0
+    },
+    "n-queens": {
+      "folder": "05-n-queens",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
