@@ -3,28 +3,44 @@
   "problems": {
     "minimum-positive-sum-subarray": {
       "folder": "01-minimum-positive-sum-subarray",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:06",
+      "runtime": "6 ms",
+      "memory": "45.84 MB"
     },
     "invert-binary-tree": {
       "folder": "02-invert-binary-tree",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:07",
+      "runtime": "0 ms",
+      "memory": "42.77 MB"
     },
     "top-k-frequent-elements": {
       "folder": "03-top-k-frequent-elements",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:08",
+      "runtime": "11 ms",
+      "memory": "47.41 MB"
     },
     "number-of-islands": {
       "folder": "04-number-of-islands",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:08",
+      "runtime": "6 ms",
+      "memory": "51.21 MB"
     },
     "minimum-window-substring": {
       "folder": "05-minimum-window-substring",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:09",
+      "runtime": "2 ms",
+      "memory": "44.85 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
