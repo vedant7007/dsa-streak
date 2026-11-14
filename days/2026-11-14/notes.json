@@ -1,0 +1,305 @@
+{
+  "date": "2026-11-14",
+  "problems": [
+    {
+      "folder": "01-minimum-positive-sum-subarray",
+      "id": 3364,
+      "title": "Minimum Positive Sum Subarray",
+      "slug": "minimum-positive-sum-subarray",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Sliding Window",
+        "Prefix Sum"
+      ],
+      "potd": true,
+      "problem": "Given an integer array nums and two integers l and r, look at every subarray whose length is between l and r (inclusive). Among those whose sum is strictly greater than 0, return the smallest sum. If none exist, return -1.",
+      "examples": [
+        {
+          "input": "nums = [3, -2, 1, 4], l = 2, r = 3",
+          "output": "1",
+          "explanation": "Valid positive subarrays are [3,-2]=1, [1,4]=5, [3,-2,1]=2, [-2,1,4]=3. The smallest is 1."
+        },
+        {
+          "input": "nums = [-2, 2, -3, 1], l = 2, r = 3",
+          "output": "-1",
+          "explanation": "No subarray of length 2 or 3 has a sum greater than 0, so the answer is -1."
+        },
+        {
+          "input": "nums = [1, 2, 3, 4], l = 2, r = 4",
+          "output": "3",
+          "explanation": "[1,2] has length 2 and sum 3, which is the smallest positive sum possible."
+        }
+      ],
+      "intuition": "n is at most 100, so we can afford to look at every subarray. Fix a start index i and extend the end j one step at a time while keeping a running sum, so each new subarray costs O(1) instead of re-adding all its elements. Only lengths from l to r count, and only positive sums are candidates.",
+      "approach": [
+        "Set ans = Integer.MAX_VALUE.",
+        "For each start i, reset sum = 0.",
+        "Move j from i forward while the length j - i + 1 is at most r, adding nums.get(j) to sum.",
+        "If the length is at least l and sum > 0, set ans = min(ans, sum).",
+        "After all starts, return -1 if ans was never updated, else ans."
+      ],
+      "dryRun": [
+        "nums = [3,-2,1,4], l = 2, r = 3, ans = MAX",
+        "i=0: j=0 sum=3 (len 1, too short); j=1 sum=1 (len 2, positive) ans=1; j=2 sum=2 (len 3) ans stays 1; j=3 would be len 4 > r, stop",
+        "i=1: j=1 sum=-2; j=2 sum=-1 (not positive); j=3 sum=3 (len 3) ans=min(1,3)=1",
+        "i=2: j=2 sum=1 (len 1, too short); j=3 sum=5 (len 2) ans stays 1",
+        "i=3: j=3 sum=4 (len 1, too short)",
+        "ans = 1 is not MAX, return 1"
+      ],
+      "complexity": {
+        "time": "O(n * r), at most O(n^2) = 10^4 steps for n = 100",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "All sums zero or negative: ans stays MAX, return -1",
+        "l = r: only one window size is checked",
+        "Single element with l = r = 1: return it if positive, else -1",
+        "Zero sums do not count because the sum must be strictly greater than 0"
+      ],
+      "takeaway": "When n is small, fix the start and grow the end with a running sum to check every subarray in O(n^2) without an extra loop for the sum.",
+      "link": "https://leetcode.com/problems/minimum-positive-sum-subarray/"
+    },
+    {
+      "folder": "02-invert-binary-tree",
+      "id": 226,
+      "title": "Invert Binary Tree",
+      "slug": "invert-binary-tree",
+      "difficulty": "Easy",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "potd": false,
+      "problem": "Given the root of a binary tree, mirror it: swap the left and right child of every node. Return the root.",
+      "examples": [
+        {
+          "input": "root = [4,2,7,1,3,6,9]",
+          "output": "[4,7,2,9,6,3,1]",
+          "explanation": "Every node's children are swapped, so the tree becomes its mirror image."
+        },
+        {
+          "input": "root = [2,1,3]",
+          "output": "[2,3,1]",
+          "explanation": "The root's two children 1 and 3 swap places."
+        },
+        {
+          "input": "root = []",
+          "output": "[]",
+          "explanation": "An empty tree stays empty."
+        }
+      ],
+      "intuition": "A tree is mirrored if both of its subtrees are mirrored and then placed on the opposite sides. That is a natural recursion: solve the left and right subtrees, then swap them at the current node.",
+      "approach": [
+        "If root is null, return null.",
+        "Recursively invert the left subtree and save it in l.",
+        "Set root.left to the inverted right subtree.",
+        "Set root.right to l.",
+        "Return root."
+      ],
+      "dryRun": [
+        "invertTree(4): l = invertTree(2)",
+        "  invertTree(2): l = invertTree(1) = 1 (leaf, children null), root.left = invertTree(3) = 3, root.right = 1, so 2 now has children 3, 1",
+        "back at 4: l = node 2 (already inverted)",
+        "root.left = invertTree(7): inside, l = 6, root.left = 9, root.right = 6, so 7 now has children 9, 6",
+        "root.right = l = node 2",
+        "Tree is now 4 -> (7 -> 9, 6), (2 -> 3, 1), level order [4,7,2,9,6,3,1]"
+      ],
+      "complexity": {
+        "time": "O(n), each node is visited once",
+        "space": "O(h) recursion stack, h = height (O(n) worst case for a skewed tree)"
+      },
+      "edgeCases": [
+        "Empty tree: return null",
+        "Single node: nothing to swap",
+        "Skewed tree (only left children) becomes only right children",
+        "Duplicate values do not matter, we swap pointers not values"
+      ],
+      "takeaway": "Many tree problems are just 'solve left, solve right, combine at the root'. Save one child in a temp variable before overwriting it.",
+      "link": "https://leetcode.com/problems/invert-binary-tree/"
+    },
+    {
+      "folder": "03-top-k-frequent-elements",
+      "id": 347,
+      "title": "Top K Frequent Elements",
+      "slug": "top-k-frequent-elements",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Heap (Priority Queue)",
+        "Bucket Sort",
+        "Counting"
+      ],
+      "potd": false,
+      "problem": "Given an integer array nums and an integer k, return the k values that appear most often. Any order is fine, and the answer is guaranteed to be unique.",
+      "examples": [
+        {
+          "input": "nums = [1,1,1,2,2,3], k = 2",
+          "output": "[1,2]",
+          "explanation": "1 appears 3 times and 2 appears 2 times, more than 3 which appears once."
+        },
+        {
+          "input": "nums = [1], k = 1",
+          "output": "[1]",
+          "explanation": "Only one distinct value, so it is the answer."
+        },
+        {
+          "input": "nums = [1,2,1,2,1,2,3,1,3,2], k = 2",
+          "output": "[1,2]",
+          "explanation": "1 and 2 appear 4 times each, 3 appears twice."
+        }
+      ],
+      "intuition": "A frequency can never be more than n. So instead of sorting values by frequency (O(n log n)), drop each value into bucket number f where f is its count. Then walk the buckets from the highest frequency down and pick values until we have k. This is bucket sort and runs in O(n).",
+      "approach": [
+        "Count every value in a HashMap cnt.",
+        "Make an array of lists b of size n + 1; b[f] holds values that appear exactly f times.",
+        "For each key x, add it to b[cnt.get(x)].",
+        "Walk f from n down to 1, copying values from b[f] into res until idx reaches k.",
+        "Return res."
+      ],
+      "dryRun": [
+        "nums = [1,1,1,2,2,3], k = 2, n = 6",
+        "cnt = {1:3, 2:2, 3:1}",
+        "b[3] = [1], b[2] = [2], b[1] = [3], others null",
+        "f = 6, 5, 4: b[f] is null, skip",
+        "f = 3: res[0] = 1, idx = 1",
+        "f = 2: res[1] = 2, idx = 2, loop condition idx < k fails",
+        "Return [1,2]"
+      ],
+      "complexity": {
+        "time": "O(n) for counting and walking the buckets",
+        "space": "O(n) for the map and buckets"
+      },
+      "edgeCases": [
+        "k equals the number of distinct values: return all of them",
+        "All elements equal: one bucket at f = n",
+        "Negative numbers work since the map keys are values, not indexes",
+        "Several values in one bucket: the inner break stops exactly at k"
+      ],
+      "takeaway": "When the key you sort by is bounded by n (like a count), bucket it by that key to beat O(n log n). A min-heap of size k is the other common answer.",
+      "link": "https://leetcode.com/problems/top-k-frequent-elements/"
+    },
+    {
+      "folder": "04-number-of-islands",
+      "id": 200,
+      "title": "Number of Islands",
+      "slug": "number-of-islands",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union-Find",
+        "Matrix"
+      ],
+      "potd": false,
+      "problem": "You get an m x n grid of '1' (land) and '0' (water). Land cells that touch up, down, left or right form one island. Count the islands.",
+      "examples": [
+        {
+          "input": "grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]",
+          "output": "1",
+          "explanation": "All the land cells are connected, so there is one island."
+        },
+        {
+          "input": "grid = [[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]",
+          "output": "3",
+          "explanation": "A 2x2 block at the top left, a single cell in the middle and a pair at the bottom right."
+        }
+      ],
+      "intuition": "Each time we find a land cell that has not been visited, we have found a new island. Flood fill from it (BFS) to mark every connected land cell as water, so the same island is never counted again. BFS with a queue is used instead of recursion because a 300 x 300 grid of all land would make recursive DFS go about 90000 calls deep and risk a stack overflow.",
+      "approach": [
+        "Set cnt = 0 and dirs = the four moves.",
+        "Scan every cell (i, j). Skip it if it is not '1'.",
+        "Found new land: cnt++, set grid[i][j] = '0' and push it into q.",
+        "While q is not empty: poll cur, try all 4 neighbours (x, y); if inside the grid and '1', set it to '0' and push it.",
+        "When the scan ends, return cnt."
+      ],
+      "dryRun": [
+        "Example 1, m = 4, n = 5, cnt = 0",
+        "(0,0) is '1': cnt = 1, mark it '0', q = [(0,0)]",
+        "poll (0,0): push (1,0) and (0,1), both marked '0'",
+        "poll (1,0): push (2,0) and (1,1); poll (0,1): push (0,2)",
+        "poll (2,0): push (2,1); poll (1,1), (0,2): push (0,3); poll (2,1); poll (0,3): push (1,3); poll (1,3)",
+        "q is empty, all 9 land cells are now '0'",
+        "the rest of the scan only sees '0', so return cnt = 1"
+      ],
+      "complexity": {
+        "time": "O(m * n), each cell is pushed at most once",
+        "space": "O(min(m, n)) for the BFS queue in practice, O(m * n) worst case"
+      },
+      "edgeCases": [
+        "All water: return 0",
+        "All land: one island",
+        "Checkerboard: every land cell is its own island (diagonals do not connect)",
+        "1 x 1 grid",
+        "Note: the grid is modified in place; copy it first if the caller needs it"
+      ],
+      "takeaway": "Counting connected components on a grid = scan + flood fill (BFS, DFS or Union-Find). Mark cells visited when you push them, not when you pop them, to avoid duplicates in the queue.",
+      "link": "https://leetcode.com/problems/number-of-islands/"
+    },
+    {
+      "folder": "05-minimum-window-substring",
+      "id": 76,
+      "title": "Minimum Window Substring",
+      "slug": "minimum-window-substring",
+      "difficulty": "Hard",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "potd": false,
+      "problem": "Given strings s and t, find the shortest substring of s that contains every character of t, counting duplicates. Return \"\" if there is no such substring.",
+      "examples": [
+        {
+          "input": "s = \"ADOBECODEBANC\", t = \"ABC\"",
+          "output": "\"BANC\"",
+          "explanation": "BANC contains A, B and C and no shorter window does."
+        },
+        {
+          "input": "s = \"a\", t = \"a\"",
+          "output": "\"a\"",
+          "explanation": "The whole string is the minimum window."
+        },
+        {
+          "input": "s = \"a\", t = \"aa\"",
+          "output": "\"\"",
+          "explanation": "t needs two 'a's but s has only one, so no window works."
+        }
+      ],
+      "intuition": "Use a sliding window [l, r]. cnt[c] stores how many more copies of c the window still needs (it goes negative for extra copies). need counts the total characters of t still missing. Grow r until need hits 0, meaning the window is valid; then shrink l as far as possible while it stays valid, recording the best length. Each index enters and leaves the window once, so it is O(m + n).",
+      "approach": [
+        "cnt[c]++ for every c in t; need = t.length(), l = 0, start = 0, min = MAX.",
+        "For each r: if cnt[s[r]] > 0 before decrementing, this char was needed, so need--. Then cnt[s[r]]--.",
+        "While need == 0: if r - l + 1 < min, save min and start = l.",
+        "Then remove s[l]: cnt[s[l]]++; if it becomes > 0, the window is now missing it, so need++. Move l forward.",
+        "Return \"\" if min is still MAX, else s.substring(start, start + min)."
+      ],
+      "dryRun": [
+        "s = ADOBECODEBANC, t = ABC: cnt[A]=cnt[B]=cnt[C]=1, need = 3",
+        "r=0 A: needed, need = 2; r=1 D, r=2 O: extras, cnt goes to -1; r=3 B: need = 1; r=4 E: extra",
+        "r=5 C: need = 0. Window ADOBEC (len 6): min = 6, start = 0. Remove A: cnt[A] = 1 > 0, need = 1, l = 1",
+        "r=6 O, r=7 D, r=8 E: extras; r=9 B: cnt[B] was 0, extra, becomes -1",
+        "r=10 A: need = 0. Window l=1..10 len 10, not better. Shrink: remove D, O, B (cnt[B] back to 0), E, l = 5; len 6 not better; remove C: cnt[C] = 1, need = 1, l = 6",
+        "r=11 N: extra; r=12 C: need = 0. Window l=6..12 len 7, not better. Remove O, l = 7; len 6 not better; remove D, l = 8",
+        "len 5 < 6: min = 5, start = 8. Remove E, l = 9; len 4 < 5: min = 4, start = 9. Remove B: cnt[B] = 1, need = 1, l = 10, stop",
+        "Loop ends. Return s.substring(9, 13) = BANC"
+      ],
+      "complexity": {
+        "time": "O(m + n), l and r each move at most m times",
+        "space": "O(1), a fixed 128-size array"
+      },
+      "edgeCases": [
+        "t longer than s: need never reaches 0, return \"\"",
+        "t has duplicates like \"aa\": cnt handles counts, not just presence",
+        "Upper and lower case are different characters",
+        "Answer at the very end of a long string, e.g. 100000 x's followed by \"yz\""
+      ],
+      "takeaway": "Variable sliding window: expand right until valid, then shrink left while still valid and record the answer. A single 'need' counter avoids comparing two whole frequency maps each step.",
+      "link": "https://leetcode.com/problems/minimum-window-substring/"
+    }
+  ]
+}

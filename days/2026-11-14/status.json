@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-14",
+  "problems": {
+    "minimum-positive-sum-subarray": {
+      "folder": "01-minimum-positive-sum-subarray",
+      "verdict": null,
+      "attempts": 0
+    },
+    "invert-binary-tree": {
+      "folder": "02-invert-binary-tree",
+      "verdict": null,
+      "attempts": 0
+    },
+    "top-k-frequent-elements": {
+      "folder": "03-top-k-frequent-elements",
+      "verdict": null,
+      "attempts": 0
+    },
+    "number-of-islands": {
+      "folder": "04-number-of-islands",
+      "verdict": null,
+      "attempts": 0
+    },
+    "minimum-window-substring": {
+      "folder": "05-minimum-window-substring",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
