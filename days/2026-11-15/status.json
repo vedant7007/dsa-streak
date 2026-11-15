@@ -3,28 +3,44 @@
   "problems": {
     "jump-game": {
       "folder": "01-jump-game",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:06",
+      "runtime": "3 ms",
+      "memory": "47.38 MB"
     },
     "reverse-linked-list": {
       "folder": "02-reverse-linked-list",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:07",
+      "runtime": "0 ms",
+      "memory": "43.58 MB"
     },
     "non-overlapping-intervals": {
       "folder": "03-non-overlapping-intervals",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:08",
+      "runtime": "48 ms",
+      "memory": "115.2 MB"
     },
     "longest-increasing-subsequence": {
       "folder": "04-longest-increasing-subsequence",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:08",
+      "runtime": "3 ms",
+      "memory": "45.31 MB"
     },
     "largest-rectangle-in-histogram": {
       "folder": "05-largest-rectangle-in-histogram",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:09",
+      "runtime": "19 ms",
+      "memory": "75.87 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
