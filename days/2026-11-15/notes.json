@@ -1,0 +1,300 @@
+{
+  "date": "2026-11-15",
+  "problems": [
+    {
+      "folder": "01-jump-game",
+      "id": 55,
+      "title": "Jump Game",
+      "slug": "jump-game",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "problem": "You start at index 0 of an array. nums[i] is the maximum jump length from index i. Return true if you can reach the last index, otherwise false.",
+      "examples": [
+        {
+          "input": "nums = [2,3,1,1,4]",
+          "output": "true",
+          "explanation": "Jump 1 step from index 0 to 1, then 3 steps to the last index."
+        },
+        {
+          "input": "nums = [3,2,1,0,4]",
+          "output": "false",
+          "explanation": "You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index."
+        }
+      ],
+      "intuition": "Keep max = the farthest index reachable so far. Every index up to max is reachable, because you can always take a shorter jump. If we ever stand at an index i greater than max, there is a gap we cannot cross, so the answer is false. If we scan the whole array without hitting a gap, the last index is reachable.",
+      "approach": [
+        "max = 0.",
+        "For each i from 0 to n - 1: if i > max, return false.",
+        "Otherwise update max = Math.max(max, i + nums[i]).",
+        "After the loop, return true."
+      ],
+      "dryRun": [
+        "nums = [2,3,1,1,4], max = 0",
+        "i=0: 0 <= 0, max = max(0, 0+2) = 2",
+        "i=1: 1 <= 2, max = max(2, 1+3) = 4",
+        "i=2: 2 <= 4, max = max(4, 3) = 4",
+        "i=3: 3 <= 4, max = max(4, 4) = 4",
+        "i=4: 4 <= 4, max = max(4, 8) = 8",
+        "Loop ends without a gap, return true"
+      ],
+      "complexity": {
+        "time": "O(n), one pass",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Single element [0]: already at the last index, true",
+        "[0, 1]: stuck at index 0, false",
+        "Zeros you can jump over, like [2,0,0], are fine",
+        "A zero in the middle that blocks everything, like many 1s with one 0, gives false"
+      ],
+      "takeaway": "Greedy reach: track the farthest point reachable so far; if the scan index passes it, you are stuck.",
+      "link": "https://leetcode.com/problems/jump-game/",
+      "potd": false
+    },
+    {
+      "folder": "02-reverse-linked-list",
+      "id": 206,
+      "title": "Reverse Linked List",
+      "slug": "reverse-linked-list",
+      "difficulty": "Easy",
+      "tags": [
+        "Linked List",
+        "Recursion"
+      ],
+      "problem": "Given the head of a singly linked list, reverse the list and return the new head.",
+      "examples": [
+        {
+          "input": "head = [1,2,3,4,5]",
+          "output": "[5,4,3,2,1]",
+          "explanation": "Every arrow is flipped, so 5 becomes the new head."
+        },
+        {
+          "input": "head = [1,2]",
+          "output": "[2,1]",
+          "explanation": "Two nodes swap order."
+        },
+        {
+          "input": "head = []",
+          "output": "[]",
+          "explanation": "An empty list stays empty."
+        }
+      ],
+      "intuition": "Walk the list once and flip each next pointer to point backward. prev is the already reversed part, cur is the node being processed. Before flipping cur.next we save it in nxt, otherwise we lose the rest of the list. When cur becomes null, prev is the new head.",
+      "approach": [
+        "prev = null, cur = head.",
+        "While cur != null: nxt = cur.next (save the rest).",
+        "cur.next = prev (flip the arrow).",
+        "prev = cur, cur = nxt (move both forward).",
+        "Return prev."
+      ],
+      "dryRun": [
+        "head = 1->2->3->4->5, prev = null, cur = 1",
+        "cur=1: nxt = 2, 1.next = null, prev = 1, cur = 2",
+        "cur=2: nxt = 3, 2.next = 1, prev = 2, cur = 3",
+        "cur=3: nxt = 4, 3.next = 2, prev = 3, cur = 4",
+        "cur=4: nxt = 5, 4.next = 3, prev = 4, cur = 5",
+        "cur=5: nxt = null, 5.next = 4, prev = 5, cur = null",
+        "Return prev = 5->4->3->2->1"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1), only three pointers"
+      },
+      "edgeCases": [
+        "Empty list: loop never runs, return null",
+        "Single node: returns the same node with next = null",
+        "Duplicate values do not matter, we move nodes not values",
+        "Long list of 5000 nodes: iterative, so no stack overflow"
+      ],
+      "takeaway": "Three pointers prev, cur, nxt: save next, flip, move. This is the base for reverse in k groups, palindrome list and reorder list.",
+      "link": "https://leetcode.com/problems/reverse-linked-list/",
+      "potd": false
+    },
+    {
+      "folder": "03-non-overlapping-intervals",
+      "id": 435,
+      "title": "Non-overlapping Intervals",
+      "slug": "non-overlapping-intervals",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy",
+        "Sorting"
+      ],
+      "problem": "Given a list of intervals [start, end], return the minimum number of intervals to remove so that the rest do not overlap. Intervals that only touch at a point, like [1,2] and [2,3], do not overlap.",
+      "examples": [
+        {
+          "input": "intervals = [[1,2],[2,3],[3,4],[1,3]]",
+          "output": "1",
+          "explanation": "[1,3] can be removed and the rest of the intervals are non-overlapping."
+        },
+        {
+          "input": "intervals = [[1,2],[1,2],[1,2]]",
+          "output": "2",
+          "explanation": "You need to remove two [1,2] to make the rest of the intervals non-overlapping."
+        },
+        {
+          "input": "intervals = [[1,2],[2,3]]",
+          "output": "0",
+          "explanation": "You don't need to remove any of the intervals since they're already non-overlapping."
+        }
+      ],
+      "intuition": "Removing the fewest is the same as keeping the most. To keep the most, always keep the interval that ends earliest, because it leaves the most room for the rest (classic activity selection). So sort by end, keep an interval if it starts at or after the last kept end, otherwise remove it.",
+      "approach": [
+        "Sort intervals by end time.",
+        "cnt = 0, end = Integer.MIN_VALUE (end of the last kept interval).",
+        "For each interval in: if in[0] >= end, keep it and set end = in[1].",
+        "Otherwise it overlaps the kept one, so cnt++ (remove it).",
+        "Return cnt."
+      ],
+      "dryRun": [
+        "Sorted by end: [1,2], [2,3], [1,3], [3,4]; cnt = 0, end = MIN",
+        "[1,2]: 1 >= MIN, keep, end = 2",
+        "[2,3]: 2 >= 2, keep, end = 3",
+        "[1,3]: 1 < 3, overlap, cnt = 1",
+        "[3,4]: 3 >= 3, keep, end = 4",
+        "Return cnt = 1"
+      ],
+      "complexity": {
+        "time": "O(n log n) for sorting",
+        "space": "O(log n) for the sort"
+      },
+      "edgeCases": [
+        "Single interval: nothing to remove, 0",
+        "All identical intervals: keep one, remove n - 1",
+        "Touching intervals like [1,2],[2,3] are fine because of >=",
+        "Negative coordinates: start end at Integer.MIN_VALUE so the first interval is always kept",
+        "One long interval covering many short ones: sorting by end keeps the short ones"
+      ],
+      "takeaway": "Interval scheduling: sort by END and greedily keep the earliest finishing interval. Answer = n minus the maximum non-overlapping set.",
+      "link": "https://leetcode.com/problems/non-overlapping-intervals/",
+      "potd": false
+    },
+    {
+      "folder": "04-longest-increasing-subsequence",
+      "id": 300,
+      "title": "Longest Increasing Subsequence",
+      "slug": "longest-increasing-subsequence",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Dynamic Programming"
+      ],
+      "problem": "Given an integer array nums, return the length of the longest strictly increasing subsequence (elements in order, not necessarily next to each other).",
+      "examples": [
+        {
+          "input": "nums = [10,9,2,5,3,7,101,18]",
+          "output": "4",
+          "explanation": "The longest increasing subsequence is [2,3,7,101], therefore the length is 4."
+        },
+        {
+          "input": "nums = [0,1,0,3,2,3]",
+          "output": "4",
+          "explanation": "For example [0,1,2,3]."
+        },
+        {
+          "input": "nums = [7,7,7,7,7,7,7]",
+          "output": "1",
+          "explanation": "Strictly increasing, so equal values cannot be chained."
+        }
+      ],
+      "intuition": "tails[k] stores the smallest possible last value of an increasing subsequence of length k + 1 seen so far. Smaller tails are better because they are easier to extend. tails stays sorted, so for each x we binary search the first position with tails[pos] >= x. If pos == len, x extends the longest one; otherwise x replaces tails[pos] with a smaller tail. len is the answer. (tails is not the actual subsequence, only its length is correct.)",
+      "approach": [
+        "tails = new int[n], len = 0.",
+        "For each x: binary search l in [0, len) for the first index with tails[l] >= x (lower bound).",
+        "Set tails[l] = x.",
+        "If l == len, len++ (we made a longer subsequence).",
+        "Return len."
+      ],
+      "dryRun": [
+        "nums = [10,9,2,5,3,7,101,18], len = 0",
+        "x=10: l = 0, tails = [10], len = 1",
+        "x=9: l = 0, tails = [9]",
+        "x=2: l = 0, tails = [2]",
+        "x=5: l = 1 = len, tails = [2,5], len = 2",
+        "x=3: l = 1, tails = [2,3]",
+        "x=7: l = 2 = len, tails = [2,3,7], len = 3",
+        "x=101: l = 3 = len, tails = [2,3,7,101], len = 4",
+        "x=18: l = 3, tails = [2,3,7,18]",
+        "Return len = 4"
+      ],
+      "complexity": {
+        "time": "O(n log n)",
+        "space": "O(n) for tails"
+      },
+      "edgeCases": [
+        "Single element: answer 1",
+        "All equal: lower bound (>=) replaces instead of extending, answer 1",
+        "Strictly decreasing: answer 1",
+        "Already sorted 2500 elements: answer n",
+        "Negative numbers work the same"
+      ],
+      "takeaway": "Patience sorting: keep the smallest tail for each length and binary search with lower bound. The O(n^2) dp (dp[i] = 1 + max dp[j] for a[j] < a[i]) is the fallback.",
+      "link": "https://leetcode.com/problems/longest-increasing-subsequence/",
+      "potd": false
+    },
+    {
+      "folder": "05-largest-rectangle-in-histogram",
+      "id": 84,
+      "title": "Largest Rectangle in Histogram",
+      "slug": "largest-rectangle-in-histogram",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "problem": "Given bar heights of a histogram where every bar has width 1, return the area of the largest rectangle that fits inside the histogram.",
+      "examples": [
+        {
+          "input": "heights = [2,1,5,6,2,3]",
+          "output": "10",
+          "explanation": "The above is a histogram where width of each bar is 1. The largest rectangle is shown in the red area, which has an area = 10 units (bars 5 and 6, height 5, width 2)."
+        },
+        {
+          "input": "heights = [2,4]",
+          "output": "4",
+          "explanation": "Either bar 4 alone, or both bars at height 2."
+        }
+      ],
+      "intuition": "The best rectangle uses some bar as its shortest bar, and stretches left and right until a shorter bar appears. Keep a stack of indices with increasing heights. When the current height h is less than or equal to the top's height, the top bar cannot extend further right, and the bar below it in the stack is its first shorter bar on the left. So we know its full width and can compute its area right when we pop it. A fake bar of height 0 at i = n flushes the stack at the end.",
+      "approach": [
+        "st = empty stack of indices, ans = 0.",
+        "For i from 0 to n: h = 0 if i == n else heights[i].",
+        "While st not empty and heights[st.peek()] >= h: top = st.pop().",
+        "Width w = i if the stack is now empty, else i - st.peek() - 1. ans = max(ans, heights[top] * w).",
+        "Push i. Return ans after the loop."
+      ],
+      "dryRun": [
+        "heights = [2,1,5,6,2,3], ans = 0",
+        "i=0 h=2: push 0, st = [0]",
+        "i=1 h=1: pop 0 (2 >= 1), st empty so w = 1, area 2, ans = 2; push 1",
+        "i=2 h=5: push 2; i=3 h=6: push 3, st = [1,2,3]",
+        "i=4 h=2: pop 3 (6), w = 4-2-1 = 1, area 6, ans = 6; pop 2 (5), w = 4-1-1 = 2, area 10, ans = 10; heights[1] = 1 < 2, push 4",
+        "i=5 h=3: push 5, st = [1,4,5]",
+        "i=6 h=0: pop 5, w = 6-4-1 = 1, area 3; pop 4, w = 6-1-1 = 4, area 8; pop 1, empty so w = 6, area 6; push 6",
+        "Return ans = 10"
+      ],
+      "complexity": {
+        "time": "O(n), every index is pushed and popped once",
+        "space": "O(n) for the stack"
+      },
+      "edgeCases": [
+        "Single bar: area = its height",
+        "A bar of height 0: area can be 0",
+        "All equal heights: whole width times height (>= pops equal bars, the last one gets full width)",
+        "Increasing or decreasing heights",
+        "100000 bars of height 10000: area 1e9 still fits in int"
+      ],
+      "takeaway": "Monotonic increasing stack: when a bar is popped, the current index is its right boundary and the new stack top is its left boundary. Same idea as next smaller element on both sides.",
+      "link": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+      "potd": false
+    }
+  ]
+}

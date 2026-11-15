@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-15",
+  "problems": {
+    "jump-game": {
+      "folder": "01-jump-game",
+      "verdict": null,
+      "attempts": 0
+    },
+    "reverse-linked-list": {
+      "folder": "02-reverse-linked-list",
+      "verdict": null,
+      "attempts": 0
+    },
+    "non-overlapping-intervals": {
+      "folder": "03-non-overlapping-intervals",
+      "verdict": null,
+      "attempts": 0
+    },
+    "longest-increasing-subsequence": {
+      "folder": "04-longest-increasing-subsequence",
+      "verdict": null,
+      "attempts": 0
+    },
+    "largest-rectangle-in-histogram": {
+      "folder": "05-largest-rectangle-in-histogram",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}

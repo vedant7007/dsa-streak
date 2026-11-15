@@ -299,6 +299,66 @@
         "Sliding Window"
       ],
       "date": "2026-11-14"
+    },
+    {
+      "slug": "jump-game",
+      "id": 55,
+      "title": "Jump Game",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "date": "2026-11-15"
+    },
+    {
+      "slug": "reverse-linked-list",
+      "id": 206,
+      "title": "Reverse Linked List",
+      "difficulty": "Easy",
+      "tags": [
+        "Linked List",
+        "Recursion"
+      ],
+      "date": "2026-11-15"
+    },
+    {
+      "slug": "non-overlapping-intervals",
+      "id": 435,
+      "title": "Non-overlapping Intervals",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy",
+        "Sorting"
+      ],
+      "date": "2026-11-15"
+    },
+    {
+      "slug": "longest-increasing-subsequence",
+      "id": 300,
+      "title": "Longest Increasing Subsequence",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Dynamic Programming"
+      ],
+      "date": "2026-11-15"
+    },
+    {
+      "slug": "largest-rectangle-in-histogram",
+      "id": 84,
+      "title": "Largest Rectangle in Histogram",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "date": "2026-11-15"
     }
   ]
 }
