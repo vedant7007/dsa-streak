@@ -359,6 +359,68 @@
         "Monotonic Stack"
       ],
       "date": "2026-11-15"
+    },
+    {
+      "slug": "search-a-2d-matrix",
+      "id": 74,
+      "title": "Search a 2D Matrix",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Matrix"
+      ],
+      "date": "2026-11-16"
+    },
+    {
+      "slug": "single-number",
+      "id": 136,
+      "title": "Single Number",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Bit Manipulation"
+      ],
+      "date": "2026-11-16"
+    },
+    {
+      "slug": "rotting-oranges",
+      "id": 994,
+      "title": "Rotting Oranges",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "date": "2026-11-16"
+    },
+    {
+      "slug": "word-search",
+      "id": 79,
+      "title": "Word Search",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "String",
+        "Backtracking",
+        "Depth-First Search",
+        "Matrix"
+      ],
+      "date": "2026-11-16"
+    },
+    {
+      "slug": "binary-tree-maximum-path-sum",
+      "id": 124,
+      "title": "Binary Tree Maximum Path Sum",
+      "difficulty": "Hard",
+      "tags": [
+        "Dynamic Programming",
+        "Tree",
+        "Depth-First Search",
+        "Binary Tree"
+      ],
+      "date": "2026-11-16"
     }
   ]
 }

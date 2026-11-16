@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-16",
+  "problems": {
+    "search-a-2d-matrix": {
+      "folder": "01-search-a-2d-matrix",
+      "verdict": null,
+      "attempts": 0
+    },
+    "single-number": {
+      "folder": "02-single-number",
+      "verdict": null,
+      "attempts": 0
+    },
+    "rotting-oranges": {
+      "folder": "03-rotting-oranges",
+      "verdict": null,
+      "attempts": 0
+    },
+    "word-search": {
+      "folder": "04-word-search",
+      "verdict": null,
+      "attempts": 0
+    },
+    "binary-tree-maximum-path-sum": {
+      "folder": "05-binary-tree-maximum-path-sum",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}

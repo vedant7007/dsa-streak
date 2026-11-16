@@ -1,0 +1,285 @@
+{
+  "date": "2026-11-16",
+  "problems": [
+    {
+      "folder": "01-search-a-2d-matrix",
+      "id": 74,
+      "title": "Search a 2D Matrix",
+      "slug": "search-a-2d-matrix",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Matrix"
+      ],
+      "potd": false,
+      "problem": "You get an m x n matrix where every row is sorted left to right and the first number of each row is bigger than the last number of the row above. Return true if target is in the matrix, else false. You must do it in O(log(m*n)) time.",
+      "examples": [
+        {
+          "input": "matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3",
+          "output": "true",
+          "explanation": "3 is in the first row."
+        },
+        {
+          "input": "matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13",
+          "output": "false",
+          "explanation": "13 is not present anywhere."
+        }
+      ],
+      "intuition": "Because of the two sorting rules, if you read the matrix row by row it is one long sorted array of length m*n. So we can binary search on index 0..m*n-1 and turn any index mid into a cell with row = mid / n and col = mid % n. No need to copy anything.",
+      "approach": [
+        "Let m = rows, n = columns, l = 0, r = m*n - 1.",
+        "While l <= r, take mid = l + (r - l) / 2 and read x = matrix[mid / n][mid % n].",
+        "If x == target return true.",
+        "If x < target the answer is to the right, so l = mid + 1, else r = mid - 1.",
+        "If the loop ends, target is missing, return false."
+      ],
+      "dryRun": [
+        "Example 1: m = 3, n = 4, target = 3, l = 0, r = 11.",
+        "mid = 5 -> matrix[1][1] = 11 > 3, so r = 4.",
+        "mid = 2 -> matrix[0][2] = 5 > 3, so r = 1.",
+        "mid = 0 -> matrix[0][0] = 1 < 3, so l = 1.",
+        "mid = 1 -> matrix[0][1] = 3 == target, return true."
+      ],
+      "complexity": {
+        "time": "O(log(m*n))",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "1 x 1 matrix: l = r = 0, one comparison.",
+        "Target smaller than matrix[0][0] or bigger than the last cell: loop ends, false.",
+        "Single column (n = 1): mid / 1 = row, mid % 1 = 0, still works.",
+        "Negative values: plain comparisons, no special handling."
+      ],
+      "takeaway": "A matrix that is sorted row after row is just a flattened sorted array: binary search on index and map it with mid / n and mid % n."
+    },
+    {
+      "folder": "02-single-number",
+      "id": 136,
+      "title": "Single Number",
+      "slug": "single-number",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Bit Manipulation"
+      ],
+      "potd": false,
+      "problem": "Every number in nums appears exactly twice except one number that appears once. Find that one number using linear time and constant extra space.",
+      "examples": [
+        {
+          "input": "nums = [2,2,1]",
+          "output": "1",
+          "explanation": "2 appears twice, 1 appears once."
+        },
+        {
+          "input": "nums = [4,1,2,1,2]",
+          "output": "4",
+          "explanation": "1 and 2 appear twice, 4 appears once."
+        },
+        {
+          "input": "nums = [1]",
+          "output": "1",
+          "explanation": "Only one element."
+        }
+      ],
+      "intuition": "XOR has two magic rules: x ^ x = 0 and x ^ 0 = x, and order does not matter. So if we XOR every number, each pair cancels to 0 and only the single number is left.",
+      "approach": [
+        "Start ans = 0.",
+        "For every x in nums do ans ^= x.",
+        "Return ans."
+      ],
+      "dryRun": [
+        "Example 1: nums = [2,2,1], ans = 0.",
+        "x = 2 -> ans = 0 ^ 2 = 2.",
+        "x = 2 -> ans = 2 ^ 2 = 0.",
+        "x = 1 -> ans = 0 ^ 1 = 1.",
+        "Return 1."
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Single element: ans = that element.",
+        "Negative numbers: XOR works on the two's complement bits, pairs still cancel.",
+        "Single number is 0: all pairs cancel and ans stays 0, which is correct."
+      ],
+      "takeaway": "When everything appears twice except one, think XOR: pairs cancel out."
+    },
+    {
+      "folder": "03-rotting-oranges",
+      "id": 994,
+      "title": "Rotting Oranges",
+      "slug": "rotting-oranges",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "potd": false,
+      "problem": "Grid cells are 0 (empty), 1 (fresh orange) or 2 (rotten orange). Every minute, each fresh orange next to a rotten one (up, down, left, right) becomes rotten. Return the minimum minutes until no fresh orange is left, or -1 if that never happens.",
+      "examples": [
+        {
+          "input": "grid = [[2,1,1],[1,1,0],[0,1,1]]",
+          "output": "4",
+          "explanation": "The rot spreads one layer per minute and the last orange at the bottom right rots at minute 4."
+        },
+        {
+          "input": "grid = [[2,1,1],[0,1,1],[1,0,1]]",
+          "output": "-1",
+          "explanation": "The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally."
+        },
+        {
+          "input": "grid = [[0,2]]",
+          "output": "0",
+          "explanation": "There are no fresh oranges at minute 0, so the answer is 0."
+        }
+      ],
+      "intuition": "The rot spreads like ripples in water from all rotten oranges at the same time. That is exactly multi-source BFS: put every rotten orange in the queue first, then each BFS level is one minute. Counting fresh oranges tells us at the end if someone was never reached.",
+      "approach": [
+        "Scan the grid: push every 2 into queue q and count fresh = number of 1s.",
+        "While q is not empty and fresh > 0: process exactly sz = q.size() cells (one minute).",
+        "For each cell, look at 4 neighbours (x, y). If inside the grid and grid[x][y] == 1, set it to 2, fresh--, and push it.",
+        "After the level, ans++.",
+        "Return ans if fresh == 0, else -1."
+      ],
+      "dryRun": [
+        "Example 1: q = [(0,0)], fresh = 6, ans = 0.",
+        "Minute 1: from (0,0) rot (1,0) and (0,1). fresh = 4, ans = 1.",
+        "Minute 2: from (1,0) rot (1,1); from (0,1) rot (0,2). fresh = 2, ans = 2.",
+        "Minute 3: from (1,1) rot (2,1); (0,2) has no fresh neighbour. fresh = 1, ans = 3.",
+        "Minute 4: from (2,1) rot (2,2). fresh = 0, ans = 4.",
+        "Loop stops since fresh = 0, return 4."
+      ],
+      "complexity": {
+        "time": "O(m*n)",
+        "space": "O(m*n) for the queue"
+      },
+      "edgeCases": [
+        "No fresh oranges at all: loop never runs, return 0.",
+        "Fresh oranges but no rotten one: queue is empty, fresh > 0, return -1.",
+        "Fresh orange blocked by empty cells: never reached, return -1.",
+        "The fresh > 0 check in the loop stops us from counting an extra minute after the last orange rots."
+      ],
+      "takeaway": "Spreading from many starting points at the same time = multi-source BFS, and each BFS level is one time step."
+    },
+    {
+      "folder": "04-word-search",
+      "id": 79,
+      "title": "Word Search",
+      "slug": "word-search",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "String",
+        "Backtracking",
+        "Depth-First Search",
+        "Matrix"
+      ],
+      "potd": false,
+      "problem": "Given a grid of letters and a word, return true if the word can be spelled by walking through horizontally or vertically adjacent cells, using each cell at most once.",
+      "examples": [
+        {
+          "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"",
+          "output": "true",
+          "explanation": "Path A(0,0) B(0,1) C(0,2) C(1,2) E(2,2) D(2,1)."
+        },
+        {
+          "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"SEE\"",
+          "output": "true",
+          "explanation": "Path S(1,3) E(2,3) E(2,2)."
+        },
+        {
+          "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCB\"",
+          "output": "false",
+          "explanation": "After A B C the only B is already used, and a cell cannot be reused."
+        }
+      ],
+      "intuition": "Try every cell as a starting point and do DFS matching one character per step. To make sure a cell is not reused on the current path, temporarily overwrite it with '#' and put the letter back when returning (backtracking). That way the board itself is the visited array.",
+      "approach": [
+        "For every cell (i, j) call dfs(i, j, k = 0). If any returns true, answer is true.",
+        "In dfs: if k == word length, all letters matched, return true.",
+        "If (i, j) is outside the grid or b[i][j] != w.charAt(k), return false.",
+        "Save c = b[i][j], mark b[i][j] = '#'.",
+        "Try the 4 neighbours with k + 1 (short circuit with ||).",
+        "Restore b[i][j] = c and return the result."
+      ],
+      "dryRun": [
+        "Example 1, word = ABCCED. Start (0,0): 'A' matches k = 0, mark '#'.",
+        "Go down (1,0) 'S' != 'B', fail. Up is outside. Right (0,1) 'B' matches k = 1.",
+        "From (0,1): down 'F' fails, up outside, right (0,2) 'C' matches k = 2.",
+        "From (0,2): down (1,2) 'C' matches k = 3.",
+        "From (1,2): down (2,2) 'E' matches k = 4.",
+        "From (2,2): down outside, up is '#', right (2,3) 'E' != 'D', left (2,1) 'D' matches k = 5.",
+        "From (2,1): k = 6 == length, return true all the way up."
+      ],
+      "complexity": {
+        "time": "O(m*n*3^L) where L = word length (each step has at most 3 new directions)",
+        "space": "O(L) recursion depth"
+      },
+      "edgeCases": [
+        "Word longer than m*n: can never match, returns false after search.",
+        "Single cell board: either the 1 letter word matches or not.",
+        "Repeated letters like 'aaa' on 'aa': the '#' mark stops reusing a cell, so false.",
+        "Board is restored after each call, so later starting cells see the original letters."
+      ],
+      "takeaway": "Grid path search with no reuse = DFS + backtracking; mark the cell in place and unmark on the way back."
+    },
+    {
+      "folder": "05-binary-tree-maximum-path-sum",
+      "id": 124,
+      "title": "Binary Tree Maximum Path Sum",
+      "slug": "binary-tree-maximum-path-sum",
+      "difficulty": "Hard",
+      "tags": [
+        "Dynamic Programming",
+        "Tree",
+        "Depth-First Search",
+        "Binary Tree"
+      ],
+      "potd": false,
+      "problem": "A path is any sequence of connected nodes where each node appears at most once; it does not have to go through the root and has at least one node. Return the largest possible sum of node values on such a path.",
+      "examples": [
+        {
+          "input": "root = [1,2,3]",
+          "output": "6",
+          "explanation": "Path 2 -> 1 -> 3 has sum 2 + 1 + 3 = 6."
+        },
+        {
+          "input": "root = [-10,9,20,null,null,15,7]",
+          "output": "42",
+          "explanation": "Path 15 -> 20 -> 7 has sum 15 + 20 + 7 = 42."
+        }
+      ],
+      "intuition": "Every path has one highest node where it bends. If we fix that node, the best path is node.val + best downward chain on the left + best downward chain on the right, where a negative chain is replaced by 0 (just do not take it). A post order DFS gives each node its best downward chain (gain), and while we are there we update the global max with the bent path through it. To the parent we can only return one side, because a path cannot split.",
+      "approach": [
+        "Keep a field max = Integer.MIN_VALUE.",
+        "gain(node): if node is null return 0.",
+        "l = max(0, gain(node.left)), r = max(0, gain(node.right)).",
+        "Update max = max(max, node.val + l + r): best path that bends at this node.",
+        "Return node.val + max(l, r): best one sided chain the parent can extend.",
+        "Call gain(root) and return max."
+      ],
+      "dryRun": [
+        "Example 1: root = 1 with children 2 and 3, max = MIN_VALUE.",
+        "gain(2): l = 0, r = 0, max = 2, return 2.",
+        "gain(3): l = 0, r = 0, max = 3, return 3.",
+        "gain(1): l = 2, r = 3, max = max(3, 1 + 2 + 3) = 6, return 1 + 3 = 4.",
+        "Return max = 6.",
+        "(Example 2 check: gain(20) gives l = 15, r = 7, max = 42; gain(-10) only gives -10 + 9 + 35 = 34, so 42 stays.)"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(h) recursion, h = tree height (O(n) worst case for a skewed tree)"
+      },
+      "edgeCases": [
+        "All negative values like [-2,-1]: max starts at MIN_VALUE, so the answer is the largest single node, -1.",
+        "Single node: answer is its value.",
+        "Clamping children with max(0, ...) avoids adding harmful negative branches.",
+        "Do not start max at 0, otherwise an all negative tree would wrongly return 0."
+      ],
+      "takeaway": "For tree path problems: return the one sided best to the parent, but update the global answer with the two sided path at each node."
+    }
+  ]
+}
