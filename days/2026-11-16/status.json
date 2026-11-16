@@ -3,28 +3,44 @@
   "problems": {
     "search-a-2d-matrix": {
       "folder": "01-search-a-2d-matrix",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "22:59",
+      "runtime": "0 ms",
+      "memory": "43.29 MB"
     },
     "single-number": {
       "folder": "02-single-number",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "23:00",
+      "runtime": "1 ms",
+      "memory": "46.28 MB"
     },
     "rotting-oranges": {
       "folder": "03-rotting-oranges",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "23:00",
+      "runtime": "2 ms",
+      "memory": "43.64 MB"
     },
     "word-search": {
       "folder": "04-word-search",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "23:01",
+      "runtime": "184 ms",
+      "memory": "42.51 MB"
     },
     "binary-tree-maximum-path-sum": {
       "folder": "05-binary-tree-maximum-path-sum",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "23:01",
+      "runtime": "1 ms",
+      "memory": "46.00 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
