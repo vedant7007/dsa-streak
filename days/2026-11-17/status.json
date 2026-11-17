@@ -3,28 +3,44 @@
   "problems": {
     "group-anagrams": {
       "folder": "01-group-anagrams",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-17 18:07 IST",
+      "runtime": "19 ms",
+      "memory": "49.61 MB"
     },
     "merge-two-sorted-lists": {
       "folder": "02-merge-two-sorted-lists",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-17 18:07 IST",
+      "runtime": "0 ms",
+      "memory": "43.89 MB"
     },
     "3sum": {
       "folder": "03-3sum",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-17 18:08 IST",
+      "runtime": "28 ms",
+      "memory": "58.76 MB"
     },
     "task-scheduler": {
       "folder": "04-task-scheduler",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-17 18:08 IST",
+      "runtime": "4 ms",
+      "memory": "47.52 MB"
     },
     "edit-distance": {
       "folder": "05-edit-distance",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "2026-11-17 18:09 IST",
+      "runtime": "6 ms",
+      "memory": "46.85 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
