@@ -421,6 +421,68 @@
         "Binary Tree"
       ],
       "date": "2026-11-16"
+    },
+    {
+      "slug": "group-anagrams",
+      "id": 49,
+      "title": "Group Anagrams",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "String",
+        "Sorting"
+      ],
+      "date": "2026-11-17"
+    },
+    {
+      "slug": "merge-two-sorted-lists",
+      "id": 21,
+      "title": "Merge Two Sorted Lists",
+      "difficulty": "Easy",
+      "tags": [
+        "Linked List",
+        "Recursion"
+      ],
+      "date": "2026-11-17"
+    },
+    {
+      "slug": "3sum",
+      "id": 15,
+      "title": "3Sum",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Two Pointers",
+        "Sorting"
+      ],
+      "date": "2026-11-17"
+    },
+    {
+      "slug": "task-scheduler",
+      "id": 621,
+      "title": "Task Scheduler",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Greedy",
+        "Sorting",
+        "Heap (Priority Queue)",
+        "Counting"
+      ],
+      "date": "2026-11-17"
+    },
+    {
+      "slug": "edit-distance",
+      "id": 72,
+      "title": "Edit Distance",
+      "difficulty": "Hard",
+      "tags": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "date": "2026-11-17"
     }
   ]
 }

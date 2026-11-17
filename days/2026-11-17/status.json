@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-17",
+  "problems": {
+    "group-anagrams": {
+      "folder": "01-group-anagrams",
+      "verdict": null,
+      "attempts": 0
+    },
+    "merge-two-sorted-lists": {
+      "folder": "02-merge-two-sorted-lists",
+      "verdict": null,
+      "attempts": 0
+    },
+    "3sum": {
+      "folder": "03-3sum",
+      "verdict": null,
+      "attempts": 0
+    },
+    "task-scheduler": {
+      "folder": "04-task-scheduler",
+      "verdict": null,
+      "attempts": 0
+    },
+    "edit-distance": {
+      "folder": "05-edit-distance",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
