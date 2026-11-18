@@ -3,28 +3,44 @@
   "problems": {
     "kth-smallest-element-in-a-bst": {
       "folder": "01-kth-smallest-element-in-a-bst",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:06",
+      "runtime": "1 ms",
+      "memory": "46.26 MB"
     },
     "counting-bits": {
       "folder": "02-counting-bits",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:07",
+      "runtime": "2 ms",
+      "memory": "48.15 MB"
     },
     "insert-interval": {
       "folder": "03-insert-interval",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:08",
+      "runtime": "2 ms",
+      "memory": "46.90 MB"
     },
     "pacific-atlantic-water-flow": {
       "folder": "04-pacific-atlantic-water-flow",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:08",
+      "runtime": "10 ms",
+      "memory": "46.92 MB"
     },
     "word-search-ii": {
       "folder": "05-word-search-ii",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:09",
+      "runtime": "160 ms",
+      "memory": "46.24 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
