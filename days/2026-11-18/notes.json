@@ -1,0 +1,257 @@
+{
+  "date": "2026-11-18",
+  "problems": [
+    {
+      "folder": "01-kth-smallest-element-in-a-bst",
+      "id": 230,
+      "title": "Kth Smallest Element in a BST",
+      "slug": "kth-smallest-element-in-a-bst",
+      "difficulty": "Medium",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Binary Search Tree",
+        "Binary Tree"
+      ],
+      "potd": false,
+      "problem": "You are given the root of a binary search tree and a number k (1-indexed). Return the k-th smallest value among all the nodes in the tree.",
+      "examples": [
+        {
+          "input": "root = [3,1,4,null,2], k = 1",
+          "output": "1",
+          "explanation": "Sorted values are 1,2,3,4. The 1st smallest is 1."
+        },
+        {
+          "input": "root = [5,3,6,2,4,null,null,1], k = 3",
+          "output": "3",
+          "explanation": "Sorted values are 1,2,3,4,5,6. The 3rd smallest is 3."
+        }
+      ],
+      "intuition": "An inorder traversal (left, node, right) of a BST visits values in increasing order. So the k-th node we pop during inorder is the answer. Doing it iteratively with a stack lets us stop the moment we reach the k-th node, without visiting the rest of the tree.",
+      "approach": [
+        "Keep a stack st and a pointer cur = root.",
+        "While cur is not null, push cur and move cur = cur.left (go as far left as possible).",
+        "Pop the top into cur: this is the next smallest value. Decrease k.",
+        "If k becomes 0, return cur.val.",
+        "Otherwise move cur = cur.right and repeat while cur != null or st is not empty."
+      ],
+      "dryRun": [
+        "root = [3,1,4,null,2], k = 1, cur = 3.",
+        "Push 3, cur = 1. Push 1, cur = null (1 has no left child). st = [3,1].",
+        "Pop 1 -> cur = 1, k = 0.",
+        "k == 0 so return cur.val = 1."
+      ],
+      "complexity": {
+        "time": "O(h + k) where h is the tree height (O(n) worst case for a skewed tree)",
+        "space": "O(h) for the stack"
+      },
+      "edgeCases": [
+        "Single node tree with k = 1: push, pop, return its value.",
+        "k equals n (largest value): traversal runs to the last node on the right.",
+        "Skewed tree (like a linked list): stack grows to height n but still correct, and no recursion depth issue."
+      ],
+      "takeaway": "Anything about sorted order in a BST means inorder traversal; use an explicit stack when you want to stop early."
+    },
+    {
+      "folder": "02-counting-bits",
+      "id": 338,
+      "title": "Counting Bits",
+      "slug": "counting-bits",
+      "difficulty": "Easy",
+      "tags": [
+        "Dynamic Programming",
+        "Bit Manipulation"
+      ],
+      "potd": false,
+      "problem": "Given n, return an array ans of length n + 1 where ans[i] is the number of 1 bits in the binary form of i, for every i from 0 to n.",
+      "examples": [
+        {
+          "input": "n = 2",
+          "output": "[0,1,1]",
+          "explanation": "0 -> 0, 1 -> 1, 2 -> 10."
+        },
+        {
+          "input": "n = 5",
+          "output": "[0,1,1,2,1,2]",
+          "explanation": "0 -> 0, 1 -> 1, 2 -> 10, 3 -> 11, 4 -> 100, 5 -> 101."
+        }
+      ],
+      "intuition": "Shifting i right by one (i >> 1) just drops the last bit. So i has the same number of ones as i >> 1, plus 1 if the dropped last bit was a 1 (i & 1). Since i >> 1 is smaller than i, its answer is already computed, which makes this a simple DP in one pass.",
+      "approach": [
+        "Create ans of size n + 1; ans[0] = 0 by default.",
+        "For i from 1 to n: ans[i] = ans[i >> 1] + (i & 1).",
+        "Return ans."
+      ],
+      "dryRun": [
+        "n = 2, ans = [0,0,0].",
+        "i = 1: i >> 1 = 0, i & 1 = 1, ans[1] = ans[0] + 1 = 1.",
+        "i = 2: i >> 1 = 1, i & 1 = 0, ans[2] = ans[1] + 0 = 1.",
+        "Return [0,1,1]."
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1) extra (the output array is required)"
+      },
+      "edgeCases": [
+        "n = 0: loop does not run, return [0].",
+        "Powers of two (1, 2, 4, 8...) always get exactly 1.",
+        "Large n like 100000: still one pass, no Integer.bitCount needed."
+      ],
+      "takeaway": "i >> 1 and i & 1 split a number into a smaller subproblem plus its last bit; great base for bit DP."
+    },
+    {
+      "folder": "03-insert-interval",
+      "id": 57,
+      "title": "Insert Interval",
+      "slug": "insert-interval",
+      "difficulty": "Medium",
+      "tags": [
+        "Array"
+      ],
+      "potd": false,
+      "problem": "You have a list of non-overlapping intervals sorted by start, and one new interval. Insert the new interval so the list stays sorted and non-overlapping, merging any intervals that overlap with it. Return the new list.",
+      "examples": [
+        {
+          "input": "intervals = [[1,3],[6,9]], newInterval = [2,5]",
+          "output": "[[1,5],[6,9]]",
+          "explanation": "[2,5] overlaps [1,3], so they merge into [1,5]."
+        },
+        {
+          "input": "intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]",
+          "output": "[[1,2],[3,10],[12,16]]",
+          "explanation": "The new interval [4,8] overlaps with [3,5],[6,7],[8,10]."
+        }
+      ],
+      "intuition": "Because the list is already sorted, it splits into three parts: intervals that end before the new one starts (untouched), intervals that overlap it (merge them all into one), and intervals that start after the merged one ends (untouched). One pass with an index i handles all three.",
+      "approach": [
+        "res = empty list, i = 0.",
+        "While intervals[i][1] < newInterval[0], the interval is fully to the left: add it, i++.",
+        "Set l = newInterval[0], r = newInterval[1].",
+        "While intervals[i][0] <= r, it overlaps: l = min(l, start), r = max(r, end), i++.",
+        "Add [l, r].",
+        "Add all remaining intervals, then convert res to int[][]."
+      ],
+      "dryRun": [
+        "intervals = [[1,3],[6,9]], newInterval = [2,5], n = 2, i = 0.",
+        "Left part: intervals[0][1] = 3 < 2? No, so nothing added.",
+        "l = 2, r = 5. intervals[0][0] = 1 <= 5: l = min(2,1) = 1, r = max(5,3) = 5, i = 1.",
+        "intervals[1][0] = 6 <= 5? No, stop merging. Add [1,5].",
+        "Add remaining [6,9]. res = [[1,5],[6,9]]."
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(n) for the output"
+      },
+      "edgeCases": [
+        "Empty intervals: just return [newInterval].",
+        "New interval touching an end (like [1,5] and [5,7]): <= makes them merge into [1,7].",
+        "New interval fully before or after everything, or covering everything."
+      ],
+      "takeaway": "Sorted intervals plus one new interval: left part, merge middle, right part, all in one linear pass."
+    },
+    {
+      "folder": "04-pacific-atlantic-water-flow",
+      "id": 417,
+      "title": "Pacific Atlantic Water Flow",
+      "slug": "pacific-atlantic-water-flow",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "potd": false,
+      "problem": "An m x n island has heights. The Pacific touches the top and left edges, the Atlantic touches the bottom and right edges. Rain flows from a cell to a neighbor (up, down, left, right) if the neighbor's height is less than or equal. Return all cells from which water can reach both oceans.",
+      "examples": [
+        {
+          "input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]",
+          "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]",
+          "explanation": "From each listed cell, there is a non-increasing path to the top/left edge and another to the bottom/right edge. For example [2,2] (height 5) can flow up to [1,2] then [0,2] (Pacific), and right to [2,3], [2,4] (Atlantic)."
+        },
+        {
+          "input": "heights = [[1]]",
+          "output": "[[0,0]]",
+          "explanation": "The single cell touches both oceans."
+        }
+      ],
+      "intuition": "Checking every cell separately is slow. Flip it: start from the ocean and walk uphill (to neighbors with height >= current). Every cell reached from the Pacific edge can drain into the Pacific, same for the Atlantic. Cells marked by both searches are the answer. Each search visits a cell once.",
+      "approach": [
+        "Make pac and atl boolean grids.",
+        "Put every left column and top row cell into pq (marked in pac); every right column and bottom row cell into aq (marked in atl).",
+        "bfs: pop cur, for each of 4 neighbors (x, y) in bounds, not visited, with h[x][y] >= h[cur], mark and push.",
+        "Run bfs for both queues.",
+        "Collect every (i, j) where pac[i][j] and atl[i][j] are both true."
+      ],
+      "dryRun": [
+        "Example 1, m = n = 5. pq starts with column 0 and row 0; aq with column 4 and row 4.",
+        "Pacific bfs climbs from the edges, e.g. edge cell (2,0)=2 -> (2,1)=4 (4 >= 2, mark) -> (2,2)=5 (5 >= 4, mark). So pac[2][2] = true.",
+        "Atlantic bfs climbs from right/bottom, e.g. (2,4)=1 -> (2,3)=3 -> (2,2)=5, and (4,0)=5 is on the bottom edge, (3,0)=6 is reached from (4,0).",
+        "Cells with both pac and atl true: (0,4),(1,3),(1,4),(2,2),(3,0),(3,1),(4,0). This is res."
+      ],
+      "complexity": {
+        "time": "O(m * n)",
+        "space": "O(m * n) for the two grids and queues"
+      },
+      "edgeCases": [
+        "1 x 1 grid: the cell is on both borders, answer [[0,0]].",
+        "All equal heights: water flows everywhere, every cell is returned.",
+        "200 x 200 grid: BFS with a queue avoids the deep recursion a plain DFS could hit."
+      ],
+      "takeaway": "When asked 'which cells can reach the border', search backwards from the border (multi-source BFS/DFS) instead of from every cell."
+    },
+    {
+      "folder": "05-word-search-ii",
+      "id": 212,
+      "title": "Word Search II",
+      "slug": "word-search-ii",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "String",
+        "Backtracking",
+        "Trie",
+        "Matrix"
+      ],
+      "potd": false,
+      "problem": "Given an m x n board of letters and a list of words, return every word that can be formed by a path of adjacent cells (up, down, left, right), using each cell at most once per word.",
+      "examples": [
+        {
+          "input": "board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]",
+          "output": "[\"eat\",\"oath\"]",
+          "explanation": "\"oath\" and \"eat\" can be traced on the board; \"pea\" and \"rain\" cannot."
+        },
+        {
+          "input": "board = [[\"a\",\"b\"],[\"c\",\"d\"]], words = [\"abcb\"]",
+          "output": "[]",
+          "explanation": "\"abcb\" would need to reuse the cell 'b'."
+        }
+      ],
+      "intuition": "Running Word Search I for every word repeats the same board walks again and again. Put all words in a trie instead, then do one DFS from each cell while walking down the trie at the same time. If the current prefix is not in the trie, we stop right away, which prunes most paths. When we reach a trie node that holds a word, we record it.",
+      "approach": [
+        "Build a trie: each Node has next[26] and word (set at the end of each word).",
+        "For every cell (i, j), call dfs(board, i, j, root).",
+        "In dfs: stop if out of bounds, cell is '#' (already on the path) or p.next[c - 'a'] is null.",
+        "Move p to the child. If p.word != null, add it to res and set p.word = null so it is not added twice.",
+        "Mark b[i][j] = '#', recurse into 4 neighbors, then restore b[i][j] = c (backtrack)."
+      ],
+      "dryRun": [
+        "Trie holds oath, pea, eat, rain. res = [].",
+        "Cell (0,0)='o': root.next['o'] exists, p = o. Neighbors: (1,0)='e' not under o, (0,1)='a' -> p = oa.",
+        "From (0,1) go to (1,1)='t' -> p = oat, then (2,1)='h' -> p = oath, p.word = \"oath\": res = [oath], p.word = null.",
+        "Cells starting with 'p' or 'r' paths die quickly. Cell (1,3)='e' -> (1,2)='a' -> (1,1)='t' gives \"eat\": res = [oath, eat].",
+        "Return [oath, eat] (any order is accepted)."
+      ],
+      "complexity": {
+        "time": "O(m * n * 4 * 3^(L-1)) in the worst case, L = max word length; the trie prunes most of it in practice",
+        "space": "O(total letters in words) for the trie plus O(L) recursion"
+      },
+      "edgeCases": [
+        "Word that would need a cell twice (\"abcb\"): the '#' mark blocks it.",
+        "Same word reachable from many paths: p.word = null makes sure it appears once.",
+        "Words sharing prefixes (\"oa\", \"oaa\"): both found in one walk because the trie keeps going after a match."
+      ],
+      "takeaway": "Many words on one grid: trie + backtracking DFS, walk the trie while walking the board, and clear the word once found."
+    }
+  ]
+}

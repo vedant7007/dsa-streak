@@ -483,6 +483,67 @@
         "Dynamic Programming"
       ],
       "date": "2026-11-17"
+    },
+    {
+      "slug": "kth-smallest-element-in-a-bst",
+      "id": 230,
+      "title": "Kth Smallest Element in a BST",
+      "difficulty": "Medium",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Binary Search Tree",
+        "Binary Tree"
+      ],
+      "date": "2026-11-18"
+    },
+    {
+      "slug": "counting-bits",
+      "id": 338,
+      "title": "Counting Bits",
+      "difficulty": "Easy",
+      "tags": [
+        "Dynamic Programming",
+        "Bit Manipulation"
+      ],
+      "date": "2026-11-18"
+    },
+    {
+      "slug": "insert-interval",
+      "id": 57,
+      "title": "Insert Interval",
+      "difficulty": "Medium",
+      "tags": [
+        "Array"
+      ],
+      "date": "2026-11-18"
+    },
+    {
+      "slug": "pacific-atlantic-water-flow",
+      "id": 417,
+      "title": "Pacific Atlantic Water Flow",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "date": "2026-11-18"
+    },
+    {
+      "slug": "word-search-ii",
+      "id": 212,
+      "title": "Word Search II",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "String",
+        "Backtracking",
+        "Trie",
+        "Matrix"
+      ],
+      "date": "2026-11-18"
     }
   ]
 }

@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-18",
+  "problems": {
+    "kth-smallest-element-in-a-bst": {
+      "folder": "01-kth-smallest-element-in-a-bst",
+      "verdict": null,
+      "attempts": 0
+    },
+    "counting-bits": {
+      "folder": "02-counting-bits",
+      "verdict": null,
+      "attempts": 0
+    },
+    "insert-interval": {
+      "folder": "03-insert-interval",
+      "verdict": null,
+      "attempts": 0
+    },
+    "pacific-atlantic-water-flow": {
+      "folder": "04-pacific-atlantic-water-flow",
+      "verdict": null,
+      "attempts": 0
+    },
+    "word-search-ii": {
+      "folder": "05-word-search-ii",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
