@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-19",
+  "problems": {
+    "evaluate-reverse-polish-notation": {
+      "folder": "01-evaluate-reverse-polish-notation",
+      "verdict": null,
+      "attempts": 0
+    },
+    "valid-palindrome": {
+      "folder": "02-valid-palindrome",
+      "verdict": null,
+      "attempts": 0
+    },
+    "longest-repeating-character-replacement": {
+      "folder": "03-longest-repeating-character-replacement",
+      "verdict": null,
+      "attempts": 0
+    },
+    "decode-ways": {
+      "folder": "04-decode-ways",
+      "verdict": null,
+      "attempts": 0
+    },
+    "median-of-two-sorted-arrays": {
+      "folder": "05-median-of-two-sorted-arrays",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}

@@ -544,6 +544,64 @@
         "Matrix"
       ],
       "date": "2026-11-18"
+    },
+    {
+      "slug": "evaluate-reverse-polish-notation",
+      "id": 150,
+      "title": "Evaluate Reverse Polish Notation",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Math",
+        "Stack"
+      ],
+      "date": "2026-11-19"
+    },
+    {
+      "slug": "valid-palindrome",
+      "id": 125,
+      "title": "Valid Palindrome",
+      "difficulty": "Easy",
+      "tags": [
+        "Two Pointers",
+        "String"
+      ],
+      "date": "2026-11-19"
+    },
+    {
+      "slug": "longest-repeating-character-replacement",
+      "id": 424,
+      "title": "Longest Repeating Character Replacement",
+      "difficulty": "Medium",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "date": "2026-11-19"
+    },
+    {
+      "slug": "decode-ways",
+      "id": 91,
+      "title": "Decode Ways",
+      "difficulty": "Medium",
+      "tags": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "date": "2026-11-19"
+    },
+    {
+      "slug": "median-of-two-sorted-arrays",
+      "id": 4,
+      "title": "Median of Two Sorted Arrays",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Divide and Conquer"
+      ],
+      "date": "2026-11-19"
     }
   ]
 }

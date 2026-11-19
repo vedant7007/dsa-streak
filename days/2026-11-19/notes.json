@@ -1,0 +1,283 @@
+{
+  "date": "2026-11-19",
+  "problems": [
+    {
+      "folder": "01-evaluate-reverse-polish-notation",
+      "id": 150,
+      "title": "Evaluate Reverse Polish Notation",
+      "slug": "evaluate-reverse-polish-notation",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Math",
+        "Stack"
+      ],
+      "potd": false,
+      "problem": "You get an arithmetic expression written in Reverse Polish Notation (operators come after their operands) as an array of tokens. Each token is an integer or one of + - * /. Evaluate it and return the integer result. Division truncates toward zero, there is never division by zero, and every intermediate value fits in a 32 bit int.",
+      "examples": [
+        {
+          "input": "tokens = [\"2\",\"1\",\"+\",\"3\",\"*\"]",
+          "output": "9",
+          "explanation": "((2 + 1) * 3) = 9"
+        },
+        {
+          "input": "tokens = [\"4\",\"13\",\"5\",\"/\",\"+\"]",
+          "output": "6",
+          "explanation": "(4 + (13 / 5)) = 4 + 2 = 6"
+        },
+        {
+          "input": "tokens = [\"10\",\"6\",\"9\",\"3\",\"+\",\"-11\",\"*\",\"/\",\"*\",\"17\",\"+\",\"5\",\"+\"]",
+          "output": "22",
+          "explanation": "((10 * (6 / ((9 + 3) * -11))) + 17) + 5 = ((10 * 0) + 17) + 5 = 22"
+        }
+      ],
+      "intuition": "In postfix, an operator always applies to the two most recent values that have not been used yet. A stack gives exactly that: the last two things pushed are the top two. So numbers get pushed, and each operator pops two, combines them and pushes the result back, which becomes an operand for a later operator.",
+      "approach": [
+        "Create an empty stack st.",
+        "For each token t: if it is an operator, pop b first and then a (order matters for - and /).",
+        "Compute a op b and push the result.",
+        "Otherwise parse t as an integer and push it.",
+        "At the end the stack holds exactly one value: return it."
+      ],
+      "dryRun": [
+        "t=\"2\": push, st=[2]",
+        "t=\"1\": push, st=[2,1]",
+        "t=\"+\": b=1, a=2, push 3, st=[3]",
+        "t=\"3\": push, st=[3,3]",
+        "t=\"*\": b=3, a=3, push 9, st=[9]",
+        "Return st.pop() = 9"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(n)"
+      },
+      "edgeCases": [
+        "Single number token: just returned as is",
+        "Negative numbers like \"-11\" are numbers, not the minus operator, because we compare the whole token",
+        "Negative division like -7 / 2 gives -3 since Java int division truncates toward zero, matching the problem",
+        "Order of pop: b is the right operand, a is the left one"
+      ],
+      "takeaway": "Postfix expressions, undo-style problems and 'combine the last two things' problems are a stack: push values, pop two on an operator.",
+      "link": "https://leetcode.com/problems/evaluate-reverse-polish-notation/"
+    },
+    {
+      "folder": "02-valid-palindrome",
+      "id": 125,
+      "title": "Valid Palindrome",
+      "slug": "valid-palindrome",
+      "difficulty": "Easy",
+      "tags": [
+        "Two Pointers",
+        "String"
+      ],
+      "potd": false,
+      "problem": "A phrase is a palindrome if, after converting uppercase letters to lowercase and removing every character that is not a letter or digit, it reads the same forward and backward. Given a string s, return true if it is a palindrome and false otherwise.",
+      "examples": [
+        {
+          "input": "s = \"A man, a plan, a canal: Panama\"",
+          "output": "true",
+          "explanation": "\"amanaplanacanalpanama\" is a palindrome."
+        },
+        {
+          "input": "s = \"race a car\"",
+          "output": "false",
+          "explanation": "\"raceacar\" is not a palindrome."
+        },
+        {
+          "input": "s = \" \"",
+          "output": "true",
+          "explanation": "After removing non alphanumeric characters s is the empty string \"\", which reads the same both ways."
+        }
+      ],
+      "intuition": "We do not need to build the cleaned string. Put one pointer at each end, skip characters that do not count, and compare the two real characters ignoring case. If every pair matches until the pointers meet, it is a palindrome.",
+      "approach": [
+        "Set l = 0 and r = s.length() - 1.",
+        "While l < r, move l right past non letter/digit characters, and r left the same way (keep l < r in both loops).",
+        "Compare lowercase versions of s[l] and s[r]; if different return false.",
+        "Move both pointers inward and continue.",
+        "If the loop finishes, return true."
+      ],
+      "dryRun": [
+        "s has length 30, so l=0, r=29",
+        "l=0 'A', r=29 'a': lowercase both 'a', match, l=1, r=28",
+        "l=1 is a space, skip to l=2 'm'; r=28 'm': match, l=3, r=27",
+        "l=3 'a', r=27 'a': match, and so on, skipping ',' ':' and spaces",
+        "Every pair matches until l >= r, so return true"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "String with only spaces or punctuation: inner loops stop at l == r, returns true",
+        "Digits count: \"0P\" compares '0' and 'p' and returns false",
+        "Mixed case like \"Aa\" is a palindrome",
+        "Single character is always a palindrome"
+      ],
+      "takeaway": "Palindrome checks on a filtered string: two pointers from both ends with skip loops, no extra string needed.",
+      "link": "https://leetcode.com/problems/valid-palindrome/"
+    },
+    {
+      "folder": "03-longest-repeating-character-replacement",
+      "id": 424,
+      "title": "Longest Repeating Character Replacement",
+      "slug": "longest-repeating-character-replacement",
+      "difficulty": "Medium",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "potd": false,
+      "problem": "You are given an uppercase string s and an integer k. You may change any character to any other uppercase letter, at most k times in total. Return the length of the longest substring that can be made of one repeated letter after these changes.",
+      "examples": [
+        {
+          "input": "s = \"ABAB\", k = 2",
+          "output": "4",
+          "explanation": "Replace the two 'A's with two 'B's or vice versa."
+        },
+        {
+          "input": "s = \"AABABBA\", k = 1",
+          "output": "4",
+          "explanation": "Replace the one 'A' in the middle with 'B' and form \"AABBBBA\". The substring \"BBBB\" has the longest repeating letters, which is 4. There may exist other ways to achieve this answer too."
+        }
+      ],
+      "intuition": "For a window, the cheapest plan is to keep its most frequent letter and change everything else. So a window is valid when (window length - count of most frequent letter) <= k. Grow the window to the right, and shrink from the left only when it becomes invalid. The variable max only ever grows; that is fine because the answer can only improve when we find a window with a bigger max, so a stale max never produces a wrong larger answer.",
+      "approach": [
+        "Keep cnt[26] for letters in the window [l, r], plus max (best frequency seen) and ans.",
+        "For each r, add s[r] to cnt and update max.",
+        "While (r - l + 1) - max > k, remove s[l] from cnt and move l right.",
+        "Update ans with the window length r - l + 1.",
+        "Return ans."
+      ],
+      "dryRun": [
+        "s=\"ABAB\", k=2, l=0, max=0, ans=0",
+        "r=0 'A': cnt[A]=1, max=1, length 1 - 1 = 0 <= 2, ans=1",
+        "r=1 'B': cnt[B]=1, max=1, length 2 - 1 = 1 <= 2, ans=2",
+        "r=2 'A': cnt[A]=2, max=2, length 3 - 2 = 1 <= 2, ans=3",
+        "r=3 'B': cnt[B]=2, max=2, length 4 - 2 = 2 <= 2, ans=4",
+        "Return 4"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1) (26 counters)"
+      },
+      "edgeCases": [
+        "k = 0: answer is the longest run of the same letter",
+        "k >= length: whole string",
+        "All letters the same: whole string",
+        "All letters different with k = 0: answer 1"
+      ],
+      "takeaway": "Sliding window with a validity rule of the form 'window size minus best count <= k': expand right, shrink left while invalid, track the best width.",
+      "link": "https://leetcode.com/problems/longest-repeating-character-replacement/"
+    },
+    {
+      "folder": "04-decode-ways",
+      "id": 91,
+      "title": "Decode Ways",
+      "slug": "decode-ways",
+      "difficulty": "Medium",
+      "tags": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "potd": false,
+      "problem": "Letters are encoded as 'A' -> \"1\", 'B' -> \"2\", ..., 'Z' -> \"26\". Given a string s of digits, return how many different ways it can be decoded back into letters. A part like \"06\" is invalid (no leading zero), so if no valid decoding exists return 0.",
+      "examples": [
+        {
+          "input": "s = \"12\"",
+          "output": "2",
+          "explanation": "\"12\" could be decoded as \"AB\" (1 2) or \"L\" (12)."
+        },
+        {
+          "input": "s = \"226\"",
+          "output": "3",
+          "explanation": "\"226\" could be decoded as \"BZ\" (2 26), \"VF\" (22 6), or \"BBF\" (2 2 6)."
+        },
+        {
+          "input": "s = \"06\"",
+          "output": "0",
+          "explanation": "\"06\" cannot be mapped to \"F\" because of the leading zero (\"6\" is different from \"06\"). In this case, the string is not a valid encoding, so return 0."
+        }
+      ],
+      "intuition": "The last letter of any decoding of the first i digits uses either the last one digit or the last two digits. So the ways for the first i digits = ways for i-1 (if the last digit is 1 to 9) + ways for i-2 (if the last two digits form 10 to 26). This is a Fibonacci style recurrence with conditions.",
+      "approach": [
+        "dp[i] = number of ways to decode the first i characters. dp[0] = 1 (empty prefix).",
+        "For i from 1 to n: if s[i-1] != '0', add dp[i-1].",
+        "If i >= 2, build two = the number from s[i-2] and s[i-1]; if 10 <= two <= 26, add dp[i-2].",
+        "Return dp[n]."
+      ],
+      "dryRun": [
+        "s=\"12\", n=2, dp=[1,0,0]",
+        "i=1: s[0]='1' != '0', dp[1] += dp[0], dp[1]=1",
+        "i=2: s[1]='2' != '0', dp[2] += dp[1] = 1",
+        "i=2: two = 12, in [10,26], dp[2] += dp[0] = 2",
+        "Return dp[2] = 2"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(n) (can be reduced to O(1) with two variables)"
+      },
+      "edgeCases": [
+        "Starts with '0': dp[1] stays 0, so the answer is 0",
+        "\"10\" and \"20\": the zero can only be used in the pair",
+        "\"100\" or \"30\": a zero that cannot pair gives 0 ways",
+        "Pairs above 26 like \"27\" only count as single digits"
+      ],
+      "takeaway": "Counting ways to split a string with local rules: dp over prefixes, dp[i] = sum of dp[i - len] for each valid last piece.",
+      "link": "https://leetcode.com/problems/decode-ways/"
+    },
+    {
+      "folder": "05-median-of-two-sorted-arrays",
+      "id": 4,
+      "title": "Median of Two Sorted Arrays",
+      "slug": "median-of-two-sorted-arrays",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Divide and Conquer"
+      ],
+      "potd": false,
+      "problem": "Given two sorted arrays nums1 (size m) and nums2 (size n), return the median of all their elements combined. The required run time is O(log (m+n)).",
+      "examples": [
+        {
+          "input": "nums1 = [1,3], nums2 = [2]",
+          "output": "2.00000",
+          "explanation": "merged array = [1,2,3] and median is 2."
+        },
+        {
+          "input": "nums1 = [1,2], nums2 = [3,4]",
+          "output": "2.50000",
+          "explanation": "merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5."
+        }
+      ],
+      "intuition": "The median splits the merged array into a left half and a right half. Choose how many elements i come from nums1 into the left half; then j = half - i must come from nums2. The split is correct exactly when everything on the left is <= everything on the right, which only needs two checks: nums1[i-1] <= nums2[j] and nums2[j-1] <= nums1[i]. As i grows, nums1[i-1] grows, so we can binary search i on the shorter array.",
+      "approach": [
+        "Make nums1 the shorter array (swap by recursing). n = nums1.length, m = nums2.length, half = (n + m + 1) / 2.",
+        "Binary search i in [0, n]; j = half - i.",
+        "a1, a2 are the elements left and right of the cut in nums1; b1, b2 the same for nums2. Use MIN_VALUE / MAX_VALUE when the cut is at an edge.",
+        "If a1 <= b2 and b1 <= a2, the cut is right: odd total gives max(a1, b1), even total gives (max(a1, b1) + min(a2, b2)) / 2.0.",
+        "If a1 > b2, too many taken from nums1, so r = i - 1; otherwise l = i + 1."
+      ],
+      "dryRun": [
+        "nums1=[1,3] is longer, so swap: nums1=[2], nums2=[1,3]. n=1, m=2, half=2, l=0, r=1",
+        "i=0, j=2: a1=MIN, a2=2, b1=3, b2=MAX. b1=3 > a2=2, so l=1",
+        "i=1, j=1: a1=2, a2=MAX, b1=1, b2=3. a1 <= b2 and b1 <= a2, valid cut",
+        "Total 3 is odd, return max(a1, b1) = max(2, 1) = 2.0"
+      ],
+      "complexity": {
+        "time": "O(log(min(m, n)))",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "One array empty: the search runs on the empty one with i = 0 and reads the median from the other",
+        "Even total: average of max of left and min of right, using 2.0 to stay in double",
+        "Duplicates and negatives work because only <= comparisons are used",
+        "Values up to 10^6 so a1 + b1 style sums cannot overflow"
+      ],
+      "takeaway": "When you need the k-th or median of two sorted arrays, binary search the partition of the smaller array instead of merging.",
+      "link": "https://leetcode.com/problems/median-of-two-sorted-arrays/"
+    }
+  ]
+}
