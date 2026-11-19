@@ -3,28 +3,44 @@
   "problems": {
     "evaluate-reverse-polish-notation": {
       "folder": "01-evaluate-reverse-polish-notation",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "20:07",
+      "runtime": "6 ms",
+      "memory": "45.13 MB"
     },
     "valid-palindrome": {
       "folder": "02-valid-palindrome",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "20:07",
+      "runtime": "3 ms",
+      "memory": "43.89 MB"
     },
     "longest-repeating-character-replacement": {
       "folder": "03-longest-repeating-character-replacement",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "20:08",
+      "runtime": "6 ms",
+      "memory": "45.56 MB"
     },
     "decode-ways": {
       "folder": "04-decode-ways",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "20:08",
+      "runtime": "1 ms",
+      "memory": "42.76 MB"
     },
     "median-of-two-sorted-arrays": {
       "folder": "05-median-of-two-sorted-arrays",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "20:09",
+      "runtime": "3 ms",
+      "memory": "48.20 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
