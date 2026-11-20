@@ -3,28 +3,44 @@
   "problems": {
     "maximize-consecutive-elements-in-an-array-after-modification": {
       "folder": "01-maximize-consecutive-elements-in-an-array-after-modification",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:07",
+      "runtime": "82 ms",
+      "memory": "74.14 MB"
     },
     "missing-number": {
       "folder": "02-missing-number",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:07",
+      "runtime": "0 ms",
+      "memory": "45.86 MB"
     },
     "reorder-list": {
       "folder": "03-reorder-list",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:08",
+      "runtime": "2 ms",
+      "memory": "48.60 MB"
     },
     "network-delay-time": {
       "folder": "04-network-delay-time",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:09",
+      "runtime": "9 ms",
+      "memory": "48.41 MB"
     },
     "candy": {
       "folder": "05-candy",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "19:10",
+      "runtime": "4 ms",
+      "memory": "52.10 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
