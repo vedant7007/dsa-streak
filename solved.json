@@ -602,6 +602,72 @@
         "Divide and Conquer"
       ],
       "date": "2026-11-19"
+    },
+    {
+      "slug": "maximize-consecutive-elements-in-an-array-after-modification",
+      "id": 3041,
+      "title": "Maximize Consecutive Elements in an Array After Modification",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Sorting"
+      ],
+      "date": "2026-11-20"
+    },
+    {
+      "slug": "missing-number",
+      "id": 268,
+      "title": "Missing Number",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Math",
+        "Binary Search",
+        "Bit Manipulation",
+        "Sorting"
+      ],
+      "date": "2026-11-20"
+    },
+    {
+      "slug": "reorder-list",
+      "id": 143,
+      "title": "Reorder List",
+      "difficulty": "Medium",
+      "tags": [
+        "Linked List",
+        "Two Pointers",
+        "Stack",
+        "Recursion"
+      ],
+      "date": "2026-11-20"
+    },
+    {
+      "slug": "network-delay-time",
+      "id": 743,
+      "title": "Network Delay Time",
+      "difficulty": "Medium",
+      "tags": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph Theory",
+        "Heap (Priority Queue)",
+        "Shortest Path",
+        "Dijkstra's Algorithm"
+      ],
+      "date": "2026-11-20"
+    },
+    {
+      "slug": "candy",
+      "id": 135,
+      "title": "Candy",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Greedy"
+      ],
+      "date": "2026-11-20"
     }
   ]
 }

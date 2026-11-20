@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-20",
+  "problems": {
+    "maximize-consecutive-elements-in-an-array-after-modification": {
+      "folder": "01-maximize-consecutive-elements-in-an-array-after-modification",
+      "verdict": null,
+      "attempts": 0
+    },
+    "missing-number": {
+      "folder": "02-missing-number",
+      "verdict": null,
+      "attempts": 0
+    },
+    "reorder-list": {
+      "folder": "03-reorder-list",
+      "verdict": null,
+      "attempts": 0
+    },
+    "network-delay-time": {
+      "folder": "04-network-delay-time",
+      "verdict": null,
+      "attempts": 0
+    },
+    "candy": {
+      "folder": "05-candy",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
