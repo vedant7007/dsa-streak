@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-21",
+  "problems": {
+    "find-subtree-sizes-after-changes": {
+      "folder": "01-find-subtree-sizes-after-changes",
+      "verdict": null,
+      "attempts": 0
+    },
+    "majority-element": {
+      "folder": "02-majority-element",
+      "verdict": null,
+      "attempts": 0
+    },
+    "find-minimum-in-rotated-sorted-array": {
+      "folder": "03-find-minimum-in-rotated-sorted-array",
+      "verdict": null,
+      "attempts": 0
+    },
+    "permutations": {
+      "folder": "04-permutations",
+      "verdict": null,
+      "attempts": 0
+    },
+    "sliding-window-maximum": {
+      "folder": "05-sliding-window-maximum",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}

@@ -668,6 +668,70 @@
         "Greedy"
       ],
       "date": "2026-11-20"
+    },
+    {
+      "slug": "find-subtree-sizes-after-changes",
+      "id": 3331,
+      "title": "Find Subtree Sizes After Changes",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "String",
+        "Tree",
+        "Depth-First Search"
+      ],
+      "date": "2026-11-21"
+    },
+    {
+      "slug": "majority-element",
+      "id": 169,
+      "title": "Majority Element",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Divide and Conquer",
+        "Sorting",
+        "Counting"
+      ],
+      "date": "2026-11-21"
+    },
+    {
+      "slug": "find-minimum-in-rotated-sorted-array",
+      "id": 153,
+      "title": "Find Minimum in Rotated Sorted Array",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ],
+      "date": "2026-11-21"
+    },
+    {
+      "slug": "permutations",
+      "id": 46,
+      "title": "Permutations",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Backtracking"
+      ],
+      "date": "2026-11-21"
+    },
+    {
+      "slug": "sliding-window-maximum",
+      "id": 239,
+      "title": "Sliding Window Maximum",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Queue",
+        "Sliding Window",
+        "Heap (Priority Queue)",
+        "Monotonic Queue"
+      ],
+      "date": "2026-11-21"
     }
   ]
 }

@@ -1,0 +1,296 @@
+{
+  "date": "2026-11-21",
+  "problems": [
+    {
+      "folder": "01-find-subtree-sizes-after-changes",
+      "id": 3331,
+      "title": "Find Subtree Sizes After Changes",
+      "slug": "find-subtree-sizes-after-changes",
+      "difficulty": "Medium",
+      "link": "https://leetcode.com/problems/find-subtree-sizes-after-changes/",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "String",
+        "Tree",
+        "Depth-First Search"
+      ],
+      "potd": true,
+      "problem": "You get a tree rooted at node 0 as a parent array, and a letter s[i] on every node. For every node x (all at the same time, using the original tree), find the closest ancestor y with the same letter. If it exists, x gets cut from its parent and attached under y. Return the size of every node's subtree in the final tree.",
+      "examples": [
+        {
+          "input": "parent = [-1,0,0,1,1,1], s = \"abaabc\"",
+          "output": "[6,3,1,1,1,1]",
+          "explanation": "Node 3 has letter 'a'. Its ancestors are 1 ('b') and 0 ('a'), so node 3 moves under node 0. Nothing else changes. Node 0 now has 6 nodes under it, node 1 keeps 4 and 5, so its size is 3."
+        },
+        {
+          "input": "parent = [-1,0,4,0,1], s = \"abbba\"",
+          "output": "[5,2,1,1,1]",
+          "explanation": "Node 2 ('b') moves under node 1 ('b'), and node 4 ('a') moves under node 0 ('a'). The changes happen at the same time. Node 1 ends with child 2, so size 2; node 0 has everything, so size 5."
+        }
+      ],
+      "intuition": "While doing a DFS from the root, the current root-to-node path is exactly the list of ancestors. If for each letter we remember the deepest node on the path with that letter (last[c]), then the new parent of x is just last[s[x]] at the moment we enter x. When we leave a node we restore last[c] to what it was before (prev[x]), like a stack per letter. Because a new parent is always an original ancestor, every node still comes after its new parent in the original DFS order, so we can add sizes bottom-up by walking that order backwards.",
+      "approach": [
+        "Build children lists adj from parent. Copy parent into np (new parent).",
+        "Set last[26] to -1. Enter the root: last[s[0]] = 0, order[0] = 0.",
+        "Run an iterative DFS with stack st and a per-node child pointer idx (no recursion, so a 1e5 deep chain is safe).",
+        "When entering child y with letter c: if last[c] != -1 then np[y] = last[c]; save prev[y] = last[c]; set last[c] = y; record y in order.",
+        "When a node x has no more children, restore last[s[x]] = prev[x] and pop it.",
+        "Set ans[i] = 1 for all, then for i from n-1 down to 1 do ans[np[order[i]]] += ans[order[i]].",
+        "Return ans."
+      ],
+      "dryRun": [
+        "parent = [-1,0,0,1,1,1], s = \"abaabc\". adj: 0 -> [1,2], 1 -> [3,4,5]. last[a] = 0, order = [0], st = [0]",
+        "x=0: y=1 ('b'), last[b] = -1 so np[1] stays 0. prev[1] = -1, last[b] = 1, push 1",
+        "x=1: y=3 ('a'), last[a] = 0 so np[3] = 0. prev[3] = 0, last[a] = 3, push 3",
+        "x=3: no children, last[a] = prev[3] = 0, pop",
+        "x=1: y=4 ('b'), last[b] = 1 so np[4] = 1 (same as before). After 4 finishes, last[b] = 1 again",
+        "x=1: y=5 ('c'), last[c] = -1 so np[5] stays 1. Then 1 finishes, last[b] = -1",
+        "x=0: y=2 ('a'), last[a] = 0 so np[2] = 0. Then 2 and 0 finish",
+        "order = [0,1,3,4,5,2], np = [-1,0,0,0,1,1], ans = [1,1,1,1,1,1]",
+        "Backwards: x=2 -> ans[0]=2, x=5 -> ans[1]=2, x=4 -> ans[1]=3, x=3 -> ans[0]=3, x=1 -> ans[0]=3+3=6",
+        "Return [6,3,1,1,1,1]"
+      ],
+      "complexity": {
+        "time": "O(n) since each node is entered and left once",
+        "space": "O(n) for adj, stack, order and np"
+      },
+      "edgeCases": [
+        "Single node tree: answer is [1]",
+        "Chain where every letter is the same: closest same-letter ancestor is the parent itself, so nothing changes",
+        "Deep chain of 1e5 nodes: iterative DFS avoids StackOverflowError",
+        "Changes use the original tree, not the partly changed one, which is why we read ancestors from the original DFS path"
+      ],
+      "takeaway": "Need the nearest ancestor with some property? Keep a per-key 'last seen on the path' during DFS and restore it when you leave the node."
+    },
+    {
+      "folder": "02-majority-element",
+      "id": 169,
+      "title": "Majority Element",
+      "slug": "majority-element",
+      "difficulty": "Easy",
+      "link": "https://leetcode.com/problems/majority-element/",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Divide and Conquer",
+        "Sorting",
+        "Counting"
+      ],
+      "potd": false,
+      "problem": "Return the element that appears more than n/2 times in the array. Such an element is guaranteed to exist.",
+      "examples": [
+        {
+          "input": "nums = [3,2,3]",
+          "output": "3",
+          "explanation": "3 appears 2 times out of 3."
+        },
+        {
+          "input": "nums = [2,2,1,1,1,2,2]",
+          "output": "2",
+          "explanation": "2 appears 4 times out of 7."
+        }
+      ],
+      "intuition": "Boyer-Moore voting: pair up each majority element with a different element and cancel both. Since the majority has more than half the elements, it cannot be fully cancelled, so it is the candidate left standing at the end.",
+      "approach": [
+        "Keep cand and cnt, starting at cnt = 0.",
+        "For each x: if cnt is 0, take x as the new cand.",
+        "If x == cand do cnt++, else cnt--.",
+        "Return cand."
+      ],
+      "dryRun": [
+        "nums = [3,2,3], cand = 0, cnt = 0",
+        "x=3: cnt is 0 so cand = 3, then cnt = 1",
+        "x=2: different, cnt = 0",
+        "x=3: cnt is 0 so cand = 3, then cnt = 1",
+        "Return 3"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Single element: it is the answer",
+        "All elements equal",
+        "Negative and extreme values like -1e9 work because we only compare",
+        "Majority not at the start, like [1,2,1,3,1]"
+      ],
+      "takeaway": "More than half means it survives pairwise cancelling: Boyer-Moore voting gives O(1) space. A HashMap count is the easy fallback."
+    },
+    {
+      "folder": "03-find-minimum-in-rotated-sorted-array",
+      "id": 153,
+      "title": "Find Minimum in Rotated Sorted Array",
+      "slug": "find-minimum-in-rotated-sorted-array",
+      "difficulty": "Medium",
+      "link": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ],
+      "potd": false,
+      "problem": "A sorted array of unique numbers was rotated some number of times (1 to n). Find the smallest element in O(log n) time.",
+      "examples": [
+        {
+          "input": "nums = [3,4,5,1,2]",
+          "output": "1",
+          "explanation": "The original array was [1,2,3,4,5] rotated 3 times."
+        },
+        {
+          "input": "nums = [4,5,6,7,0,1,2]",
+          "output": "0",
+          "explanation": "The original array was [0,1,2,4,5,6,7] rotated 4 times."
+        },
+        {
+          "input": "nums = [11,13,15,17]",
+          "output": "11",
+          "explanation": "The original array was [11,13,15,17] rotated 4 times, so it looks unrotated."
+        }
+      ],
+      "intuition": "Compare the middle with the right end. If nums[mid] > nums[r], the drop (the minimum) must be to the right of mid. Otherwise the part from mid to r is sorted, so the minimum is at mid or to its left. Each step halves the range.",
+      "approach": [
+        "l = 0, r = n - 1.",
+        "While l < r: mid = l + (r - l) / 2.",
+        "If nums[mid] > nums[r], set l = mid + 1 (minimum is strictly right of mid).",
+        "Else set r = mid (mid could be the minimum).",
+        "Return nums[l]."
+      ],
+      "dryRun": [
+        "nums = [3,4,5,1,2], l = 0, r = 4",
+        "mid = 2: nums[2] = 5 > nums[4] = 2, so l = 3",
+        "mid = 3: nums[3] = 1 > nums[4] = 2? No, so r = 3",
+        "l == r == 3, return nums[3] = 1"
+      ],
+      "complexity": {
+        "time": "O(log n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Single element: loop never runs, return it",
+        "Not rotated (rotated n times): r keeps moving left to index 0",
+        "Two elements like [2,1]",
+        "Compare with nums[r], not nums[l], so the unrotated case works without special handling"
+      ],
+      "takeaway": "Rotated sorted array: compare mid with the right end to decide which half has the break point."
+    },
+    {
+      "folder": "04-permutations",
+      "id": 46,
+      "title": "Permutations",
+      "slug": "permutations",
+      "difficulty": "Medium",
+      "link": "https://leetcode.com/problems/permutations/",
+      "tags": [
+        "Array",
+        "Backtracking"
+      ],
+      "potd": false,
+      "problem": "Given an array of distinct integers, return all possible orderings (permutations). Any order of the result is fine.",
+      "examples": [
+        {
+          "input": "nums = [1,2,3]",
+          "output": "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]",
+          "explanation": "All 3! = 6 orderings."
+        },
+        {
+          "input": "nums = [0,1]",
+          "output": "[[0,1],[1,0]]",
+          "explanation": "Both orderings of two numbers."
+        },
+        {
+          "input": "nums = [1]",
+          "output": "[[1]]",
+          "explanation": "Only one ordering."
+        }
+      ],
+      "intuition": "Build the permutation one slot at a time. For the next slot, try every number not used yet (vis), recurse, then undo the choice. Every path from root to a full list is one unique permutation.",
+      "approach": [
+        "Keep res, the current list cur and a boolean vis array.",
+        "dfs: if cur has n numbers, add a copy of cur to res and return.",
+        "Otherwise loop i over 0..n-1, skip if vis[i].",
+        "Mark vis[i], add nums[i], recurse, then remove the last element and unmark vis[i].",
+        "Return res."
+      ],
+      "dryRun": [
+        "nums = [1,2,3], cur = []",
+        "pick 1 -> cur [1], pick 2 -> [1,2], pick 3 -> [1,2,3], full so res = [[1,2,3]]",
+        "undo 3, undo 2, pick 3 -> [1,3], pick 2 -> [1,3,2], res gets [1,3,2]",
+        "undo back to [], pick 2 -> gives [2,1,3] and [2,3,1]",
+        "pick 3 -> gives [3,1,2] and [3,2,1]",
+        "res has 6 lists"
+      ],
+      "complexity": {
+        "time": "O(n * n!) since there are n! permutations and copying each costs n",
+        "space": "O(n) for recursion, cur and vis (output not counted)"
+      },
+      "edgeCases": [
+        "Single element gives one list",
+        "Max size n = 6 gives 720 lists",
+        "Negative numbers work, we never use values as indexes",
+        "Must add a new ArrayList copy, not cur itself, or all entries end up empty"
+      ],
+      "takeaway": "Backtracking template: choose, recurse, un-choose. Use a vis array for 'each element once' problems."
+    },
+    {
+      "folder": "05-sliding-window-maximum",
+      "id": 239,
+      "title": "Sliding Window Maximum",
+      "slug": "sliding-window-maximum",
+      "difficulty": "Hard",
+      "link": "https://leetcode.com/problems/sliding-window-maximum/",
+      "tags": [
+        "Array",
+        "Queue",
+        "Sliding Window",
+        "Heap (Priority Queue)",
+        "Monotonic Queue"
+      ],
+      "potd": false,
+      "problem": "A window of size k slides from left to right over the array, one step at a time. Return the maximum of each window.",
+      "examples": [
+        {
+          "input": "nums = [1,3,-1,-3,5,3,6,7], k = 3",
+          "output": "[3,3,5,5,6,7]",
+          "explanation": "Windows: [1,3,-1] max 3, [3,-1,-3] max 3, [-1,-3,5] max 5, [-3,5,3] max 5, [5,3,6] max 6, [3,6,7] max 7."
+        },
+        {
+          "input": "nums = [1], k = 1",
+          "output": "[1]",
+          "explanation": "Only one window."
+        }
+      ],
+      "intuition": "Keep a deque of indexes whose values are decreasing from front to back. If a new number is bigger than or equal to the back, the back can never be a window max again (the new number is bigger and lives longer), so pop it. The front is always the max of the current window; just drop it once it slides out.",
+      "approach": [
+        "Use an int array q as a deque with head h and tail t.",
+        "For each i: if the front index q[h] <= i - k, it is outside the window, so h++.",
+        "While the back value nums[q[t-1]] <= nums[i], pop the back (t--).",
+        "Push i at the back.",
+        "Once i >= k - 1, ans[i - k + 1] = nums[q[h]].",
+        "Return ans."
+      ],
+      "dryRun": [
+        "nums = [1,3,-1,-3,5,3,6,7], k = 3",
+        "i=0: q = [0]",
+        "i=1: 1 <= 3 so pop 0, q = [1]",
+        "i=2: -1 < 3, q = [1,2], ans[0] = nums[1] = 3",
+        "i=3: q = [1,2,3], ans[1] = 3",
+        "i=4: front 1 <= 4-3 so drop it; pop 3 and 2 (both <= 5); q = [4], ans[2] = 5",
+        "i=5: q = [4,5], ans[3] = 5",
+        "i=6: pop 5 and 4 (<= 6), q = [6], ans[4] = 6",
+        "i=7: pop 6, q = [7], ans[5] = 7",
+        "Return [3,3,5,5,6,7]"
+      ],
+      "complexity": {
+        "time": "O(n) since each index is pushed and popped at most once",
+        "space": "O(n) for the deque array (O(k) live entries)"
+      },
+      "edgeCases": [
+        "k = 1: every element is its own max",
+        "k = n: one window, answer is the overall max",
+        "Strictly decreasing input: nothing is popped from the back, only from the front",
+        "Equal values: popping on <= keeps the newest index, which is fine"
+      ],
+      "takeaway": "Max or min over a sliding window means a monotonic deque of indexes: pop smaller ones from the back, expired ones from the front."
+    }
+  ]
+}
