@@ -1,0 +1,273 @@
+{
+  "date": "2026-11-22",
+  "problems": [
+    {
+      "folder": "01-house-robber",
+      "id": 198,
+      "title": "House Robber",
+      "slug": "house-robber",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "potd": false,
+      "problem": "Houses stand in a row, each with some money. You cannot rob two adjacent houses (the alarm goes off). Return the most money you can rob.",
+      "examples": [
+        {
+          "input": "nums = [1,2,3,1]",
+          "output": "4",
+          "explanation": "Rob house 1 (1) and house 3 (3): 1 + 3 = 4."
+        },
+        {
+          "input": "nums = [2,7,9,3,1]",
+          "output": "12",
+          "explanation": "Rob houses 1, 3 and 5: 2 + 9 + 1 = 12."
+        }
+      ],
+      "intuition": "At each house you have two choices: skip it and keep the best answer so far, or rob it and add its money to the best answer from two houses back. The best of those two is the answer up to this house. Only the last two answers are ever needed, so two variables replace the dp array.",
+      "approach": [
+        "prev = best up to two houses back, cur = best up to the previous house. Both start at 0.",
+        "For each x: t = max(cur, prev + x), meaning skip x or rob x.",
+        "Shift: prev = cur, cur = t.",
+        "Return cur."
+      ],
+      "dryRun": [
+        "nums = [1,2,3,1], prev = 0, cur = 0",
+        "x=1: t = max(0, 0+1) = 1, prev = 0, cur = 1",
+        "x=2: t = max(1, 0+2) = 2, prev = 1, cur = 2",
+        "x=3: t = max(2, 1+3) = 4, prev = 2, cur = 4",
+        "x=1: t = max(4, 2+1) = 4, prev = 4, cur = 4",
+        "Return 4"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Single house: rob it",
+        "All zeros: answer 0",
+        "[2,1,1,2]: best is 2 + 2 = 4, skipping two houses in the middle, which greedy picking of every other house misses",
+        "n = 100 with every value 400: answer 50 * 400"
+      ],
+      "takeaway": "dp[i] = max(dp[i-1], dp[i-2] + nums[i]). When dp only looks back two steps, roll it into two variables."
+    },
+    {
+      "folder": "02-palindrome-linked-list",
+      "id": 234,
+      "title": "Palindrome Linked List",
+      "slug": "palindrome-linked-list",
+      "difficulty": "Easy",
+      "tags": [
+        "Linked List",
+        "Two Pointers",
+        "Stack",
+        "Recursion"
+      ],
+      "potd": false,
+      "problem": "Given the head of a singly linked list, return true if its values read the same forwards and backwards. Follow-up: O(n) time and O(1) extra space.",
+      "examples": [
+        {
+          "input": "head = [1,2,2,1]",
+          "output": "true",
+          "explanation": "Reads 1,2,2,1 both ways."
+        },
+        {
+          "input": "head = [1,2]",
+          "output": "false",
+          "explanation": "1,2 reversed is 2,1."
+        }
+      ],
+      "intuition": "We cannot walk a singly linked list backwards, so reverse the second half in place. Then walk from the head and from the new start of the reversed half together and compare values one by one.",
+      "approach": [
+        "Find the middle with slow and fast pointers: slow moves 1 step, fast moves 2.",
+        "Reverse the list starting at slow, using prev and nxt. prev ends as the head of the reversed half.",
+        "Walk l from head and r from prev. If any l.val != r.val return false.",
+        "Stop when r becomes null and return true."
+      ],
+      "dryRun": [
+        "List 1 -> 2 -> 2 -> 1 (positions 0..3). slow = fast = position 0",
+        "Step: slow = pos 1, fast = pos 2. fast.next exists, step again: slow = pos 2, fast = null. Stop.",
+        "Reverse from slow (pos 2): prev becomes pos 3 (val 1) -> pos 2 (val 2) -> null",
+        "l = head (1), r = prev (1): equal. l = 2, r = 2: equal",
+        "r = null, loop ends, return true"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Single node: always a palindrome",
+        "Odd length like [1,2,1]: the middle node lands in the reversed half and is compared with itself",
+        "Two nodes with different values: false",
+        "1e5 nodes: no recursion, so no stack overflow"
+      ],
+      "takeaway": "Middle with slow/fast, reverse the second half, compare two pointers. The same three moves solve Reorder List."
+    },
+    {
+      "folder": "03-gas-station",
+      "id": 134,
+      "title": "Gas Station",
+      "slug": "gas-station",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Greedy"
+      ],
+      "potd": false,
+      "problem": "There are n gas stations in a circle. Station i gives gas[i] fuel and it costs cost[i] to drive to the next station. Starting with an empty tank, return the station index from which you can drive all the way around once, or -1 if impossible. The answer is unique if it exists.",
+      "examples": [
+        {
+          "input": "gas = [1,2,3,4,5], cost = [3,4,5,1,2]",
+          "output": "3",
+          "explanation": "Start at 3 with 4 fuel. Tanks after each leg: 3, 6, 4, 2, 0. You get back to station 3."
+        },
+        {
+          "input": "gas = [2,3,4], cost = [3,4,3]",
+          "output": "-1",
+          "explanation": "Total gas 9 is less than total cost 10, so no start works."
+        }
+      ],
+      "intuition": "If total gas is less than total cost, no start works. Otherwise, run a tank from a candidate start. If the tank goes negative at station i, then no station between the start and i can be a valid start either (each of them would arrive at i with even less fuel), so jump the candidate to i + 1 and reset the tank.",
+      "approach": [
+        "Keep total (sum of all gas[i] - cost[i]), tank (fuel since current start) and st (current start).",
+        "For each i: d = gas[i] - cost[i], add d to total and tank.",
+        "If tank < 0: st = i + 1, tank = 0.",
+        "Return -1 if total < 0, else st."
+      ],
+      "dryRun": [
+        "d = [-2,-2,-2,3,3], total = 0, tank = 0, st = 0",
+        "i=0: total = -2, tank = -2 < 0, st = 1, tank = 0",
+        "i=1: total = -4, tank = -2 < 0, st = 2, tank = 0",
+        "i=2: total = -6, tank = -2 < 0, st = 3, tank = 0",
+        "i=3: total = -3, tank = 3",
+        "i=4: total = 0, tank = 6",
+        "total >= 0, return st = 3"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Single station: works only if gas[0] >= cost[0]",
+        "All zeros: start 0 works",
+        "total exactly 0: still possible (example 1)",
+        "n = 1e5: one pass, no O(n^2) simulation"
+      ],
+      "takeaway": "Greedy reset: if a prefix sum goes negative, no start inside that prefix can work, so restart right after it. Same idea as Kadane."
+    },
+    {
+      "folder": "04-longest-palindromic-substring",
+      "id": 5,
+      "title": "Longest Palindromic Substring",
+      "slug": "longest-palindromic-substring",
+      "difficulty": "Medium",
+      "tags": [
+        "Two Pointers",
+        "String",
+        "Dynamic Programming"
+      ],
+      "potd": false,
+      "problem": "Return the longest substring of s that reads the same forwards and backwards. If there are ties, any one is accepted.",
+      "examples": [
+        {
+          "input": "s = \"babad\"",
+          "output": "\"bab\"",
+          "explanation": "\"aba\" is also a valid answer."
+        },
+        {
+          "input": "s = \"cbbd\"",
+          "output": "\"bb\"",
+          "explanation": "The longest palindrome is the even-length \"bb\"."
+        }
+      ],
+      "intuition": "Every palindrome has a center: one character (odd length) or the gap between two characters (even length). There are only 2n - 1 centers, and from each one we expand outwards while both ends match. That gives O(n^2) time with O(1) space, simpler than a full dp table.",
+      "approach": [
+        "For each i, a = expand(i, i) for odd length, b = expand(i, i + 1) for even length.",
+        "expand moves l left and r right while s[l] == s[r], then returns r - l - 1, the palindrome length.",
+        "m = max(a, b). If m > len, store len = m and st = i - (m - 1) / 2.",
+        "Return s.substring(st, st + len)."
+      ],
+      "dryRun": [
+        "s = \"babad\", st = 0, len = 0",
+        "i=0: a = 1 (\"b\"), b = 0. m = 1 > 0, len = 1, st = 0",
+        "i=1: a: s[0] == s[2] ('b'), then l = -1, so a = 3 (\"bab\"). b = 0. m = 3 > 1, len = 3, st = 1 - 1 = 0",
+        "i=2: a = 3 (\"aba\"), not > 3, keep. b = 0",
+        "i=3: a = 1, b = 0. i=4: a = 1, b = 0",
+        "Return s.substring(0, 3) = \"bab\""
+      ],
+      "complexity": {
+        "time": "O(n^2)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Single character: itself",
+        "No repeats like \"ac\": any single character",
+        "All same like \"aaaa\": whole string, found by the even center",
+        "Digits mixed with letters work the same",
+        "n = 1000: about 1e6 steps, fine"
+      ],
+      "takeaway": "Palindrome problems: expand around 2n - 1 centers (odd and even). Manacher is O(n) but rarely expected in interviews."
+    },
+    {
+      "folder": "05-first-missing-positive",
+      "id": 41,
+      "title": "First Missing Positive",
+      "slug": "first-missing-positive",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Hash Table"
+      ],
+      "potd": false,
+      "problem": "Given an unsorted integer array, return the smallest positive integer that does not appear in it. You must use O(n) time and O(1) extra space.",
+      "examples": [
+        {
+          "input": "nums = [1,2,0]",
+          "output": "3",
+          "explanation": "1 and 2 are present, so 3 is the first missing."
+        },
+        {
+          "input": "nums = [3,4,-1,1]",
+          "output": "2",
+          "explanation": "1 is present but 2 is missing."
+        },
+        {
+          "input": "nums = [7,8,9,11,12]",
+          "output": "1",
+          "explanation": "The smallest positive integer 1 is missing."
+        }
+      ],
+      "intuition": "The answer is always in 1..n+1, because n numbers can fill at most the slots 1..n. So use the array itself as a hash table: put every value v in 1..n at index v - 1 by swapping (cyclic sort). After that, the first index i where nums[i] != i + 1 tells us i + 1 is missing.",
+      "approach": [
+        "n = nums.length.",
+        "For each i: while nums[i] is in 1..n and nums[nums[i] - 1] != nums[i], swap nums[i] into index j = nums[i] - 1.",
+        "The != check stops infinite loops on duplicates. Each swap places one value for good, so total swaps are at most n.",
+        "Scan i from 0: the first nums[i] != i + 1 means answer i + 1.",
+        "If all match, return n + 1."
+      ],
+      "dryRun": [
+        "Example 1: nums = [1,2,0], n = 3",
+        "i=0: nums[0] = 1, nums[0] already equals 1, no swap",
+        "i=1: nums[1] = 2 is already at index 1, no swap",
+        "i=2: nums[2] = 0 is not in 1..3, skip",
+        "Scan: i=0 ok, i=1 ok, i=2: nums[2] = 0 != 3, return 3",
+        "Example 2: [3,4,-1,1]. i=0: swap 3 to index 2 -> [-1,4,3,1]. -1 is out of range, stop",
+        "i=1: swap 4 to index 3 -> [-1,1,3,4]. swap 1 to index 0 -> [1,-1,3,4]. stop",
+        "Scan: i=1 has -1 != 2, return 2"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "[1]: answer 2 (n + 1)",
+        "[2]: answer 1",
+        "Duplicates like [1,1,1]: the != check avoids an infinite swap loop",
+        "Integer.MIN_VALUE and MAX_VALUE: skipped by the range check, no overflow because we never do arithmetic on out-of-range values",
+        "Array is a permutation of 1..n: answer n + 1"
+      ],
+      "takeaway": "Values in a known range 1..n plus O(1) space: cyclic sort, using index v - 1 as the home of value v."
+    }
+  ]
+}

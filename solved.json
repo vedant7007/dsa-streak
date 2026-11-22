@@ -732,6 +732,64 @@
         "Monotonic Queue"
       ],
       "date": "2026-11-21"
+    },
+    {
+      "slug": "house-robber",
+      "id": 198,
+      "title": "House Robber",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "date": "2026-11-22"
+    },
+    {
+      "slug": "palindrome-linked-list",
+      "id": 234,
+      "title": "Palindrome Linked List",
+      "difficulty": "Easy",
+      "tags": [
+        "Linked List",
+        "Two Pointers",
+        "Stack",
+        "Recursion"
+      ],
+      "date": "2026-11-22"
+    },
+    {
+      "slug": "gas-station",
+      "id": 134,
+      "title": "Gas Station",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Greedy"
+      ],
+      "date": "2026-11-22"
+    },
+    {
+      "slug": "longest-palindromic-substring",
+      "id": 5,
+      "title": "Longest Palindromic Substring",
+      "difficulty": "Medium",
+      "tags": [
+        "Two Pointers",
+        "String",
+        "Dynamic Programming"
+      ],
+      "date": "2026-11-22"
+    },
+    {
+      "slug": "first-missing-positive",
+      "id": 41,
+      "title": "First Missing Positive",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Hash Table"
+      ],
+      "date": "2026-11-22"
     }
   ]
 }

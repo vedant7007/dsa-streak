@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-22",
+  "problems": {
+    "house-robber": {
+      "folder": "01-house-robber",
+      "verdict": null,
+      "attempts": 0
+    },
+    "palindrome-linked-list": {
+      "folder": "02-palindrome-linked-list",
+      "verdict": null,
+      "attempts": 0
+    },
+    "gas-station": {
+      "folder": "03-gas-station",
+      "verdict": null,
+      "attempts": 0
+    },
+    "longest-palindromic-substring": {
+      "folder": "04-longest-palindromic-substring",
+      "verdict": null,
+      "attempts": 0
+    },
+    "first-missing-positive": {
+      "folder": "05-first-missing-positive",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
