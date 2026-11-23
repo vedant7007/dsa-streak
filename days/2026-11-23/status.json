@@ -3,28 +3,44 @@
   "problems": {
     "binary-tree-level-order-traversal": {
       "folder": "01-binary-tree-level-order-traversal",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:51",
+      "runtime": "2 ms",
+      "memory": "46.42 MB"
     },
     "valid-anagram": {
       "folder": "02-valid-anagram",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:52",
+      "runtime": "5 ms",
+      "memory": "43.70 MB"
     },
     "k-closest-points-to-origin": {
       "folder": "03-k-closest-points-to-origin",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:52",
+      "runtime": "30 ms",
+      "memory": "60.30 MB"
     },
     "number-of-provinces": {
       "folder": "04-number-of-provinces",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:53",
+      "runtime": "1 ms",
+      "memory": "46.81 MB"
     },
     "swim-in-rising-water": {
       "folder": "05-swim-in-rising-water",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:53",
+      "runtime": "12 ms",
+      "memory": "45.88 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
