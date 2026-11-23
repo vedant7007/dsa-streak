@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-23",
+  "problems": {
+    "binary-tree-level-order-traversal": {
+      "folder": "01-binary-tree-level-order-traversal",
+      "verdict": null,
+      "attempts": 0
+    },
+    "valid-anagram": {
+      "folder": "02-valid-anagram",
+      "verdict": null,
+      "attempts": 0
+    },
+    "k-closest-points-to-origin": {
+      "folder": "03-k-closest-points-to-origin",
+      "verdict": null,
+      "attempts": 0
+    },
+    "number-of-provinces": {
+      "folder": "04-number-of-provinces",
+      "verdict": null,
+      "attempts": 0
+    },
+    "swim-in-rising-water": {
+      "folder": "05-swim-in-rising-water",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}

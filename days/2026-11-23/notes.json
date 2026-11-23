@@ -1,0 +1,273 @@
+{
+  "date": "2026-11-23",
+  "problems": [
+    {
+      "folder": "01-binary-tree-level-order-traversal",
+      "id": 102,
+      "title": "Binary Tree Level Order Traversal",
+      "slug": "binary-tree-level-order-traversal",
+      "difficulty": "Medium",
+      "tags": [
+        "Tree",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "potd": false,
+      "problem": "Given the root of a binary tree, return the values of its nodes level by level: first the root, then all nodes at depth 1 from left to right, then depth 2, and so on. Each level is its own list.",
+      "examples": [
+        {
+          "input": "root = [3,9,20,null,null,15,7]",
+          "output": "[[3],[9,20],[15,7]]",
+          "explanation": "Level 0 has 3, level 1 has 9 and 20, level 2 has 15 and 7."
+        },
+        {
+          "input": "root = [1]",
+          "output": "[[1]]",
+          "explanation": "Only the root."
+        },
+        {
+          "input": "root = []",
+          "output": "[]",
+          "explanation": "Empty tree gives an empty list."
+        }
+      ],
+      "intuition": "BFS with a queue naturally visits nodes in level order. The trick is knowing where one level ends: at the start of each round the queue holds exactly one full level, so we read its size first and pop only that many nodes.",
+      "approach": [
+        "If root is null return an empty list.",
+        "Put root in queue q.",
+        "While q is not empty: sz = q.size(), make a new list lvl.",
+        "Pop sz nodes; add each cur.val to lvl and push cur.left and cur.right if they exist.",
+        "Add lvl to res. Repeat until q is empty."
+      ],
+      "dryRun": [
+        "q = [3], res = []",
+        "Round 1: sz = 1. Pop 3, lvl = [3], push 9 and 20. res = [[3]], q = [9,20]",
+        "Round 2: sz = 2. Pop 9 (no children), pop 20 and push 15, 7. lvl = [9,20], res = [[3],[9,20]], q = [15,7]",
+        "Round 3: sz = 2. Pop 15, pop 7, no children. lvl = [15,7], res = [[3],[9,20],[15,7]]",
+        "q empty, return res"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(n) for the queue (up to the widest level)"
+      },
+      "edgeCases": [
+        "Empty tree: return [] before touching the queue",
+        "Single node: [[1]]",
+        "Skewed tree (like a linked list): every level has one node, BFS has no recursion so 2000 levels is fine",
+        "Negative values: nothing special"
+      ],
+      "takeaway": "Level by level = BFS + freeze q.size() at the start of each round. Same template solves right side view, zigzag and level averages."
+    },
+    {
+      "folder": "02-valid-anagram",
+      "id": 242,
+      "title": "Valid Anagram",
+      "slug": "valid-anagram",
+      "difficulty": "Easy",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Sorting"
+      ],
+      "potd": false,
+      "problem": "Given two lowercase strings s and t, return true if t is a rearrangement of the letters of s (same letters with the same counts), else false.",
+      "examples": [
+        {
+          "input": "s = \"anagram\", t = \"nagaram\"",
+          "output": "true",
+          "explanation": "Both have a x3, n, g, r, m once each."
+        },
+        {
+          "input": "s = \"rat\", t = \"car\"",
+          "output": "false",
+          "explanation": "s has t, t has c, so counts differ."
+        }
+      ],
+      "intuition": "Two strings are anagrams exactly when every letter appears the same number of times. Keep one counter array: add 1 for letters of s, subtract 1 for letters of t. If all 26 counters end at 0 the counts matched.",
+      "approach": [
+        "If lengths differ return false.",
+        "cnt = new int[26].",
+        "For each i: cnt[s.charAt(i) - 'a']++ and cnt[t.charAt(i) - 'a']--.",
+        "If any cnt value is not 0 return false, else true."
+      ],
+      "dryRun": [
+        "s = \"anagram\", t = \"nagaram\", both length 7",
+        "i=0: a +1, n -1. i=1: n +1, a -1 (n back to 0, a 0)",
+        "i=2: a +1, g -1. i=3: g +1, a -1",
+        "i=4: r +1, r -1. i=5: a +1, a -1. i=6: m +1, m -1",
+        "Every cnt value is 0, return true"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1) (26 counters)"
+      },
+      "edgeCases": [
+        "Different lengths: false right away",
+        "Same letters, different counts like \"aab\" vs \"abb\": a ends +1, b ends -1, false",
+        "Single char strings",
+        "Length 5*10^4: one pass, no sorting"
+      ],
+      "takeaway": "Comparing letter multisets = one count array with +1/-1. For Unicode follow-up swap the array for a HashMap."
+    },
+    {
+      "folder": "03-k-closest-points-to-origin",
+      "id": 973,
+      "title": "K Closest Points to Origin",
+      "slug": "k-closest-points-to-origin",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Math",
+        "Divide and Conquer",
+        "Geometry",
+        "Sorting",
+        "Heap (Priority Queue)",
+        "Quickselect"
+      ],
+      "potd": false,
+      "problem": "Given points on a 2D plane and an integer k, return the k points closest to (0, 0) by Euclidean distance. Any order is accepted, and the answer is unique.",
+      "examples": [
+        {
+          "input": "points = [[1,3],[-2,2]], k = 1",
+          "output": "[[-2,2]]",
+          "explanation": "(1,3) has squared distance 10, (-2,2) has 8, so (-2,2) is closer."
+        },
+        {
+          "input": "points = [[3,3],[5,-1],[-2,4]], k = 2",
+          "output": "[[3,3],[-2,4]]",
+          "explanation": "Squared distances 18, 26, 20. The two smallest are 18 and 20. [[-2,4],[3,3]] is also accepted."
+        }
+      ],
+      "intuition": "We only need the k smallest distances. Keep a max heap of size k ordered by squared distance: the top is the farthest among the current best k. When a new point makes the heap bigger than k, throw away the top, the farthest one. What remains are the k closest. Squared distance is enough because sqrt does not change the order.",
+      "approach": [
+        "pq is a max heap comparing x*x + y*y (b minus a).",
+        "For each point p: pq.add(p); if pq.size() > k, pq.poll() removes the farthest.",
+        "Pop the k remaining points into res and return it."
+      ],
+      "dryRun": [
+        "points = [[1,3],[-2,2]], k = 1",
+        "p = [1,3] (d = 10): pq = {[1,3]}, size 1, ok",
+        "p = [-2,2] (d = 8): pq = {[1,3],[-2,2]}, size 2 > 1, poll the max [1,3]",
+        "pq = {[-2,2]}; res = [[-2,2]]"
+      ],
+      "complexity": {
+        "time": "O(n log k)",
+        "space": "O(k)"
+      },
+      "edgeCases": [
+        "k equals n: nothing gets polled, return all points",
+        "Point at origin (0,0) has distance 0",
+        "Coordinates up to 10^4: x*x + y*y is at most 2*10^8, fits in int, so the subtraction comparator does not overflow",
+        "Duplicate distances: the problem says the answer is unique"
+      ],
+      "takeaway": "k smallest -> max heap of size k (k largest -> min heap of size k). Quickselect gives O(n) average if asked."
+    },
+    {
+      "folder": "04-number-of-provinces",
+      "id": 547,
+      "title": "Number of Provinces",
+      "slug": "number-of-provinces",
+      "difficulty": "Medium",
+      "tags": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union Find",
+        "Graph"
+      ],
+      "potd": false,
+      "problem": "There are n cities. isConnected[i][j] = 1 means cities i and j are directly connected. A province is a group of cities connected directly or through other cities. Return the number of provinces.",
+      "examples": [
+        {
+          "input": "isConnected = [[1,1,0],[1,1,0],[0,0,1]]",
+          "output": "2",
+          "explanation": "Cities 0 and 1 form one province, city 2 is alone."
+        },
+        {
+          "input": "isConnected = [[1,0,0],[0,1,0],[0,0,1]]",
+          "output": "3",
+          "explanation": "No connections, each city is its own province."
+        }
+      ],
+      "intuition": "Count connected components. Union Find starts with every city as its own group (cnt = n). Each edge that joins two different groups merges them and reduces the count by 1. Edges inside an existing group change nothing.",
+      "approach": [
+        "par[i] = i for all i, cnt = n.",
+        "find(x) follows parents to the root and compresses the path (par[x] = find(par[x])).",
+        "For every pair i < j with isConnected[i][j] == 1: a = find(i), b = find(j).",
+        "If a != b: par[a] = b and cnt--.",
+        "Return cnt."
+      ],
+      "dryRun": [
+        "n = 3, par = [0,1,2], cnt = 3",
+        "i=0, j=1: connected. a = find(0) = 0, b = find(1) = 1, different. par[0] = 1, cnt = 2. par = [1,1,2]",
+        "i=0, j=2: 0, skip. i=1, j=2: 0, skip",
+        "return cnt = 2"
+      ],
+      "complexity": {
+        "time": "O(n^2 * a(n)), basically O(n^2) since we read the whole matrix",
+        "space": "O(n)"
+      },
+      "edgeCases": [
+        "n = 1: one province",
+        "All ones: every union merges until cnt = 1",
+        "Identity matrix: no unions, cnt = n",
+        "Long chain of 200 cities: path compression keeps find short"
+      ],
+      "takeaway": "Counting groups = start at n and subtract 1 on every successful union. DFS from each unvisited node works too."
+    },
+    {
+      "folder": "05-swim-in-rising-water",
+      "id": 778,
+      "title": "Swim in Rising Water",
+      "slug": "swim-in-rising-water",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union Find",
+        "Heap (Priority Queue)",
+        "Matrix"
+      ],
+      "potd": false,
+      "problem": "n x n grid where grid[i][j] is the height of that cell (all values are distinct, 0 to n*n - 1). At time t the water depth is t and you can swim between 4-directionally adjacent cells if both heights are at most t. Swimming takes no time. Return the minimum time to get from (0,0) to (n-1,n-1).",
+      "examples": [
+        {
+          "input": "grid = [[0,2],[1,3]]",
+          "output": "3",
+          "explanation": "At time 0 you are at (0,0) but every neighbor is higher. You need t = 3 before (1,1) is reachable, then you can swim anywhere."
+        },
+        {
+          "input": "grid = [[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]]",
+          "output": "16",
+          "explanation": "The best path goes along the edge 0,1,2,3,4,5 and down through 16; you must wait until t = 16 so that all cells on the path are connected."
+        }
+      ],
+      "intuition": "The time a path needs equals the highest cell on it. So we want the path whose maximum is smallest. Like Dijkstra, always expand the lowest cell we can currently reach (min heap by height). ans keeps the highest height we were forced to step on. The first time we pop the bottom-right cell, ans is the answer.",
+      "approach": [
+        "Min heap pq of {height, r, c}; push (0,0) and mark vis.",
+        "Pop the smallest cur; ans = max(ans, cur[0]).",
+        "If cur is (n-1, n-1) return ans.",
+        "Push every unvisited in-bounds neighbor and mark it vis when pushed."
+      ],
+      "dryRun": [
+        "grid = [[0,2],[1,3]], pq = {(0,0,0)}, ans = 0",
+        "Pop (0,0,0): ans = 0. Push (2,0,1) and (1,1,0)",
+        "Pop (1,1,0): ans = 1. Push (3,1,1)",
+        "Pop (2,0,1): ans = 2. Its neighbors are visited",
+        "Pop (3,1,1): ans = 3, it is the target, return 3"
+      ],
+      "complexity": {
+        "time": "O(n^2 log n)",
+        "space": "O(n^2)"
+      },
+      "edgeCases": [
+        "n = 1: start is the end, answer is grid[0][0]",
+        "Start cell higher than everything around it: ans starts from grid[0][0]",
+        "Target is the global max: answer is n*n - 1",
+        "n = 50: 2500 cells, heap is small"
+      ],
+      "takeaway": "Minimize the maximum edge on a path = Dijkstra with max instead of sum (or binary search on t + BFS)."
+    }
+  ]
+}

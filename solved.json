@@ -790,6 +790,75 @@
         "Hash Table"
       ],
       "date": "2026-11-22"
+    },
+    {
+      "slug": "binary-tree-level-order-traversal",
+      "id": 102,
+      "title": "Binary Tree Level Order Traversal",
+      "difficulty": "Medium",
+      "tags": [
+        "Tree",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "date": "2026-11-23"
+    },
+    {
+      "slug": "valid-anagram",
+      "id": 242,
+      "title": "Valid Anagram",
+      "difficulty": "Easy",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Sorting"
+      ],
+      "date": "2026-11-23"
+    },
+    {
+      "slug": "k-closest-points-to-origin",
+      "id": 973,
+      "title": "K Closest Points to Origin",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Math",
+        "Divide and Conquer",
+        "Geometry",
+        "Sorting",
+        "Heap (Priority Queue)",
+        "Quickselect"
+      ],
+      "date": "2026-11-23"
+    },
+    {
+      "slug": "number-of-provinces",
+      "id": 547,
+      "title": "Number of Provinces",
+      "difficulty": "Medium",
+      "tags": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union Find",
+        "Graph"
+      ],
+      "date": "2026-11-23"
+    },
+    {
+      "slug": "swim-in-rising-water",
+      "id": 778,
+      "title": "Swim in Rising Water",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union Find",
+        "Heap (Priority Queue)",
+        "Matrix"
+      ],
+      "date": "2026-11-23"
     }
   ]
 }
