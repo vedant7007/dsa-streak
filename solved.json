@@ -859,6 +859,65 @@
         "Matrix"
       ],
       "date": "2026-11-23"
+    },
+    {
+      "slug": "rotate-image",
+      "id": 48,
+      "title": "Rotate Image",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Math",
+        "Matrix"
+      ],
+      "date": "2026-11-24"
+    },
+    {
+      "slug": "climbing-stairs",
+      "id": 70,
+      "title": "Climbing Stairs",
+      "difficulty": "Easy",
+      "tags": [
+        "Math",
+        "Dynamic Programming",
+        "Memoization"
+      ],
+      "date": "2026-11-24"
+    },
+    {
+      "slug": "container-with-most-water",
+      "id": 11,
+      "title": "Container With Most Water",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Two Pointers",
+        "Greedy"
+      ],
+      "date": "2026-11-24"
+    },
+    {
+      "slug": "remove-nth-node-from-end-of-list",
+      "id": 19,
+      "title": "Remove Nth Node From End of List",
+      "difficulty": "Medium",
+      "tags": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "date": "2026-11-24"
+    },
+    {
+      "slug": "longest-valid-parentheses",
+      "id": 32,
+      "title": "Longest Valid Parentheses",
+      "difficulty": "Hard",
+      "tags": [
+        "String",
+        "Dynamic Programming",
+        "Stack"
+      ],
+      "date": "2026-11-24"
     }
   ]
 }

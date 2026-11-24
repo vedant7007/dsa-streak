@@ -1,0 +1,276 @@
+{
+  "date": "2026-11-24",
+  "problems": [
+    {
+      "folder": "01-rotate-image",
+      "id": 48,
+      "title": "Rotate Image",
+      "slug": "rotate-image",
+      "difficulty": "Medium",
+      "link": "https://leetcode.com/problems/rotate-image/",
+      "tags": [
+        "Array",
+        "Math",
+        "Matrix"
+      ],
+      "potd": false,
+      "problem": "You get an n x n matrix (an image). Rotate it 90 degrees clockwise in place, without making a second matrix.",
+      "examples": [
+        {
+          "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+          "output": "[[7,4,1],[8,5,2],[9,6,3]]",
+          "explanation": "The first column read bottom to top (7,4,1) becomes the first row."
+        },
+        {
+          "input": "matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]",
+          "output": "[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]",
+          "explanation": "Same rule on a 4 x 4 grid."
+        }
+      ],
+      "intuition": "A clockwise rotation sends cell (i, j) to (j, n-1-i). Transposing sends (i, j) to (j, i), and then reversing each row sends (j, i) to (j, n-1-i). So transpose + reverse rows is exactly the rotation, and both steps are simple in-place swaps.",
+      "approach": [
+        "Transpose: for every i and every j > i, swap matrix[i][j] with matrix[j][i]. Only the upper triangle is visited so each pair is swapped once.",
+        "Reverse each row with two pointers l = 0 and r = n - 1, swapping and moving inward while l < r.",
+        "The matrix is now rotated 90 degrees clockwise. Nothing is returned (void)."
+      ],
+      "dryRun": [
+        "matrix = [[1,2,3],[4,5,6],[7,8,9]], n = 3",
+        "Transpose: i = 0: swap (0,1)<->(1,0) gives 2<->4, swap (0,2)<->(2,0) gives 3<->7. i = 1: swap (1,2)<->(2,1) gives 6<->8",
+        "After transpose: [[1,4,7],[2,5,8],[3,6,9]]",
+        "Row 0: l = 0, r = 2, swap 1 and 7 -> [7,4,1]. l = 1, r = 1 stop",
+        "Row 1 -> [8,5,2], row 2 -> [9,6,3]",
+        "Final: [[7,4,1],[8,5,2],[9,6,3]], matches expected"
+      ],
+      "complexity": {
+        "time": "O(n^2)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "n = 1: transpose and reverse do nothing",
+        "n = 2: one transpose swap, one swap per row",
+        "Negative values: only positions move, values are untouched",
+        "All equal values: result looks the same"
+      ],
+      "takeaway": "Rotate clockwise = transpose + reverse rows. Counterclockwise = transpose + reverse columns."
+    },
+    {
+      "folder": "02-climbing-stairs",
+      "id": 70,
+      "title": "Climbing Stairs",
+      "slug": "climbing-stairs",
+      "difficulty": "Easy",
+      "link": "https://leetcode.com/problems/climbing-stairs/",
+      "tags": [
+        "Math",
+        "Dynamic Programming",
+        "Memoization"
+      ],
+      "potd": false,
+      "problem": "There are n stairs. Each move you climb 1 or 2 steps. Count how many different ways you can reach the top.",
+      "examples": [
+        {
+          "input": "n = 2",
+          "output": "2",
+          "explanation": "1+1 or 2."
+        },
+        {
+          "input": "n = 3",
+          "output": "3",
+          "explanation": "1+1+1, 1+2, 2+1."
+        }
+      ],
+      "intuition": "The last move to stair i is either a 1-step from i-1 or a 2-step from i-2. So ways(i) = ways(i-1) + ways(i-2), which is the Fibonacci pattern. We only ever need the last two values, so two variables are enough.",
+      "approach": [
+        "If n <= 2, the answer is n itself (1 way for 1 stair, 2 ways for 2 stairs).",
+        "Set a = 1 (ways for stair 1) and b = 2 (ways for stair 2).",
+        "For i from 3 to n: c = a + b, then shift a = b, b = c.",
+        "Return b, the ways for stair n."
+      ],
+      "dryRun": [
+        "Example 1: n = 2, n <= 2 so return 2",
+        "Extra trace on n = 3: a = 1, b = 2",
+        "i = 3: c = 1 + 2 = 3, a = 2, b = 3",
+        "Loop ends, return b = 3"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "n = 1: returns 1",
+        "n = 2: returns 2",
+        "n = 45 (max): 1836311903 still fits in int"
+      ],
+      "takeaway": "When the answer at step i only depends on the last two steps, roll two variables instead of a full dp array."
+    },
+    {
+      "folder": "03-container-with-most-water",
+      "id": 11,
+      "title": "Container With Most Water",
+      "slug": "container-with-most-water",
+      "difficulty": "Medium",
+      "link": "https://leetcode.com/problems/container-with-most-water/",
+      "tags": [
+        "Array",
+        "Two Pointers",
+        "Greedy"
+      ],
+      "potd": false,
+      "problem": "height[i] is a vertical line at x = i. Pick two lines that, with the x-axis, hold the most water. Return that max area.",
+      "examples": [
+        {
+          "input": "height = [1,8,6,2,5,4,8,3,7]",
+          "output": "49",
+          "explanation": "Lines at index 1 (8) and index 8 (7): min(8,7) * (8-1) = 49."
+        },
+        {
+          "input": "height = [1,1]",
+          "output": "1",
+          "explanation": "Only one pair: 1 * 1."
+        }
+      ],
+      "intuition": "Start with the widest pair. Area is limited by the shorter line. If we move the taller line inward, width shrinks and height can not go above the shorter line, so the area can only drop. The only hope of a bigger area is to move the shorter line. So each step safely throws away the shorter side.",
+      "approach": [
+        "l = 0, r = n - 1, ans = 0.",
+        "While l < r: h = min(height[l], height[r]), ans = max(ans, h * (r - l)).",
+        "If height[l] < height[r] move l++, else move r--.",
+        "Return ans."
+      ],
+      "dryRun": [
+        "height = [1,8,6,2,5,4,8,3,7], l = 0, r = 8, ans = 0",
+        "h = min(1,7) = 1, area 8, ans = 8. height[l] < height[r] so l = 1",
+        "l = 1, r = 8: h = min(8,7) = 7, area 7 * 7 = 49, ans = 49. 8 > 7 so r = 7",
+        "l = 1, r = 7: h = 3, area 18. r = 6",
+        "l = 1, r = 6: h = 8, area 40. heights equal so r = 5",
+        "r = 5: h = 4, area 16. r = 4: h = 5, area 15. r = 3: h = 2, area 4. r = 2: h = 6, area 6. r = 1 stop",
+        "Return ans = 49"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Two lines only: one area to check",
+        "Zero heights: area 0",
+        "All equal heights: widest pair wins",
+        "1e5 lines of 1e4: area about 1e9, still fits in int"
+      ],
+      "takeaway": "Two pointers from both ends, always move the side that limits the answer."
+    },
+    {
+      "folder": "04-remove-nth-node-from-end-of-list",
+      "id": 19,
+      "title": "Remove Nth Node From End of List",
+      "slug": "remove-nth-node-from-end-of-list",
+      "difficulty": "Medium",
+      "link": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+      "tags": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "potd": false,
+      "problem": "Given the head of a linked list, remove the n-th node counted from the end and return the head. Follow-up: do it in one pass.",
+      "examples": [
+        {
+          "input": "head = [1,2,3,4,5], n = 2",
+          "output": "[1,2,3,5]",
+          "explanation": "The 2nd from the end is 4."
+        },
+        {
+          "input": "head = [1], n = 1",
+          "output": "[]",
+          "explanation": "The only node is removed."
+        },
+        {
+          "input": "head = [1,2], n = 1",
+          "output": "[1]",
+          "explanation": "The last node is removed."
+        }
+      ],
+      "intuition": "Keep a gap of n + 1 nodes between fast and slow. When fast falls off the end, slow is exactly one node before the one to delete. A dummy node in front handles deleting the head without a special case.",
+      "approach": [
+        "Make dummy with dummy.next = head. Put fast and slow at dummy.",
+        "Move fast forward n + 1 times.",
+        "Move both one step at a time until fast is null.",
+        "slow.next is the target: set slow.next = slow.next.next.",
+        "Return dummy.next."
+      ],
+      "dryRun": [
+        "head = 1->2->3->4->5, n = 2. fast = slow = dummy",
+        "Move fast 3 times: fast = node 3",
+        "Move both: fast = 4, slow = 1. fast = 5, slow = 2. fast = null, slow = 3",
+        "slow.next is node 4, set slow.next = node 5",
+        "Return dummy.next: 1->2->3->5"
+      ],
+      "complexity": {
+        "time": "O(L), one pass",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "Single node with n = 1: dummy.next becomes null, return empty",
+        "n equals the length: removes the head, dummy makes it safe",
+        "n = 1: removes the tail",
+        "Duplicate values: we remove by position, not value"
+      ],
+      "takeaway": "Fixed-gap fast/slow pointers find the k-th node from the end in one pass. Use a dummy node whenever the head might change."
+    },
+    {
+      "folder": "05-longest-valid-parentheses",
+      "id": 32,
+      "title": "Longest Valid Parentheses",
+      "slug": "longest-valid-parentheses",
+      "difficulty": "Hard",
+      "link": "https://leetcode.com/problems/longest-valid-parentheses/",
+      "tags": [
+        "String",
+        "Dynamic Programming",
+        "Stack"
+      ],
+      "potd": false,
+      "problem": "Given a string of only '(' and ')', return the length of the longest substring that is a well-formed (balanced) parentheses string.",
+      "examples": [
+        {
+          "input": "s = \"(()\"",
+          "output": "2",
+          "explanation": "The longest valid part is \"()\"."
+        },
+        {
+          "input": "s = \")()())\"",
+          "output": "4",
+          "explanation": "The longest valid part is \"()()\"."
+        },
+        {
+          "input": "s = \"\"",
+          "output": "0",
+          "explanation": "Empty string."
+        }
+      ],
+      "intuition": "Store indexes on a stack. The bottom of the stack always holds the index just before the current valid run (a 'base'). Each ')' pops its match; if something is still on the stack, the valid run ends at i and starts right after st.peek(), so its length is i - st.peek(). If the stack becomes empty, this ')' is unmatched and becomes the new base.",
+      "approach": [
+        "Push -1 as the starting base. ans = 0.",
+        "For each i: if s[i] is '(' push i.",
+        "Else pop. If the stack is now empty push i as the new base, otherwise ans = max(ans, i - st.peek()).",
+        "Return ans."
+      ],
+      "dryRun": [
+        "s = \"(()\", st = [-1], ans = 0",
+        "i = 0 '(': push 0, st = [-1, 0]",
+        "i = 1 '(': push 1, st = [-1, 0, 1]",
+        "i = 2 ')': pop 1, st = [-1, 0], not empty, ans = max(0, 2 - 0) = 2",
+        "Return ans = 2"
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(n)"
+      },
+      "edgeCases": [
+        "Empty string: loop never runs, 0",
+        "Only '(' or only ')': no match, 0",
+        "\"()(())\": base stays -1, whole string 6",
+        "\"()(()\": the open '(' at index 2 blocks joining, answer 2",
+        "3e4 length: iterative, no recursion"
+      ],
+      "takeaway": "For 'longest valid span' bracket problems, keep the index of the last unmatched position on a stack and measure i - st.peek()."
+    }
+  ]
+}

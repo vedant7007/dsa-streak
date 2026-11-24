@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-24",
+  "problems": {
+    "rotate-image": {
+      "folder": "01-rotate-image",
+      "verdict": null,
+      "attempts": 0
+    },
+    "climbing-stairs": {
+      "folder": "02-climbing-stairs",
+      "verdict": null,
+      "attempts": 0
+    },
+    "container-with-most-water": {
+      "folder": "03-container-with-most-water",
+      "verdict": null,
+      "attempts": 0
+    },
+    "remove-nth-node-from-end-of-list": {
+      "folder": "04-remove-nth-node-from-end-of-list",
+      "verdict": null,
+      "attempts": 0
+    },
+    "longest-valid-parentheses": {
+      "folder": "05-longest-valid-parentheses",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
