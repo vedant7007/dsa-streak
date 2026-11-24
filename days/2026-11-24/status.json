@@ -3,28 +3,44 @@
   "problems": {
     "rotate-image": {
       "folder": "01-rotate-image",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "06:27",
+      "runtime": "0 ms",
+      "memory": "43.03 MB"
     },
     "climbing-stairs": {
       "folder": "02-climbing-stairs",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "06:28",
+      "runtime": "0 ms",
+      "memory": "41.56 MB"
     },
     "container-with-most-water": {
       "folder": "03-container-with-most-water",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "06:28",
+      "runtime": "5 ms",
+      "memory": "76.41 MB"
     },
     "remove-nth-node-from-end-of-list": {
       "folder": "04-remove-nth-node-from-end-of-list",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "06:29",
+      "runtime": "0 ms",
+      "memory": "43.03 MB"
     },
     "longest-valid-parentheses": {
       "folder": "05-longest-valid-parentheses",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "06:29",
+      "runtime": "6 ms",
+      "memory": "46.84 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
