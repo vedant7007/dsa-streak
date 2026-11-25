@@ -1,0 +1,280 @@
+{
+  "date": "2026-11-25",
+  "problems": [
+    {
+      "folder": "01-subsets",
+      "id": 78,
+      "title": "Subsets",
+      "slug": "subsets",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Backtracking",
+        "Bit Manipulation"
+      ],
+      "potd": false,
+      "problem": "You get an array of unique integers. Return every possible subset (the power set), including the empty set. No duplicate subsets, any order is fine.",
+      "examples": [
+        {
+          "input": "nums = [1,2,3]",
+          "output": "[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]",
+          "explanation": "All 2^3 = 8 ways to pick or skip each number."
+        },
+        {
+          "input": "nums = [0]",
+          "output": "[[],[0]]",
+          "explanation": "Either skip 0 or take it."
+        }
+      ],
+      "intuition": "Every subset is just a yes/no decision for each element. If we walk through the array and branch twice at every index (take it, skip it), the leaves of that decision tree are exactly the 2^n subsets, each produced once.",
+      "approach": [
+        "Keep a running list cur and the answer list res.",
+        "dfs(i): if i == nums.length, copy cur into res and return.",
+        "Take branch: add nums[i] to cur, call dfs(i + 1), then remove the last element (backtrack).",
+        "Skip branch: call dfs(i + 1) without nums[i].",
+        "Start with dfs(0) on an empty cur."
+      ],
+      "dryRun": [
+        "nums = [1,2,3], dfs(i=0, cur=[])",
+        "take 1 -> dfs(1,[1]) -> take 2 -> dfs(2,[1,2]) -> take 3 -> i=3, res gets [1,2,3]",
+        "remove 3, skip 3 -> i=3, res gets [1,2]",
+        "back at i=1: remove 2, skip 2 -> dfs(2,[1]) -> take 3 gives [1,3], skip 3 gives [1]",
+        "back at i=0: remove 1, skip 1 -> dfs(1,[]) produces [2,3], [2], [3], []",
+        "res = [[1,2,3],[1,2],[1,3],[1],[2,3],[2],[3],[]] which is all 8 subsets (order does not matter)"
+      ],
+      "complexity": {
+        "time": "O(n * 2^n): 2^n leaves and copying each subset costs up to n",
+        "space": "O(n) recursion depth and cur, plus the output"
+      },
+      "edgeCases": [
+        "Single element: answer is [[], [x]].",
+        "Negative numbers work the same, values are never compared.",
+        "n = 10 gives 1024 subsets, still tiny.",
+        "Must copy cur (new ArrayList<>(cur)) when saving, otherwise every saved list points to the same object."
+      ],
+      "takeaway": "Generate all subsets with a take/skip recursion (or a bitmask loop from 0 to 2^n - 1); always backtrack by removing what you added."
+    },
+    {
+      "folder": "02-same-tree",
+      "id": 100,
+      "title": "Same Tree",
+      "slug": "same-tree",
+      "difficulty": "Easy",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "potd": false,
+      "problem": "Given the roots of two binary trees p and q, return true if they have exactly the same shape and the same value at every node.",
+      "examples": [
+        {
+          "input": "p = [1,2,3], q = [1,2,3]",
+          "output": "true",
+          "explanation": "Same shape, same values."
+        },
+        {
+          "input": "p = [1,2], q = [1,null,2]",
+          "output": "false",
+          "explanation": "In p, 2 is a left child; in q it is a right child."
+        },
+        {
+          "input": "p = [1,2,1], q = [1,1,2]",
+          "output": "false",
+          "explanation": "Same shape but the children's values are swapped."
+        }
+      ],
+      "intuition": "Two trees are equal exactly when their roots match and their left subtrees are equal and their right subtrees are equal. That definition is already recursive, so the code just follows it.",
+      "approach": [
+        "If both p and q are null, they are equal: return true.",
+        "If only one is null, or p.val != q.val, return false.",
+        "Otherwise return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)."
+      ],
+      "dryRun": [
+        "isSameTree(p=1, q=1): both non-null, 1 == 1, go to children",
+        "left: isSameTree(2, 2): values match, children are (null, null) and (null, null), both true, so true",
+        "right: isSameTree(3, 3): same story, true",
+        "true && true = true"
+      ],
+      "complexity": {
+        "time": "O(n), each node pair visited once (stops early on first mismatch)",
+        "space": "O(h) recursion stack, h = tree height"
+      },
+      "edgeCases": [
+        "Both trees empty: true.",
+        "One empty, one not: false.",
+        "Same values but different shape (like example 2): the null check catches it.",
+        "Skewed tree of 100 nodes: recursion depth 100, fine."
+      ],
+      "takeaway": "For tree comparison, handle the null cases first, then compare value and recurse on both sides with &&."
+    },
+    {
+      "folder": "03-course-schedule-ii",
+      "id": 210,
+      "title": "Course Schedule II",
+      "slug": "course-schedule-ii",
+      "difficulty": "Medium",
+      "tags": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph",
+        "Topological Sort"
+      ],
+      "potd": false,
+      "problem": "There are numCourses courses labeled 0 to numCourses - 1. prerequisites[i] = [a, b] means you must take b before a. Return any valid order to take all courses, or an empty array if it is impossible (there is a cycle).",
+      "examples": [
+        {
+          "input": "numCourses = 2, prerequisites = [[1,0]]",
+          "output": "[0,1]",
+          "explanation": "Take 0 first, then 1."
+        },
+        {
+          "input": "numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]",
+          "output": "[0,2,1,3]",
+          "explanation": "3 needs 1 and 2, which both need 0. [0,1,2,3] is also accepted."
+        },
+        {
+          "input": "numCourses = 1, prerequisites = []",
+          "output": "[0]",
+          "explanation": "Only one course, no rules."
+        }
+      ],
+      "intuition": "A course can be taken once all its prerequisites are done, i.e. when its in-degree (number of unfinished prereqs) is 0. Kahn's algorithm keeps a queue of such courses; taking one lowers the in-degree of the courses that depend on it. If a cycle exists, the courses in it never reach 0, so we end up with fewer than numCourses in the order.",
+      "approach": [
+        "Build adj where adj[b] lists courses that need b, and indeg[a] counts prereqs of a.",
+        "Push every course with indeg 0 into queue q.",
+        "Pop cur, write it to res[k++], and for each nxt in adj[cur] decrement indeg[nxt]; push nxt when it hits 0.",
+        "If k == numCourses return res, else return an empty array (cycle)."
+      ],
+      "dryRun": [
+        "numCourses = 2, prerequisites = [[1,0]]",
+        "adj: 0 -> [1], 1 -> []; indeg = [0,1]",
+        "q = [0]",
+        "poll cur=0, res=[0,_], k=1; nxt=1: indeg[1] becomes 0, push 1",
+        "poll cur=1, res=[0,1], k=2; no neighbours",
+        "k == 2 == numCourses, return [0,1]"
+      ],
+      "complexity": {
+        "time": "O(V + E), every course and every prerequisite edge handled once",
+        "space": "O(V + E) for adj, indeg and the queue"
+      },
+      "edgeCases": [
+        "No prerequisites: any order of all courses, the queue starts with everything.",
+        "Cycle like [[1,0],[0,1]]: queue starts empty, return [].",
+        "Single course: [0].",
+        "Disconnected groups are fine, all indeg-0 nodes start in the queue."
+      ],
+      "takeaway": "Ordering with dependencies = topological sort. Kahn's BFS with in-degrees gives the order and detects cycles (output shorter than n)."
+    },
+    {
+      "folder": "04-partition-labels",
+      "id": 763,
+      "title": "Partition Labels",
+      "slug": "partition-labels",
+      "difficulty": "Medium",
+      "tags": [
+        "Hash Table",
+        "Two Pointers",
+        "String",
+        "Greedy"
+      ],
+      "potd": false,
+      "problem": "Split string s into as many parts as possible so that each letter appears in at most one part. Joining the parts in order must give back s. Return the sizes of the parts.",
+      "examples": [
+        {
+          "input": "s = \"ababcbacadefegdehijhklij\"",
+          "output": "[9,7,8]",
+          "explanation": "Parts are \"ababcbaca\", \"defegde\", \"hijhklij\". Splitting like \"ababcbacadefegde\", \"hijhklij\" is valid too but gives fewer parts."
+        },
+        {
+          "input": "s = \"eccbbbbdec\"",
+          "output": "[10]",
+          "explanation": "e appears at both ends, so the whole string has to be one part."
+        }
+      ],
+      "intuition": "Once a part contains some letter, it must stretch at least to that letter's last occurrence. So while scanning, keep end = the farthest last-occurrence of any letter seen in the current part. When i reaches end, nothing inside the part appears later, so cutting here is safe, and cutting as early as possible gives the most parts.",
+      "approach": [
+        "First pass: last[c] = last index of each letter.",
+        "Second pass with start = 0, end = 0: for each i, end = max(end, last[s[i]]).",
+        "If i == end, the current part is closed: add end - start + 1 to res and set start = i + 1.",
+        "Return res."
+      ],
+      "dryRun": [
+        "last: a=8, b=5, c=7, d=14, e=15, f=11, g=13, h=19, i=22, j=23, k=20, l=21",
+        "i=0 'a': end=8. i=1..7 keep end at 8 (b=5, c=7 are smaller)",
+        "i=8 'a': i == end=8, add 8-0+1 = 9, start=9",
+        "i=9 'd': end=14; i=10 'e': end=15; f, e, g, d stay below 15",
+        "i=15 'e': i == end, add 15-9+1 = 7, start=16",
+        "i=16 'h': end=19; i=17 'i': end=22; i=18 'j': end=23; nothing goes beyond 23",
+        "i=23: i == end, add 23-16+1 = 8. res = [9,7,8]"
+      ],
+      "complexity": {
+        "time": "O(n), two passes",
+        "space": "O(1), the last array has 26 slots"
+      },
+      "edgeCases": [
+        "Single character: [1].",
+        "All distinct letters: every part has size 1.",
+        "First letter also appears at the end: whole string is one part.",
+        "Long string of repeating alphabet: one big part."
+      ],
+      "takeaway": "When a group must cover every occurrence of what it contains, precompute last positions and greedily extend end like merging intervals; cut when i catches up to end."
+    },
+    {
+      "folder": "05-minimum-interval-to-include-each-query",
+      "id": 1851,
+      "title": "Minimum Interval to Include Each Query",
+      "slug": "minimum-interval-to-include-each-query",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Line Sweep",
+        "Sorting",
+        "Heap (Priority Queue)"
+      ],
+      "potd": false,
+      "problem": "You get intervals [left, right] (size = right - left + 1) and a list of query numbers. For each query q, return the size of the smallest interval that contains q (left <= q <= right), or -1 if none does.",
+      "examples": [
+        {
+          "input": "intervals = [[1,4],[2,4],[3,6],[4,4]], queries = [2,3,4,5]",
+          "output": "[3,3,1,4]",
+          "explanation": "q=2: [2,4] size 3. q=3: [2,4] size 3. q=4: [4,4] size 1. q=5: [3,6] size 4."
+        },
+        {
+          "input": "intervals = [[2,3],[2,5],[1,8],[20,25]], queries = [2,19,5,22]",
+          "output": "[2,-1,4,6]",
+          "explanation": "q=2: [2,3] size 2. q=19: nothing covers it. q=5: [2,5] size 4. q=22: [20,25] size 6."
+        }
+      ],
+      "intuition": "Answer the queries offline in increasing order. Then intervals become usable in order of their left end, so we can add them with one pointer as q grows. Keep a min-heap by size. An interval whose right end is below q can never help this or any later (bigger) query, so we can throw it away lazily when it reaches the top. The top after cleaning is the smallest interval that covers q.",
+      "approach": [
+        "Sort intervals by left. Sort query indices idx by query value (keep indices so answers go back to the original positions).",
+        "For each query q in sorted order: push every interval with left <= q into pq as {size, right}, moving pointer i.",
+        "Pop from pq while the top's right < q (it ended before q).",
+        "ans[k] = top size, or -1 if pq is empty.",
+        "Return ans."
+      ],
+      "dryRun": [
+        "sorted intervals: [1,4],[2,4],[3,6],[4,4]; queries already sorted: 2,3,4,5",
+        "q=2: push (4,4) from [1,4] and (3,4) from [2,4], i=2. top (3,4), right 4 >= 2, ans[0]=3",
+        "q=3: push (4,6) from [3,6], i=3. top (3,4) still covers 3, ans[1]=3",
+        "q=4: push (1,4) from [4,4], i=4. top (1,4), ans[2]=1",
+        "q=5: top (1,4) has right 4 < 5, pop. (3,4) pop. (4,4) pop. top (4,6), ans[3]=4",
+        "ans = [3,3,1,4]"
+      ],
+      "complexity": {
+        "time": "O(n log n + m log m), sorting plus each interval pushed and popped at most once",
+        "space": "O(n + m) for the heap and index array"
+      },
+      "edgeCases": [
+        "Query outside every interval: heap empty after cleaning, answer -1.",
+        "Point interval [x,x] has size 1.",
+        "Duplicate intervals or duplicate queries are handled naturally.",
+        "Values up to 10^7: sizes fit in int, the a[0]-b[0] comparator cannot overflow."
+      ],
+      "takeaway": "For many queries over intervals, sort queries offline, sweep with a pointer to add intervals, and use a heap with lazy deletion of expired ones."
+    }
+  ]
+}

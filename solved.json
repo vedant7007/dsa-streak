@@ -918,6 +918,71 @@
         "Stack"
       ],
       "date": "2026-11-24"
+    },
+    {
+      "slug": "subsets",
+      "id": 78,
+      "title": "Subsets",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Backtracking",
+        "Bit Manipulation"
+      ],
+      "date": "2026-11-25"
+    },
+    {
+      "slug": "same-tree",
+      "id": 100,
+      "title": "Same Tree",
+      "difficulty": "Easy",
+      "tags": [
+        "Tree",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "date": "2026-11-25"
+    },
+    {
+      "slug": "course-schedule-ii",
+      "id": 210,
+      "title": "Course Schedule II",
+      "difficulty": "Medium",
+      "tags": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph",
+        "Topological Sort"
+      ],
+      "date": "2026-11-25"
+    },
+    {
+      "slug": "partition-labels",
+      "id": 763,
+      "title": "Partition Labels",
+      "difficulty": "Medium",
+      "tags": [
+        "Hash Table",
+        "Two Pointers",
+        "String",
+        "Greedy"
+      ],
+      "date": "2026-11-25"
+    },
+    {
+      "slug": "minimum-interval-to-include-each-query",
+      "id": 1851,
+      "title": "Minimum Interval to Include Each Query",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Line Sweep",
+        "Sorting",
+        "Heap (Priority Queue)"
+      ],
+      "date": "2026-11-25"
     }
   ]
 }

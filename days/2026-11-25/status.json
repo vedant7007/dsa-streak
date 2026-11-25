@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-25",
+  "problems": {
+    "subsets": {
+      "folder": "01-subsets",
+      "verdict": null,
+      "attempts": 0
+    },
+    "same-tree": {
+      "folder": "02-same-tree",
+      "verdict": null,
+      "attempts": 0
+    },
+    "course-schedule-ii": {
+      "folder": "03-course-schedule-ii",
+      "verdict": null,
+      "attempts": 0
+    },
+    "partition-labels": {
+      "folder": "04-partition-labels",
+      "verdict": null,
+      "attempts": 0
+    },
+    "minimum-interval-to-include-each-query": {
+      "folder": "05-minimum-interval-to-include-each-query",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
