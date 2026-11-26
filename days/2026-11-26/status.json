@@ -3,30 +3,45 @@
   "problems": {
     "stone-removal-game": {
       "folder": "01-stone-removal-game",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "18:43",
+      "runtime": "0 ms",
+      "memory": "41.18 MB"
     },
     "binary-search": {
       "folder": "02-binary-search",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "18:44",
+      "runtime": "0 ms",
+      "memory": "47.33 MB"
     },
     "longest-consecutive-sequence": {
       "folder": "03-longest-consecutive-sequence",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "18:45",
+      "runtime": "37 ms",
+      "memory": "94.94 MB"
     },
     "maximum-product-subarray": {
       "folder": "04-maximum-product-subarray",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "18:46",
+      "runtime": "2 ms",
+      "memory": "46.62 MB"
     },
     "basic-calculator": {
       "folder": "05-basic-calculator",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "18:47",
+      "runtime": "11 ms",
+      "memory": "45.70 MB"
     }
   },
-  "loginNeeded": true,
+  "loginNeeded": false,
   "loginNotifiedHour": 18
 }
