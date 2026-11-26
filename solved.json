@@ -983,6 +983,64 @@
         "Heap (Priority Queue)"
       ],
       "date": "2026-11-25"
+    },
+    {
+      "slug": "stone-removal-game",
+      "id": 3360,
+      "title": "Stone Removal Game",
+      "difficulty": "Easy",
+      "tags": [
+        "Math",
+        "Simulation"
+      ],
+      "date": "2026-11-26"
+    },
+    {
+      "slug": "binary-search",
+      "id": 704,
+      "title": "Binary Search",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ],
+      "date": "2026-11-26"
+    },
+    {
+      "slug": "longest-consecutive-sequence",
+      "id": 128,
+      "title": "Longest Consecutive Sequence",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Union-Find"
+      ],
+      "date": "2026-11-26"
+    },
+    {
+      "slug": "maximum-product-subarray",
+      "id": 152,
+      "title": "Maximum Product Subarray",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "date": "2026-11-26"
+    },
+    {
+      "slug": "basic-calculator",
+      "id": 224,
+      "title": "Basic Calculator",
+      "difficulty": "Hard",
+      "tags": [
+        "Math",
+        "String",
+        "Stack",
+        "Recursion"
+      ],
+      "date": "2026-11-26"
     }
   ]
 }

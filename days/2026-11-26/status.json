@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-26",
+  "problems": {
+    "stone-removal-game": {
+      "folder": "01-stone-removal-game",
+      "verdict": null,
+      "attempts": 0
+    },
+    "binary-search": {
+      "folder": "02-binary-search",
+      "verdict": null,
+      "attempts": 0
+    },
+    "longest-consecutive-sequence": {
+      "folder": "03-longest-consecutive-sequence",
+      "verdict": null,
+      "attempts": 0
+    },
+    "maximum-product-subarray": {
+      "folder": "04-maximum-product-subarray",
+      "verdict": null,
+      "attempts": 0
+    },
+    "basic-calculator": {
+      "folder": "05-basic-calculator",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}
