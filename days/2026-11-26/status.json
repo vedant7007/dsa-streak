@@ -26,5 +26,7 @@
       "verdict": null,
       "attempts": 0
     }
-  }
+  },
+  "loginNeeded": true,
+  "loginNotifiedHour": 17
 }
