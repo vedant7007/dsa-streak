@@ -3,28 +3,44 @@
   "problems": {
     "maximum-number-of-items-from-sale-i": {
       "folder": "01-maximum-number-of-items-from-sale-i",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:08",
+      "runtime": "20 ms",
+      "memory": "46.32 MB"
     },
     "number-of-1-bits": {
       "folder": "02-number-of-1-bits",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:09",
+      "runtime": "1 ms",
+      "memory": "41.56 MB"
     },
     "construct-binary-tree-from-preorder-and-inorder-traversal": {
       "folder": "03-construct-binary-tree-from-preorder-and-inorder-traversal",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:10",
+      "runtime": "2 ms",
+      "memory": "46.28 MB"
     },
     "find-k-pairs-with-smallest-sums": {
       "folder": "04-find-k-pairs-with-smallest-sums",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:10",
+      "runtime": "32 ms",
+      "memory": "138.15 MB"
     },
     "reverse-nodes-in-k-group": {
       "folder": "05-reverse-nodes-in-k-group",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:11",
+      "runtime": "1 ms",
+      "memory": "46.07 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
