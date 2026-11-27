@@ -1,0 +1,269 @@
+{
+  "date": "2026-11-27",
+  "problems": [
+    {
+      "folder": "01-maximum-number-of-items-from-sale-i",
+      "id": 3946,
+      "title": "Maximum Number of Items From Sale I",
+      "slug": "maximum-number-of-items-from-sale-i",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "potd": true,
+      "problem": "Each item has a factor and a price, and you can buy unlimited copies within a budget. For every item type you buy at least once, you also get one free copy of every other item whose factor is a multiple of its factor. Extra copies of the same item give nothing extra for free. Return the largest total number of copies (bought plus free) you can end up with.",
+      "examples": [
+        {
+          "input": "items = [[6,2],[2,6],[3,4]], budget = 9",
+          "output": "4",
+          "explanation": "Buy 2 copies of item 0 and 1 copy of item 2 for 2*2 + 4 = 8. Item 2 (factor 3) gives a free copy of item 0 (factor 6). 3 bought + 1 free = 4."
+        },
+        {
+          "input": "items = [[2,4],[3,2],[4,1],[6,4],[12,4]], budget = 8",
+          "output": "10",
+          "explanation": "Buy item 0, item 1 and 2 copies of item 2 for 4 + 2 + 2 = 8. Item 0 gives free copies of items 2, 3, 4; item 1 gives items 3, 4; item 2 gives item 4. 4 bought + 6 free = 10."
+        }
+      ],
+      "intuition": "Only the first copy of an item is special: it is worth 1 + g, where g is how many other items have a factor divisible by its factor. Every extra copy is worth exactly 1, so once we decide which items to 'activate', all leftover money should go to the cheapest item in the whole list (that gives at least 1 per min price). So the problem splits into a 0/1 knapsack over first copies, plus filling the remaining budget with the cheapest price.",
+      "approach": [
+        "Count how many items have each factor value in cnt[] and find min, the cheapest price.",
+        "For each item, g = (sum of cnt[m] over all multiples m of its factor) minus 1 (to exclude itself). Its first copy is worth 1 + g.",
+        "Run a 0/1 knapsack: dp[b] = best value of first copies using total cost at most b, looping b downwards so each item is used once.",
+        "For every spend b from 0 to budget, try ans = dp[b] + (budget - b) / min, filling the rest with the cheapest item.",
+        "Return the maximum."
+      ],
+      "dryRun": [
+        "cnt[6]=1, cnt[2]=1, cnt[3]=1, min = 2.",
+        "Item [6,2]: g = -1 + cnt[6] = 0, value 1. dp[b] becomes 1 for every b >= 2.",
+        "Item [2,6]: g = -1 + cnt[2] + cnt[6] = 1, value 2. dp[9] = dp[3] + 2 = 3, dp[8] = 3, dp[7] = 2, dp[6] = 2.",
+        "Item [3,4]: g = -1 + cnt[3] + cnt[6] = 1, value 2. dp[7] = dp[3] + 2 = 3, dp[6] = dp[2] + 2 = 3, dp[5] = 2, dp[4] = 2.",
+        "Final dp = [0,0,1,1,2,2,3,3,3,3].",
+        "b=0: 0 + 9/2 = 4; b=2: 1 + 3 = 4; b=4: 2 + 2 = 4; b=6: 3 + 1 = 4; b=8: 3 + 0 = 3.",
+        "ans = 4, matches the expected output."
+      ],
+      "complexity": {
+        "time": "O(n * budget + n * 1500 / factor) which is about O(n * budget)",
+        "space": "O(budget + 1500)"
+      },
+      "edgeCases": [
+        "Budget smaller than every price: dp stays 0 and (budget - b) / min is 0, answer 0.",
+        "Duplicate factors: cnt counts all of them, so each copy gives the other one for free (minus 1 removes only itself).",
+        "Factor 1 divides everything, so its first copy gives a free copy of every other item.",
+        "Cheapest item not activated: filling with min still counts 1 per copy, which is always achievable."
+      ],
+      "takeaway": "When only the first pick of each item is special, split it into a 0/1 knapsack for the special part plus a greedy fill with the cheapest unit for the rest."
+    },
+    {
+      "folder": "02-number-of-1-bits",
+      "id": 191,
+      "title": "Number of 1 Bits",
+      "slug": "number-of-1-bits",
+      "difficulty": "Easy",
+      "tags": [
+        "Divide and Conquer",
+        "Bit Manipulation"
+      ],
+      "potd": false,
+      "problem": "Given a positive integer n, return how many 1s are in its binary form (the Hamming weight).",
+      "examples": [
+        {
+          "input": "n = 11",
+          "output": "3",
+          "explanation": "11 is 1011 in binary, which has three set bits."
+        },
+        {
+          "input": "n = 128",
+          "output": "1",
+          "explanation": "128 is 10000000 in binary, one set bit."
+        },
+        {
+          "input": "n = 2147483645",
+          "output": "30",
+          "explanation": "Binary 1111111111111111111111111111101 has thirty set bits."
+        }
+      ],
+      "intuition": "n & (n - 1) always clears the lowest set bit of n. Subtracting 1 flips the lowest 1 to 0 and all zeros below it to 1, so the AND wipes out exactly that one bit. Counting how many times we can do this before n becomes 0 gives the number of 1s, and the loop runs only once per set bit.",
+      "approach": [
+        "Start cnt = 0.",
+        "While n is not 0, do n &= n - 1 and increase cnt.",
+        "Return cnt."
+      ],
+      "dryRun": [
+        "n = 11 (1011), cnt = 0.",
+        "n &= 10 -> 1010 (10), cnt = 1.",
+        "n &= 9 -> 1000 (8), cnt = 2.",
+        "n &= 7 -> 0, cnt = 3.",
+        "n is 0, return 3."
+      ],
+      "complexity": {
+        "time": "O(number of set bits), at most 31",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "n = 1: one iteration, answer 1.",
+        "Power of two like 128 or 2^30: only one set bit.",
+        "n = 2^31 - 1: all 31 bits set, answer 31."
+      ],
+      "takeaway": "n & (n - 1) removes the lowest set bit; it is the go to trick for counting bits and checking powers of two."
+    },
+    {
+      "folder": "03-construct-binary-tree-from-preorder-and-inorder-traversal",
+      "id": 105,
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Divide and Conquer",
+        "Tree",
+        "Binary Tree"
+      ],
+      "potd": false,
+      "problem": "You are given the preorder and inorder traversals of a binary tree with unique values. Rebuild the tree and return its root.",
+      "examples": [
+        {
+          "input": "preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]",
+          "output": "[3,9,20,null,null,15,7]",
+          "explanation": "3 is the root, 9 is on its left, and 20 with children 15 and 7 is on its right."
+        },
+        {
+          "input": "preorder = [-1], inorder = [-1]",
+          "output": "[-1]",
+          "explanation": "A single node tree."
+        }
+      ],
+      "intuition": "In preorder the first unused value is always the root of the current subtree. In inorder, everything left of that root belongs to the left subtree and everything right belongs to the right subtree. So we read roots from preorder one by one and use the inorder position to split the range. A HashMap from value to inorder index makes each split O(1).",
+      "approach": [
+        "Store every inorder value's index in map.",
+        "Keep a global pointer idx into preorder.",
+        "build(l, r) builds the subtree whose inorder range is l..r. If l > r return null.",
+        "Make root from pre[idx++], find mid = map.get(root.val).",
+        "Build root.left from l..mid-1 first (preorder visits left before right), then root.right from mid+1..r.",
+        "Return root; the answer is build(0, n - 1)."
+      ],
+      "dryRun": [
+        "map: 9->0, 3->1, 15->2, 20->3, 7->4.",
+        "build(0,4): idx=0 -> root 3, mid = 1.",
+        "Left build(0,0): idx=1 -> node 9, mid = 0, both children null.",
+        "Right build(2,4): idx=2 -> node 20, mid = 3.",
+        "build(2,2): idx=3 -> node 15 as left of 20. build(4,4): idx=4 -> node 7 as right of 20.",
+        "Tree is 3 -> (9, 20 -> (15, 7)), level order [3,9,20,null,null,15,7]."
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(n) for the map plus O(h) recursion"
+      },
+      "edgeCases": [
+        "Single node: build(0,0) makes one node.",
+        "Fully skewed tree of 3000 nodes: recursion depth 3000, still fine.",
+        "Negative values: the map handles them, no array indexing by value."
+      ],
+      "takeaway": "Preorder gives the root, inorder splits left and right; a value to index map turns the rebuild into O(n) divide and conquer."
+    },
+    {
+      "folder": "04-find-k-pairs-with-smallest-sums",
+      "id": 373,
+      "title": "Find K Pairs with Smallest Sums",
+      "slug": "find-k-pairs-with-smallest-sums",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Heap (Priority Queue)"
+      ],
+      "potd": false,
+      "problem": "Two sorted arrays are given. A pair takes one number from each. Return the k pairs with the smallest sums.",
+      "examples": [
+        {
+          "input": "nums1 = [1,7,11], nums2 = [2,4,6], k = 3",
+          "output": "[[1,2],[1,4],[1,6]]",
+          "explanation": "The pairs in order of sum start with [1,2], [1,4], [1,6], [7,2], ... so the first 3 are returned."
+        },
+        {
+          "input": "nums1 = [1,1,2], nums2 = [1,2,3], k = 2",
+          "output": "[[1,1],[1,1]]",
+          "explanation": "The two smallest pairs are both [1,1] (one for each 1 in nums1)."
+        }
+      ],
+      "intuition": "Think of row i as the pairs (nums1[i], nums2[0]), (nums1[i], nums2[1]), ... Each row is already sorted because nums2 is sorted. So this is just merging sorted lists: put the first pair of every row into a min heap, pop the smallest, and push the next pair from the same row. We only need the first k rows because a row beyond k can never beat the k smaller first elements before it.",
+      "approach": [
+        "Create pq ordered by nums1[i] + nums2[j] (Integer.compare avoids overflow from subtraction).",
+        "Push {i, 0} for i from 0 to min(nums1.length, k) - 1.",
+        "While k > 0 and pq is not empty: poll {i, j}, add [nums1[i], nums2[j]] to res, and if j + 1 < nums2.length push {i, j + 1}.",
+        "Return res."
+      ],
+      "dryRun": [
+        "pq starts with (0,0) sum 3, (1,0) sum 9, (2,0) sum 13.",
+        "Poll (0,0): res = [[1,2]], push (0,1) sum 5.",
+        "Poll (0,1): res = [[1,2],[1,4]], push (0,2) sum 7.",
+        "Poll (0,2): res = [[1,2],[1,4],[1,6]], j + 1 = 3 is out of range so nothing pushed.",
+        "k is now 0, return [[1,2],[1,4],[1,6]]."
+      ],
+      "complexity": {
+        "time": "O(k log min(n, k))",
+        "space": "O(min(n, k)) for the heap"
+      },
+      "edgeCases": [
+        "Values up to 1e9 in magnitude: sums fit in int but comparing with subtraction would overflow, so Integer.compare is used.",
+        "k equals n * m: every pair is eventually pushed and popped.",
+        "Duplicates in both arrays: each index pair is a separate pair, so [1,1] can appear twice."
+      ],
+      "takeaway": "K smallest from several sorted lists means a min heap seeded with each list's head, then pop and push the next element of the same list."
+    },
+    {
+      "folder": "05-reverse-nodes-in-k-group",
+      "id": 25,
+      "title": "Reverse Nodes in k-Group",
+      "slug": "reverse-nodes-in-k-group",
+      "difficulty": "Hard",
+      "tags": [
+        "Linked List",
+        "Recursion"
+      ],
+      "potd": false,
+      "problem": "Reverse the linked list k nodes at a time. If fewer than k nodes are left at the end, leave them as they are. You must relink the nodes, not change their values.",
+      "examples": [
+        {
+          "input": "head = [1,2,3,4,5], k = 2",
+          "output": "[2,1,4,3,5]",
+          "explanation": "Groups [1,2] and [3,4] are reversed, 5 is left alone."
+        },
+        {
+          "input": "head = [1,2,3,4,5], k = 3",
+          "output": "[3,2,1,4,5]",
+          "explanation": "Group [1,2,3] is reversed, the leftover [4,5] stays."
+        }
+      ],
+      "intuition": "Process the list group by group. prev is the node just before the current group. First walk k steps to find end; if we fall off the list, fewer than k are left and we stop. Otherwise reverse the nodes from start to end, but instead of pointing the first node to null we point it to nxt (the node after the group), so the reversed group is already attached to the rest. Then hook prev to end, and the old start becomes prev for the next group. Only a few pointers are used, so extra space is O(1).",
+      "approach": [
+        "Make dummy pointing to head, prev = dummy.",
+        "Walk end from prev k steps; if end becomes null, break.",
+        "Save start = prev.next and nxt = end.next.",
+        "Reverse from start until cur reaches nxt, with p starting at nxt so the tail links to the rest.",
+        "Set prev.next = end (new group head) and prev = start (new group tail).",
+        "Repeat, then return dummy.next."
+      ],
+      "dryRun": [
+        "prev = dummy. Walk 2 steps: end = 2. start = 1, nxt = 3.",
+        "Reverse: p = 3, cur = 1 -> 1.next = 3, p = 1, cur = 2 -> 2.next = 1, p = 2, cur = 3 stop.",
+        "prev.next = 2, prev = 1. List is 2 -> 1 -> 3 -> 4 -> 5.",
+        "From prev = 1 walk 2 steps: end = 4. start = 3, nxt = 5. Reverse gives 4 -> 3 -> 5.",
+        "1.next = 4, prev = 3. List is 2 -> 1 -> 4 -> 3 -> 5.",
+        "From prev = 3 walk: 5 then null, so end is null and we break.",
+        "Return [2,1,4,3,5]."
+      ],
+      "complexity": {
+        "time": "O(n), each node is visited about twice",
+        "space": "O(1)"
+      },
+      "edgeCases": [
+        "k = 1: every group is one node, list unchanged.",
+        "k = n: the whole list is reversed once.",
+        "Length not a multiple of k: the walk hits null and the tail is untouched."
+      ],
+      "takeaway": "For in place group reversal, use a dummy node, find the group end first, and reverse with the tail pointing at the next group so everything stays connected."
+    }
+  ]
+}

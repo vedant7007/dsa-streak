@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-27",
+  "problems": {
+    "maximum-number-of-items-from-sale-i": {
+      "folder": "01-maximum-number-of-items-from-sale-i",
+      "verdict": null,
+      "attempts": 0
+    },
+    "number-of-1-bits": {
+      "folder": "02-number-of-1-bits",
+      "verdict": null,
+      "attempts": 0
+    },
+    "construct-binary-tree-from-preorder-and-inorder-traversal": {
+      "folder": "03-construct-binary-tree-from-preorder-and-inorder-traversal",
+      "verdict": null,
+      "attempts": 0
+    },
+    "find-k-pairs-with-smallest-sums": {
+      "folder": "04-find-k-pairs-with-smallest-sums",
+      "verdict": null,
+      "attempts": 0
+    },
+    "reverse-nodes-in-k-group": {
+      "folder": "05-reverse-nodes-in-k-group",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}

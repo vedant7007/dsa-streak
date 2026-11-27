@@ -1041,6 +1041,65 @@
         "Recursion"
       ],
       "date": "2026-11-26"
+    },
+    {
+      "slug": "maximum-number-of-items-from-sale-i",
+      "id": 3946,
+      "title": "Maximum Number of Items From Sale I",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "date": "2026-11-27"
+    },
+    {
+      "slug": "number-of-1-bits",
+      "id": 191,
+      "title": "Number of 1 Bits",
+      "difficulty": "Easy",
+      "tags": [
+        "Divide and Conquer",
+        "Bit Manipulation"
+      ],
+      "date": "2026-11-27"
+    },
+    {
+      "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+      "id": 105,
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Hash Table",
+        "Divide and Conquer",
+        "Tree",
+        "Binary Tree"
+      ],
+      "date": "2026-11-27"
+    },
+    {
+      "slug": "find-k-pairs-with-smallest-sums",
+      "id": 373,
+      "title": "Find K Pairs with Smallest Sums",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Heap (Priority Queue)"
+      ],
+      "date": "2026-11-27"
+    },
+    {
+      "slug": "reverse-nodes-in-k-group",
+      "id": 25,
+      "title": "Reverse Nodes in k-Group",
+      "difficulty": "Hard",
+      "tags": [
+        "Linked List",
+        "Recursion"
+      ],
+      "date": "2026-11-27"
     }
   ]
 }
