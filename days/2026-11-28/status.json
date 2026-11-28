@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-28",
+  "problems": {
+    "maximum-number-of-items-from-sale-ii": {
+      "folder": "01-maximum-number-of-items-from-sale-ii",
+      "verdict": null,
+      "attempts": 0
+    },
+    "two-sum": {
+      "folder": "02-two-sum",
+      "verdict": null,
+      "attempts": 0
+    },
+    "generate-parentheses": {
+      "folder": "03-generate-parentheses",
+      "verdict": null,
+      "attempts": 0
+    },
+    "clone-graph": {
+      "folder": "04-clone-graph",
+      "verdict": null,
+      "attempts": 0
+    },
+    "longest-increasing-path-in-a-matrix": {
+      "folder": "05-longest-increasing-path-in-a-matrix",
+      "verdict": null,
+      "attempts": 0
+    }
+  }
+}

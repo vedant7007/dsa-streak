@@ -1100,6 +1100,72 @@
         "Recursion"
       ],
       "date": "2026-11-27"
+    },
+    {
+      "slug": "maximum-number-of-items-from-sale-ii",
+      "id": 3947,
+      "title": "Maximum Number of Items From Sale II",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Greedy",
+        "Sorting",
+        "Heap (Priority Queue)"
+      ],
+      "date": "2026-11-28"
+    },
+    {
+      "slug": "two-sum",
+      "id": 1,
+      "title": "Two Sum",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Hash Table"
+      ],
+      "date": "2026-11-28"
+    },
+    {
+      "slug": "generate-parentheses",
+      "id": 22,
+      "title": "Generate Parentheses",
+      "difficulty": "Medium",
+      "tags": [
+        "String",
+        "Dynamic Programming",
+        "Backtracking"
+      ],
+      "date": "2026-11-28"
+    },
+    {
+      "slug": "clone-graph",
+      "id": 133,
+      "title": "Clone Graph",
+      "difficulty": "Medium",
+      "tags": [
+        "Hash Table",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph"
+      ],
+      "date": "2026-11-28"
+    },
+    {
+      "slug": "longest-increasing-path-in-a-matrix",
+      "id": 329,
+      "title": "Longest Increasing Path in a Matrix",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph",
+        "Topological Sort",
+        "Memoization",
+        "Matrix"
+      ],
+      "date": "2026-11-28"
     }
   ]
 }

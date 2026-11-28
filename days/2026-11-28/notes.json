@@ -1,0 +1,285 @@
+{
+  "date": "2026-11-28",
+  "problems": [
+    {
+      "folder": "01-maximum-number-of-items-from-sale-ii",
+      "id": 3947,
+      "title": "Maximum Number of Items From Sale II",
+      "slug": "maximum-number-of-items-from-sale-ii",
+      "difficulty": "Medium",
+      "tags": [
+        "Array",
+        "Greedy",
+        "Sorting",
+        "Heap (Priority Queue)"
+      ],
+      "potd": true,
+      "problem": "Each item is [factor, price] and you can buy any number of copies as long as the total cost stays within budget. Every purchased copy of item i can give you at most one free copy of some other item j whose factor is a multiple of factor_i, and each pair (i, j) can be used for a free copy only once. Return the most copies (bought plus free) you can end up with.",
+      "examples": [
+        {
+          "input": "items = [[1,6],[2,4],[3,5]], budget = 19",
+          "output": "5",
+          "explanation": "Buy 2 copies of item 0 and 1 copy of item 1 for 2*6 + 4 = 16. The two copies of item 0 give free copies of items 1 and 2. 3 bought + 2 free = 5."
+        },
+        {
+          "input": "items = [[2,8],[1,10],[6,6],[4,12],[5,20],[5,17]], budget = 35",
+          "output": "7",
+          "explanation": "Buy 2 copies of item 0, 1 of item 1 and 1 of item 2 for 16 + 10 + 6 = 32. Item 0 gives free items 2 and 3, item 1 gives item 2, item 2 gives nothing. 4 bought + 3 free = 7."
+        }
+      ],
+      "intuition": "Let d_i be the number of other items whose factor is a multiple of factor_i. If you buy c copies of item i you get exactly min(c, d_i) free copies, and free copies of different items never block each other. So the first d_i copies of item i are 'double' copies (worth 2 for price p_i) and every extra copy is a 'single' (worth 1). A single is always best bought at the global cheapest price min. A double at price p is worth it only when p <= 2*min, because two singles cost 2*min. Since total = (2k*min + budget - cost of the k doubles) / min, taking the cheapest doubles first is optimal and we stop when the next double is too expensive or unaffordable.",
+      "approach": [
+        "Count how many items have each factor in cnt[]; also track min = smallest price.",
+        "For each item, d = (sum of cnt over multiples of its factor) - 1, using a harmonic loop m = f, 2f, 3f, ... <= n.",
+        "Store [price, d] pairs in a and sort by price.",
+        "Walk the sorted pairs: stop if p > 2*min; skip d == 0; otherwise buy t = min(d, rem / p) doubles, add t to k and subtract t*p from rem; stop if t < d (cannot afford more).",
+        "Spend what is left on singles at the cheapest price: answer = 2*k + rem / min (use long, the answer can pass 2*10^9)."
+      ],
+      "dryRun": [
+        "Example 1: cnt[1]=1, cnt[2]=1, cnt[3]=1, min = 4.",
+        "Item 0 (f=1): m = 1,2,3 so d = -1 + 3 = 2. Item 1 (f=2): d = 0. Item 2 (f=3): d = 0.",
+        "a sorted by price = [4,0], [5,0], [6,2]. rem = 19, k = 0.",
+        "[4,0]: p = 4 <= 8 but d = 0, skip. [5,0]: skip.",
+        "[6,2]: t = min(2, 19/6 = 3) = 2, k = 2, rem = 19 - 12 = 7. t == d so keep going, list ends.",
+        "Return 2*2 + 7/4 = 4 + 1 = 5."
+      ],
+      "complexity": {
+        "time": "O(n log n) for the sort plus O(n log n) for the harmonic multiple loop",
+        "space": "O(n)"
+      },
+      "edgeCases": [
+        "Budget smaller than every price: k = 0 and rem / min = 0, answer 0.",
+        "Many items with the same factor: each counts the others as multiples, so d = count - 1.",
+        "Item with d = 0: it can only be a single, which is already covered by min.",
+        "Huge budget with price 1: answer up to about 2*10^9, so k, rem and the return value are long."
+      ],
+      "takeaway": "When each unit has a 'bonus' value up to a cap, split units into bonus units and plain units, then compare each bonus unit against the cheapest plain alternative (here p <= 2*min) and take the cheapest bonus units greedily.",
+      "link": "https://leetcode.com/problems/maximum-number-of-items-from-sale-ii/"
+    },
+    {
+      "folder": "02-two-sum",
+      "id": 1,
+      "title": "Two Sum",
+      "slug": "two-sum",
+      "difficulty": "Easy",
+      "tags": [
+        "Array",
+        "Hash Table"
+      ],
+      "potd": false,
+      "problem": "Given an array nums and a target, return the indices of the two different elements that add up to target. Exactly one answer exists and the same element cannot be used twice. Any order of the two indices is fine.",
+      "examples": [
+        {
+          "input": "nums = [2,7,11,15], target = 9",
+          "output": "[0,1]",
+          "explanation": "nums[0] + nums[1] = 2 + 7 = 9."
+        },
+        {
+          "input": "nums = [3,2,4], target = 6",
+          "output": "[1,2]",
+          "explanation": "nums[1] + nums[2] = 2 + 4 = 6."
+        },
+        {
+          "input": "nums = [3,3], target = 6",
+          "output": "[0,1]",
+          "explanation": "The two 3s add up to 6."
+        }
+      ],
+      "intuition": "For each number x we need target - x. If we remember every number we have already seen along with its index, we can answer 'have I seen target - x?' in O(1) with a HashMap, instead of checking every pair.",
+      "approach": [
+        "Create map from value to index.",
+        "For each index i, compute need = target - nums[i].",
+        "If need is already in map, return [map.get(need), i].",
+        "Otherwise put nums[i] -> i into map and continue.",
+        "Checking before inserting makes sure we never pair an element with itself."
+      ],
+      "dryRun": [
+        "Example 1: map = {}.",
+        "i = 0, nums[0] = 2, need = 7, not in map, put 2 -> 0. map = {2:0}.",
+        "i = 1, nums[1] = 7, need = 2, found at index 0. Return [0, 1]."
+      ],
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(n)"
+      },
+      "edgeCases": [
+        "Duplicates like [3,3]: the first 3 is in map when the second arrives, so it works.",
+        "Negative numbers and zero: the hash lookup does not care about sign.",
+        "Answer at the very end of the array: we still find it in one pass."
+      ],
+      "takeaway": "Pair-sum lookups become O(1) with a 'seen' HashMap: check for the complement, then insert.",
+      "link": "https://leetcode.com/problems/two-sum/"
+    },
+    {
+      "folder": "03-generate-parentheses",
+      "id": 22,
+      "title": "Generate Parentheses",
+      "slug": "generate-parentheses",
+      "difficulty": "Medium",
+      "tags": [
+        "String",
+        "Dynamic Programming",
+        "Backtracking"
+      ],
+      "potd": false,
+      "problem": "Given n pairs of parentheses, return every string of length 2n that is a well-formed (balanced) parentheses string.",
+      "examples": [
+        {
+          "input": "n = 3",
+          "output": "[\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]",
+          "explanation": "These are all 5 balanced strings with 3 pairs."
+        },
+        {
+          "input": "n = 1",
+          "output": "[\"()\"]",
+          "explanation": "Only one balanced string with 1 pair."
+        }
+      ],
+      "intuition": "Build the string one character at a time and only make moves that can still lead to a valid string: you may add '(' while you have used fewer than n, and you may add ')' only when there are more open than closed so far. Every path that reaches length 2n is then valid, so no checking is needed at the end.",
+      "approach": [
+        "Keep a StringBuilder sb, counts open and close.",
+        "If sb.length() == 2n, add sb to res and return.",
+        "If open < n, append '(' , recurse with open + 1, then remove the last char.",
+        "If close < open, append ')', recurse with close + 1, then remove the last char."
+      ],
+      "dryRun": [
+        "Example 1, n = 3: start sb = \"\", open = 0, close = 0.",
+        "Add '(' three times: sb = \"(((\", open = 3. Now only ')' allowed: \"((()))\" reaches length 6, added to res.",
+        "Backtrack to \"((\" with open = 2, close = 0: add ')' -> \"(()\", then '(' -> \"(()(\", then \"(()())\" added.",
+        "Continue backtracking the same way to get \"(())()\", \"()(())\", \"()()()\". res has 5 strings."
+      ],
+      "complexity": {
+        "time": "O(4^n / sqrt(n)), the n-th Catalan number of strings each of length 2n",
+        "space": "O(n) recursion depth plus the output"
+      },
+      "edgeCases": [
+        "n = 1: only \"()\".",
+        "n = 8 (max): 1430 strings, still fast.",
+        "No duplicates appear because each path makes a unique choice sequence."
+      ],
+      "takeaway": "Backtracking with pruning: track counts (open, close) and only branch where the partial answer can still become valid.",
+      "link": "https://leetcode.com/problems/generate-parentheses/"
+    },
+    {
+      "folder": "04-clone-graph",
+      "id": 133,
+      "title": "Clone Graph",
+      "slug": "clone-graph",
+      "difficulty": "Medium",
+      "tags": [
+        "Hash Table",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph"
+      ],
+      "potd": false,
+      "problem": "You are given a reference to one node of a connected undirected graph. Each node has a value and a list of neighbors. Return a deep copy of the whole graph: new nodes with the same values and the same connections, sharing no node with the original.",
+      "examples": [
+        {
+          "input": "adjList = [[2,4],[1,3],[2,4],[1,3]]",
+          "output": "[[2,4],[1,3],[2,4],[1,3]]",
+          "explanation": "4 nodes: 1 links to 2 and 4, 2 to 1 and 3, 3 to 2 and 4, 4 to 1 and 3. The copy has the same shape."
+        },
+        {
+          "input": "adjList = [[]]",
+          "output": "[[]]",
+          "explanation": "One node with no neighbors."
+        },
+        {
+          "input": "adjList = []",
+          "output": "[]",
+          "explanation": "Empty graph, the input node is null."
+        }
+      ],
+      "intuition": "The graph has cycles, so a plain recursive copy would loop forever. Keep a map from original node to its copy. The first time we see a node we create its copy and store it before visiting neighbors; when a cycle brings us back, we just return the stored copy.",
+      "approach": [
+        "If node is null return null.",
+        "If map already has node, return map.get(node).",
+        "Create cur = new Node(node.val) and put node -> cur in map right away.",
+        "For each neighbor nb, add cloneGraph(nb) to cur.neighbors.",
+        "Return cur."
+      ],
+      "dryRun": [
+        "Example 1: cloneGraph(1): cur = 1', map = {1:1'}.",
+        "Neighbor 2: cloneGraph(2) makes 2', map has 1,2. Its neighbor 1 is in map, returns 1'. Its neighbor 3: make 3'.",
+        "3's neighbors: 2 is in map (2'), 4 is new: make 4'. 4's neighbors 1 and 3 are both in map.",
+        "Back in 1: neighbor 4 is in map, returns 4'. 1'.neighbors = [2', 4']. Return 1'."
+      ],
+      "complexity": {
+        "time": "O(V + E)",
+        "space": "O(V) for the map and the recursion stack"
+      },
+      "edgeCases": [
+        "null input: return null.",
+        "Single node with no neighbors: copy has an empty list.",
+        "Fully connected graph: every edge is visited once from each side but nodes are copied once."
+      ],
+      "takeaway": "Copying any structure with cycles (graphs, random-pointer lists): map original to copy and register the copy before recursing.",
+      "link": "https://leetcode.com/problems/clone-graph/"
+    },
+    {
+      "folder": "05-longest-increasing-path-in-a-matrix",
+      "id": 329,
+      "title": "Longest Increasing Path in a Matrix",
+      "slug": "longest-increasing-path-in-a-matrix",
+      "difficulty": "Hard",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph",
+        "Topological Sort",
+        "Memoization",
+        "Matrix"
+      ],
+      "potd": false,
+      "problem": "Given an m x n grid of integers, find the length of the longest path where every step moves up, down, left or right to a strictly larger value. No diagonal moves and no going outside the grid.",
+      "examples": [
+        {
+          "input": "matrix = [[9,9,4],[6,6,8],[2,1,1]]",
+          "output": "4",
+          "explanation": "The path 1 -> 2 -> 6 -> 9."
+        },
+        {
+          "input": "matrix = [[3,4,5],[3,2,6],[2,2,1]]",
+          "output": "4",
+          "explanation": "The path 3 -> 4 -> 5 -> 6."
+        },
+        {
+          "input": "matrix = [[1]]",
+          "output": "1",
+          "explanation": "A single cell is a path of length 1."
+        }
+      ],
+      "intuition": "Because each step goes to a strictly larger value, a path can never come back to a cell, so there are no cycles. That means the longest path starting at a cell depends only on its larger neighbors, and we can memoize it: dp[i][j] = 1 + max dp of larger neighbors. Each cell is solved once.",
+      "approach": [
+        "dp[i][j] = 0 means not computed yet.",
+        "dfs(i, j): if dp[i][j] != 0 return it.",
+        "Start best = 1, try the 4 directions; for an in-bounds neighbor with a bigger value, best = max(best, 1 + dfs(neighbor)).",
+        "Store dp[i][j] = best and return it.",
+        "Answer is the max of dfs over all cells."
+      ],
+      "dryRun": [
+        "Example 1: dfs(0,0) = 9 has no bigger neighbor, dp = 1. dfs(0,1) = 9, dp = 1.",
+        "dfs(0,2) = 4: neighbor (1,2) = 8 gives 1 + 1 = 2, neighbor (0,1) = 9 gives 2. dp[0][2] = 2.",
+        "dfs(1,0) = 6: (0,0) = 9 gives 2. dfs(1,1) = 6: (0,1) = 9 gives 2. dfs(1,2) = 8: dp = 1.",
+        "dfs(2,0) = 2: (1,0) = 6 gives 1 + 2 = 3.",
+        "dfs(2,1) = 1: (1,1) gives 3, (2,0) = 2 gives 1 + 3 = 4. dp = 4.",
+        "dfs(2,2) = 1: (1,2) gives 2, (2,1) is equal so skipped. ans = 4."
+      ],
+      "complexity": {
+        "time": "O(m * n), each cell computed once with 4 neighbor checks",
+        "space": "O(m * n) for dp and recursion"
+      },
+      "edgeCases": [
+        "1 x 1 grid: answer 1.",
+        "All values equal: no moves allowed, answer 1.",
+        "Values up to 2^31 - 1: only comparisons are used, no overflow.",
+        "A snake path through the whole 200 x 200 grid: answer 40000, deep recursion but each cell once."
+      ],
+      "takeaway": "Strictly increasing moves on a grid form a DAG, so 'longest path' becomes DFS plus memoization (or topological sort by value).",
+      "link": "https://leetcode.com/problems/longest-increasing-path-in-a-matrix/"
+    }
+  ]
+}
