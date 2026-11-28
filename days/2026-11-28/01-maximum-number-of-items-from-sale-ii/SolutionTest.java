@@ -42,7 +42,9 @@ public class SolutionTest {
         int n = 100000;
         int[][] big = new int[n][];
         for (int i = 0; i < n; i++) big[i] = new int[]{1, 1};
+        long st = System.currentTimeMillis();
         check(big, 1000000000, 2000000000L);
+        if (System.currentTimeMillis() - st > 1000) throw new AssertionError("too slow on all factor 1");
         int[][] big2 = new int[n][];
         for (int i = 0; i < n; i++) big2[i] = new int[]{i + 1, 1000000000};
         check(big2, 1000000000, 2);

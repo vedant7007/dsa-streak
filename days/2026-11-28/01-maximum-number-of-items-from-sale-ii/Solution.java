@@ -9,13 +9,15 @@ class Solution {
             cnt[it[0]]++;
             min = Math.min(min, it[1]);
         }
+        long[] mul = new long[n + 1];
+        for (int f = 1; f <= n; f++) {
+            if (cnt[f] == 0) continue;
+            for (int m = f; m <= n; m += f) mul[f] += cnt[m];
+        }
         long[][] a = new long[n][2];
         for (int i = 0; i < n; i++) {
-            int f = items[i][0];
-            long d = -1;
-            for (int m = f; m <= n; m += f) d += cnt[m];
             a[i][0] = items[i][1];
-            a[i][1] = d;
+            a[i][1] = mul[items[i][0]] - 1;
         }
         Arrays.sort(a, (x, y) -> Long.compare(x[0], y[0]));
         long rem = budget, k = 0;
