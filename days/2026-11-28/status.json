@@ -3,28 +3,44 @@
   "problems": {
     "maximum-number-of-items-from-sale-ii": {
       "folder": "01-maximum-number-of-items-from-sale-ii",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 2,
+      "submittedAt": "17:09",
+      "runtime": "93 ms",
+      "memory": "274.74 MB"
     },
     "two-sum": {
       "folder": "02-two-sum",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:09",
+      "runtime": "3 ms",
+      "memory": "46.64 MB"
     },
     "generate-parentheses": {
       "folder": "03-generate-parentheses",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:10",
+      "runtime": "1 ms",
+      "memory": "43.69 MB"
     },
     "clone-graph": {
       "folder": "04-clone-graph",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:10",
+      "runtime": "22 ms",
+      "memory": "43.94 MB"
     },
     "longest-increasing-path-in-a-matrix": {
       "folder": "05-longest-increasing-path-in-a-matrix",
-      "verdict": null,
-      "attempts": 0
+      "verdict": "Accepted",
+      "attempts": 1,
+      "submittedAt": "17:11",
+      "runtime": "8 ms",
+      "memory": "46.66 MB"
     }
-  }
+  },
+  "loginNeeded": false
 }
