@@ -1,7 +1,7 @@
 import java.util.*;
 
 class Solution {
-    public long maximumSaleItems(int[][] items, int budget) {
+    public int maximumSaleItems(int[][] items, int budget) {
         int n = items.length;
         int[] cnt = new int[n + 1];
         long min = Long.MAX_VALUE;
@@ -28,6 +28,6 @@ class Solution {
             rem -= t * p;
             if (t < d) break;
         }
-        return 2 * k + rem / min;
+        return (int) (2 * k + rem / min);
     }
 }
